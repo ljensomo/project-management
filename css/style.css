@@ -1,0 +1,11 @@
+table tr th, tr, tbody{
+    border: 1px solid #505050 !important;
+}
+
+table{
+    padding-top: 15px !important;
+}
+
+.table-header-buttons{
+    margin-bottom: 30px;
+}

@@ -7,8 +7,8 @@ class Project extends Database{
     public function getProjects(){
         $stmt = $this->connection->prepare("SELECT * FROM projects");
         $stmt->execute(); 
-        $projects = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+        $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         return $projects;
     }
 }

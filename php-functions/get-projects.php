@@ -1,6 +1,8 @@
 <?php
 
-require "../Class/Project.php";
+require '../Class/Project.php';
 
 $project = new Project;
-print_r($project->getProjects());
+$data = $project->getProjects();
+
+echo json_encode(['data' => $data]);
