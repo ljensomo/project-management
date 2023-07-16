@@ -6,7 +6,7 @@
     <title>Home - Project Management</title>
 </head>
 <body>
-    <h2>Project Management</h2><hr>
-    <p>This is created with PHP, HTML5, CSS, JAVASCRIPT and MySQL. Build started on July 16, 2023</p>
+    <h2>Project Management - Projects</h2><hr>
+    
 </body>
 </html>
