@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <h2>Project Management - Projects</h2><hr>
         <div class="table-header-buttons">
-            <button type="button" class="btn btn-success">Create New</button>
+            <button type="button" class="btn btn-success btnCreate" data-bs-toggle="modal" data-bs-target="#projectModal">Create New</button>
         </div>
-        <table class="table table-bordered table-hover table-striped" id="project-table">
+        <table class="table table-bordered table-hover table-striped" id="projectTable">
             <thead>
                 <tr>
                     <th>Project ID</th>
@@ -30,11 +30,15 @@
         </table>
     </div>
 
+    <?php include_once 'includes/modals/project-modals.html'; ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom javascript -->
+    <script type="text/javascript" src="js/reusable-functions.js"></script>
     <script type="text/javascript" src="js/project.js"></script>
 </body>
 </html>
