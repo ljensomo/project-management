@@ -7,28 +7,36 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
 </head>
 <body>
-    <div class="container-fluid">
-        <h2>Project Management - Projects</h2><hr>
-        <div class="table-header-buttons">
-            <button type="button" class="btn btn-success btnCreate" data-bs-toggle="modal" data-bs-target="#projectModal">Create New</button>
+        <?php include_once 'includes/sidebar.php'; ?>
+
+        <div class="content">
+            <div class="content-header">
+                <h2>Project Management - Projects</h2><hr>
+            </div>
+            <div class="table-header-buttons">
+                <button type="button" class="btn btn-success btnCreate" data-bs-toggle="modal" data-bs-target="#projectModal">
+                    <i class="fa fa-plus"></i> Create New
+                </button>
+            </div>
+            <table class="table table-bordered table-hover table-striped" id="projectTable">
+                <thead>
+                    <tr>
+                        <th>Project ID</th>
+                        <th>Project Name</th>
+                        <th>Project Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-        <table class="table table-bordered table-hover table-striped" id="projectTable">
-            <thead>
-                <tr>
-                    <th>Project ID</th>
-                    <th>Project Name</th>
-                    <th>Project Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
 
     <?php include_once 'includes/modals/project-modals.html'; ?>
 
