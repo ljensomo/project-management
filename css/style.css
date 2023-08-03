@@ -6,6 +6,49 @@ table{
     padding-top: 15px !important;
 }
 
+table td{
+    border-bottom: 1px solid #505050 !important;
+}
+
 .table-header-buttons{
     margin-bottom: 30px;
+}
+
+div.content {
+    margin-left: 15%;
+    padding: 20px;
+    height: 1000px;
+    background-color: #e3e3e3;
+}
+
+.content-header{
+    position: fixed;
+}
+
+.content-main{
+    display: block;
+    margin-top: 90px;
+}
+
+.block-container{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 2px;
+}
+
+.form-table tr th, tr, tbody{
+    border: none !important;
+}
+
+.form-table td{
+    border-bottom: none !important;
+}
+
+.form-label-custom{
+    font-weight: bold;
+    float: right;
+}
+
+.card{
+    margin-top: 30px;
 }

@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     width: 15%;
-    background-color: #f1f1f1;
+    background-color: #383869;
     position: fixed;
     height: 100%;
     overflow: auto;
@@ -16,15 +16,20 @@
 }
 
 .sidebar a.active {
-    background-color: #04AA6D;
+    background-color: #525281;
     color: white;
-    border-left: 6px solid #127512;
+    border-left: 6px solid #fbfbfb;
 }
 
 .sidebar a:hover:not(.active) {
-    background-color: #555;
+    background-color: #525281;
     color: white;
-    border-left: 6px solid #151515;
+    border-left: 6px solid #fbfbfb;
+}
+
+.sidebar a{
+    padding-left: 30px;
+    color: #fff;
 }
 
 .sidebar a>i{
@@ -43,12 +48,6 @@
 }
 .logo:hover{
     cursor: pointer;
-}
-
-div.content {
-    margin-left: 15%;
-    padding: 25px;
-    height: 1000px;
 }
 
 @media screen and (max-width: 700px) {
