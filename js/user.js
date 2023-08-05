@@ -1,22 +1,25 @@
 const userTableId = "#userTable";
 const userModal = "#userModal";
 const userForm = "#userForm";
+const phpFunctionUrl = "php-functions/users/";
 
 $(document).ready(function(){
 
+    // instantiate user table
     $(userTableId).DataTable({
         "ajax": {
-            "url": "php-functions/get-users.php",
+            "url": phpFunctionUrl+"get-users.php",
             "dataSrc": "data"
         },
         "columns": [
-            {"data":"id"},
-            {"data":function(data){
+            {data:"id"},
+            {data:function(data){
                 return data.first_name + ' ' + data.last_name
             }},
-            {"data":"username"},
-            {"data":"role"},
-            {"data":function(data){
+            {data: "email"},
+            {data:"username"},
+            {data:"role"},
+            {data: function(data){
                 let status = "";
                 let status_color = "";
 
@@ -27,13 +30,13 @@ $(document).ready(function(){
 
                 if(data.is_active == 0){
                     status = "De-Activated";
-                        status_color = "danger";
+                    status_color = "danger";
                 }
                 
-                let label = '<h5><span class="badge rounded-pill bg-'+status_color+'">'+status+'</span></h5>';
+                let label = '<span class="badge rounded-pill bg-'+status_color+'">'+status+'</span>';
                 return label;
-            },"className":"text-center"},
-            {"data":function(data){
+            }, className:"text-center"},
+            {data:function(data){
                 let buttons = "<button type='button' class='btn btn-sm btn-info'>View More</button>";
                 buttons += " <button type='button' class='btn btn-sm btn-warning btnEdit' data-id='"+data.id+"'>Edit</button>";
 
@@ -46,48 +49,36 @@ $(document).ready(function(){
                 }
 
                 return buttons;
-            }, "className": "text-center"},
+            }, className: "text-center", sorting: false},
         ]
     });
 
+    // submit user form
     $(userForm).submit(function(e){
         e.preventDefault();
 
         let action = $("#userIdInput").length ? "update" : "create";
 
-        $.ajax({
-            "url":  action === "update" ? "php-functions/update-user.php" : "php-functions/insert-user.php",
-            "method": "POST",
-            "data": new FormData(this),
-            "processData": false,
-            "contentType": false,
-            "cache": false,
-            "dataType":"json"
-        }).done(function(response){
-            if(response.success){
-                sweetAlert({
-                    title: action === "update" ? "Updated!" : "Created!",
-                    message: response.message,
-                    icon: "success"
-                }, function(){
-                    $(userForm)[0].reset();
-                    $(userModal).modal("toggle");
+        ajaxPost({
+            url: phpFunctionUrl+ (action === "update" ? "update-user.php" : "add-user.php"),
+            formData: new FormData(this),
+            errorMessage: "Failed to "+action+" user.",
+            callback: function(response){
+                if(response.success){
+                    swalSuccess({
+                        title: action+"d!",
+                        text: response.message,
+                        callback: function(){
+                            refreshDatatable(userTableId);
+                            $(userForm)[0].reset();
+                            $(userModal).modal("toggle");
+                        }
+                    });
+                    return;
+                }
 
-                    refreshDatatable(userTableId);
-                });
-            }else{
-                sweetAlert({
-                    title: "Ooops!",
-                    message: response.message,
-                    icon: "error"
-                });
+                swalError(response.message);
             }
-        }).fail(function(response){
-            sweetAlert({
-                title: "Ooops!",
-                message: "Failed to "+action+" user.",
-                icon: "error"
-            });
         });
     });
 });
@@ -98,8 +89,8 @@ $(document).on("click", ".btnEdit", function(){
     $("#userCreationNote").hide();
 
     $.ajax({
-        "url": "php-functions/get-user.php",
-        "data": {"id":id},
+        "url": phpFunctionUrl+"get-user.php",
+        data: {"id":id},
         "method": "GET",
         "dataType":"json"
     }).done(function(data){
@@ -115,6 +106,7 @@ $(document).on("click", ".btnEdit", function(){
 
         $("#firstNameInput").val(data.first_name);
         $("#lastNameInput").val(data.last_name);
+        $("#emailInput").val(data.email);
         $("#roleSelect").val(data.role);
 
         $(userModal).modal("toggle");
@@ -137,9 +129,9 @@ $(document).on("click", ".btnDeActivate", function(){
     }).then((result) => {
         if(result.isConfirmed){
             $.ajax({
-                "url": "php-functions/deactivate-user.php",
+                "url": phpFunctionUrl+"deactivate-user.php",
                 "method": "POST",
-                "data": {"userId":id},
+                data: {"userId":id},
                 "dataType": "json"
             }).done(function(response){
                 if(response.success){
@@ -178,9 +170,9 @@ $(document).on("click", ".btnActivate", function(){
     }).then((result) => {
         if(result.isConfirmed){
             $.ajax({
-                "url": "php-functions/activate-user.php",
+                "url": phpFunctionUrl+"activate-user.php",
                 "method": "POST",
-                "data": {"userId":id},
+                data: {"userId":id},
                 "dataType": "json"
             }).done(function(response){
                 if(response.success){

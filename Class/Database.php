@@ -11,7 +11,7 @@ class Database{
     public $connection;
 
     public function __construct(){
-        $config = parse_ini_file("../config/app.ini");
+        $config = parse_ini_file(dirname(__DIR__)."/config/app.ini");
 
         $this->setHost($config['host']);
         $this->setDatabase($config['database']);

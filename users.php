@@ -25,6 +25,7 @@
                         <tr>
                             <th>User ID</th>
                             <th>Name</th>
+                            <th>Email</th>
                             <th>Username</th>
                             <th>Role</th>
                             <th>Status</th>

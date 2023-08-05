@@ -9,7 +9,9 @@ class User extends DatabaseQuery{
     private $firstName;
     private $lastName;
     private $role;
+    private $email;
     private $username;
+    private $default_password = "password";
 
     private $errorMessage;
 
@@ -18,15 +20,19 @@ class User extends DatabaseQuery{
     }
 
     public function setFirstName($firstName){
-        $this->firstName = $firstName;
+        $this->firstName = trim($firstName);
     }
 
     public function setLastName($lastName){
-        $this->lastName = $lastName;
+        $this->lastName = trim($lastName);
     }
 
     public function setRole($role){
         $this->role = $role;
+    }
+
+    public function setEmail($email){
+        $this->email = trim($email);
     }
 
     public function setUsername(){
@@ -86,19 +92,23 @@ class User extends DatabaseQuery{
         return $this->get();
     }
 
-    public function create(){
+    public function add(){
 
         if($this->isNameActive()){
             $this->setErrorMessage('Name already created and is active.');
             return false;
         }
 
-        $this->setQuery('INSERT INTO users (first_name, last_name, role, username) VALUES (?, ?, ?, ?)');
+        $password = password_hash($this->default_password, PASSWORD_BCRYPT);
+
+        $this->setQuery('INSERT INTO users (first_name, last_name, email, role, username, password) VALUES (?, ?, ?, ?, ?, ?)');
         $this->setParameters([
             $this->firstName,
             $this->lastName,
+            $this->email,
             $this->role,
-            $this->username
+            $this->username,
+            $password
         ]);
 
         return $this->executeQuery();
@@ -106,10 +116,11 @@ class User extends DatabaseQuery{
 
     public function update(){
 
-        $this->setQuery('UPDATE users SET first_name = ?, last_name = ?, role = ? WHERE id = ?');
+        $this->setQuery('UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ? WHERE id = ?');
         $this->setParameters([
             $this->firstName,
             $this->lastName,
+            $this->email,
             $this->role,
             $this->userId
         ]);

@@ -1,16 +1,17 @@
 <?php
 
-require '../Class/User.php';
+require '../../Class/User.php';
 
 if($_POST){
     $user = new User;
 
-    $user->setFirstName(trim($_POST['firstName']));
-    $user->setLastName(trim($_POST['lastName']));
-    $user->setRole(trim($_POST['role']));
+    $user->setFirstName($_POST['firstName']);
+    $user->setLastName($_POST['lastName']);
+    $user->setRole($_POST['role']);
+    $user->setEmail($_POST['email']);
     $user->setUsername();
 
-    if($user->create()){
+    if($user->add()){
         exit(json_encode(['success' => true, 'message' => 'Successfully created user.']));
     }
 

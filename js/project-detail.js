@@ -16,7 +16,7 @@ $(document).ready(function(){
 
     // populate select options
     populateSelect({
-        url: "php-functions/get-active-users.php",
+        url: "php-functions/users/get-active-users.php",
         selectId: "owners",
         value: "id",
         text: ["first_name", "last_name"],

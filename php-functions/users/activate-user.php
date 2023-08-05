@@ -1,6 +1,6 @@
 <?php
 
-require '../Class/User.php';
+require '../../Class/User.php';
 
 if($_POST){
     $user = new User;

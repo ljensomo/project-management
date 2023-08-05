@@ -1,13 +1,14 @@
 <?php
 
-require '../Class/User.php';
+require '../../Class/User.php';
 
 if($_POST){
     $user = new User;
 
     $user->setUserId($_POST['userId']);
-    $user->setFirstName(trim($_POST['firstName']));
-    $user->setLastName(trim($_POST['lastName']));
+    $user->setFirstName($_POST['firstName']);
+    $user->setLastName($_POST['lastName']);
+    $user->setEmail($_POST['email']);
     $user->setRole($_POST['role']);
 
     if($user->update()){
