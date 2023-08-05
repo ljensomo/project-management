@@ -52,3 +52,7 @@ div.content {
 .card{
     margin-top: 30px;
 }
+
+.btn{
+    border-radius: 2px !important;
+}

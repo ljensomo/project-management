@@ -83,3 +83,89 @@ function ajaxChecker(parameters){
         throw "callback function not set.";
     }
 }
+
+function populateSelect(parameters){
+
+    ajaxGet({
+        url: parameters.url,
+        errorMessage: !parameters.errorMessage ? "Something went wrong." : parameters.errorMessage,
+        callback: function(response){
+            let x = 0;
+            $.each(response.data, function(){
+                let value = response.data[x][parameters.value];
+                let text = parameters.text;
+
+                if(Array.isArray(text)){
+                    text = "";
+                    for(let textValue of parameters.text){
+                        text += response.data[x][textValue]+" ";
+                    }
+                }
+
+                $("#"+parameters.selectId).append($("<option />").val(value).text(text));
+                x++;
+            });
+        }
+    });
+}
+
+function clearSelect2(selectId){
+    $("#"+selectId).val("").trigger("change");
+}
+
+function deleteRecord(parameters){
+
+    ajaxChecker(parameters);
+
+    Swal.fire({
+        title: !parameters.title ? "Delete?" : parameters.title,
+        text: !parameters.text ? "Do you want to delete "+parameters.subject+"?" : parameters.text,
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: !parameters.confirmButtonText ? "Confirm Delete" : parameters.confirmButtonText,
+    }).then((result) => {
+        if(result.isConfirmed){
+            $.ajax({
+                url: parameters.url,
+                data: parameters.data,
+                method: "POST",
+                dataType: "json"
+            }).done(function(response){
+                if(response.success){
+                    swalSuccess({
+                        title: "Removed!",
+                        text: "Successfully removed "+parameters.subject+".",
+                        callback: parameters.callback
+                    });
+
+                    return;
+                }
+
+                swalError(response.message);
+            }).fail(function(response){
+                console.log(response);
+                swalError(!parameters.errorMessage ? "Something went wrong!" : parameters.errorMessage);
+            });
+        }
+    });
+}
+
+function generateTableRowButtons(parameters){
+    let buttons = "";
+
+    if(parameters.view){
+        buttons += "<a href='"+parameters.viewUrl+"' class='btn btn-sm btn-info'>View More</a> ";
+    }
+
+    if(parameters.edit){
+        buttons += "<button type='button' class='btn btn-sm btn-warning btn-"+parameters.buttonFor+"-edit' ";
+        buttons += "data-id='"+parameters.rowId+"' data-value='"+parameters.rowValue+"'>Edit</button> ";
+    }
+
+    if(parameters.delete){
+        buttons += "<button type='button' class='btn btn-sm btn-danger btn-"+parameters.buttonFor+"-delete' ";
+        buttons += "data-id='"+parameters.rowId+"' data-value='"+parameters.rowValue+"'>Delete</button>";
+    }
+
+    return buttons;
+}

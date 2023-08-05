@@ -6,6 +6,10 @@
     <title>Project Management</title>
 
     <?php include_once 'includes/commons/css-common-includes.html'; ?>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/select2-custom.css">
+    <link rel="stylesheet" href="css/project-detail.css">
 </head>
 <body>
         <?php
@@ -16,8 +20,8 @@
         <div class="content">
             <div class="content-main block-container">
                 <div class="table-header-columns">
-                    <button type="button" class="btn btn-success" id="btnSave"><i class="fa fa-save"></i> Save Changes</button>
-                    <button type="button" class="btn btn-success"><i class="fa fa-plus"></i> Add Project Owner</button>
+                    <button type="button" class="btn btn-success" id="btnSaveProject"><i class="fa fa-save"></i> Save Changes</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ownerModal"><i class="fa fa-user"></i> Add Project Owner</button>
                     <hr>
                 </div>
                 <div class="row">
@@ -44,43 +48,45 @@
                         </form>
                     </div>
                     <div class="col">
-                        <table class="table table-bordered table-hover table-striped">
+                        <table class="table table-bordered table-hover table-striped" id="ownerTable">
                             <thead>
                                 <tr>
                                     <th>Project Owner(s)</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Juan Dela Cruz</td>
-                                    <td class="text-center"><button type="button" class="btn btn-sm btn-danger" title="Remove Owner"><i class="fa fa-times"></i></button></td>
-                                </tr>
-                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="block-container" style="margin-top: 30px;">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Tickets</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                </ul>
+                <div class="navigation-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Modules</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                    </ul>
+                </div>
+                <?php 
+                    include 'includes/contents/project-module-tab.html';
+                ?>
             </div>
         </div>
 
     <?php 
-        include_once 'includes/modals/project-modals.html';
+        include_once 'includes/modals/project-detail-modals.html';
         include_once 'includes/commons/js-common-includes.html';
     ?>
 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script text="text/javascript" src="js/project-detail.js"></script>
+    <script text="text/javascript" src="js/project-module.js"></script>
 </body>
 </html>

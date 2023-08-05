@@ -53,9 +53,29 @@ class User extends DatabaseQuery{
         return $this->errorMessage;
     }
 
-    public function getUsers(){
+    public function getUsers($where_clause = null){
 
-        $this->setQuery('SELECT * FROM users');
+        $query = 'SELECT * FROM users';
+
+        if($where_clause != null){
+            $x = 0;
+            $parameters = [];
+            foreach($where_clause as $key => $where){
+                if($x === 0){
+                    $query .= ' WHERE ';
+                }else if($x < 0){
+                    $query .= ' AND ';
+                }
+
+                $query .= $key.' = ?';
+
+                array_push($parameters, $where);
+            }
+            $this->setParameters($parameters);
+        }
+
+        $this->setQuery($query);
+
         return $this->getAll();
     }
 

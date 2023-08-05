@@ -24,7 +24,7 @@ class DatabaseQuery extends Database{
 
     public function getAll(){
 
-        $this->executeQuery();
+        $this->executeQuery($this->parameters);
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

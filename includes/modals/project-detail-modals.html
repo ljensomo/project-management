@@ -1,0 +1,52 @@
+<!-- Owner Modal -->
+<div class="modal fade" id="ownerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="ownerModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ownerModalLabel"><i class="fa fa-users"></i> New Owner</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="ownerForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <select name="owner" class="form-control" id="owners" required>
+                            <option value="">-- </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary closeButton" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Owner</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Module Modal -->
+<div class="modal fade" id="modulesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modulesModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modulesModalLabel">New Module</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="modulesForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="moduleName" class="form-label">Module Name</label>
+                        <input type="text" class="form-control" id="moduleNameInput" name="moduleName" placeholder="Module Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="moduleDescription" class="form-label">Module Description</label>
+                        <textarea class="form-control" name="moduleDescription" id="moduleDescriptionInput" cols="30" rows="5" placeholder="Module Description" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary closeButton" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Module</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
