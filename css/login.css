@@ -1,0 +1,34 @@
+#login-div{
+    margin: auto;
+    height: auto;
+    width: 100%;
+    /* background: blue; */
+}
+
+#login-form-div{
+    width: 700px;
+    height: auto;
+    background-color:#525281;
+    margin: auto;
+    margin-top: 150px;
+    border-radius: 2px;
+}
+
+#loginForm{
+    padding: 80px;
+    padding-top: 20px;
+}
+
+#loginForm label{
+    color: #fff;
+    font-weight: bold;
+}
+
+#loginForm a{
+    color: #fff;
+}
+
+#login-logo{
+    height: 200px;
+    margin-top: 20px;;
+}
