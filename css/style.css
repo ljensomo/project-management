@@ -49,6 +49,10 @@ div.content {
     float: right;
 }
 
+.form-control{
+    border-radius: 2px !important;
+}
+
 .card{
     margin-top: 30px;
 }
