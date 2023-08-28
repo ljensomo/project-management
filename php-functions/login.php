@@ -12,6 +12,7 @@ if($_POST){
 
     session_start();
 
+    $_SESSION['user_id'] = $login->getUserid();
     $_SESSION['username'] = $login->getUsername();
     $_SESSION['name'] = $login->getFirstName().' '.$login->getLastName();
 

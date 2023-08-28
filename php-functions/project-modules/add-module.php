@@ -1,6 +1,6 @@
 <?php
 
-require '../Class/ProjectModule.php';
+require '../../Class/ProjectModule.php';
 
 if($_POST){
     $project_module = new ProjectModule;

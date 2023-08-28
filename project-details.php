@@ -63,18 +63,19 @@
                 <div class="navigation-tabs">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Modules</a>
+                            <a class="nav-link project-tab active" aria-current="page" href="#">Modules</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link project-tab" href="#">Tickets</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link project-tab" href="#">Attachments</a>
                         </li>
                     </ul>
                 </div>
                 <?php 
                     include 'includes/contents/project-module-tab.html';
+                    include 'includes/contents/project-ticket-tab.html';
                 ?>
             </div>
         </div>

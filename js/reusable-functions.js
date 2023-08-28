@@ -102,7 +102,14 @@ function populateSelect(parameters){
                     }
                 }
 
-                $("#"+parameters.selectId).append($("<option />").val(value).text(text));
+                if(Array.isArray(parameters.selectId)){
+                    for(var i in parameters.selectId){
+                        $("#"+parameters.selectId[i]).append($("<option />").val(value).text(text));
+                    }
+                }else{
+                    $("#"+parameters.selectId).append($("<option />").val(value).text(text));
+                }
+
                 x++;
             });
         }

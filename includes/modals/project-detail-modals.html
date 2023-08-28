@@ -44,7 +44,59 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary closeButton" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add Module</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Ticket Modal -->
+<div class="modal fade" id="ticketModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="ticketModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ticketModalLabel">New Ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="ticketForm">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="ticketSubject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="ticketSubjectInput" name="subject" placeholder="Subject" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ticketDescription" class="form-label">Description</label>
+                                <textarea class="form-control" name="description" id="ticketDescriptionInput" cols="30" rows="5" placeholder="Description" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="ticketStatus" class="form-label">Status</label>
+                                <select name="status" id="ticketStatus" class="form-control">
+                                    <option value="">--</option>
+                                    <option value="1">New</option>
+                                    <option value="2">In Progress</option>
+                                    <option value="3">On Hold</option>
+                                    <option value="4">Canceled</option>
+                                    <option value="5">Resolved</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="assignTo" class="form-label">Assigned To</label>
+                                <select name="assign_to" id="assignTo" class="form-control">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary closeButton" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

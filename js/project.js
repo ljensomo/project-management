@@ -14,7 +14,7 @@ $(document).ready(function() {
             {"data":"project_name"},
             {"data":"project_description"},
             {"data":function(data){
-                let buttons = "<a href='project-detail.php?pid="+data.id+"' class='btn btn-sm btn-info'>View More</a>";
+                let buttons = "<a href='project-details.php?pid="+data.id+"' class='btn btn-sm btn-info'>View More</a>";
                 buttons += " <button type='button' class='btn btn-sm btn-warning btnEdit' data-id='"+data.id+"'>Edit</button>";
                 buttons += " <button type='button' class='btn btn-sm btn-danger btnDelete' data-id='"+data.id+"' data-value='"+data.project_name+"'>Delete</button>";
                 return buttons;

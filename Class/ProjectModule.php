@@ -39,9 +39,34 @@ class ProjectModule extends DatabaseQuery{
     }
 
     public function get(){
-        $this->setQuery('SELECT * FROM project_modules WHERE project_id = ?');
+        $query = 'SELECT a.*, FLOOR(IF(complete IS NULL, 0, (complete/(complete+not_complete))*100)) AS progress FROM project_modules a
+                    LEFT JOIN (
+                    SELECT module_id, 
+                        SUM(CASE WHEN STATUS = 1 THEN 1 ELSE 0 END) complete,
+                        SUM(CASE WHEN STATUS = 2 OR STATUS = 3 THEN 1 ELSE 0 END) not_complete
+                    FROM module_functions GROUP BY module_id
+                    ) b ON a.`id` = b.module_id
+                    WHERE project_id = ?';
+                    
+        $this->setQuery($query);
         $this->setParameters([$this->project_id]);
         return $this->getAll();
+    }
+
+    public function getModule($id){
+        $this->setQuery('SELECT * FROM project_modules WHERE id = ?');
+        $this->setParameters([$id]);
+        return DatabaseQuery::get();
+    }
+
+    public function update(){
+        $this->setQuery('UPDATE project_modules SET module_name = ?, module_description = ? WHERE id = ?');
+        $this->setParameters([
+            $this->module_name,
+            $this->module_description,
+            $this->id
+        ]);
+        return $this->executeQuery();
     }
 
     public function remove($id){

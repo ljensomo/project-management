@@ -57,6 +57,10 @@ class Login extends DatabaseQuery{
         return $this->user['is_active'] ? true : false;
     }
 
+    public function getUserId(){
+        return $this->user['id'];
+    }
+
     public function getUsername(){
         return 'asd';
     }
