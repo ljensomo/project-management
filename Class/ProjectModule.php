@@ -50,7 +50,20 @@ class ProjectModule extends DatabaseQuery{
                     
         $this->setQuery($query);
         $this->setParameters([$this->project_id]);
-        return $this->getAll();
+        return DatabaseQuery::getAll();
+    }
+
+    public function getAll(){
+        $query = 'SELECT * FROM project_modules';
+
+        if($this->project_id != ""){
+            $query .= " WHERE project_id = ?";
+            $this->setParameters([$this->project_id]);
+        }
+
+        $this->setQuery($query);
+
+        return DatabaseQuery::getAll();
     }
 
     public function getModule($id){

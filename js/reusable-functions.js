@@ -100,6 +100,8 @@ function populateSelect(parameters){
                     for(let textValue of parameters.text){
                         text += response.data[x][textValue]+" ";
                     }
+                }else{
+                    text = response.data[x][parameters.text];
                 }
 
                 if(Array.isArray(parameters.selectId)){

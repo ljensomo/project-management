@@ -189,12 +189,21 @@ $(document).ready(function(){
                     rowId: data.id,
                     rowValue: data.id,
                     view: true,
-                    viewUrl: "#",
+                    viewUrl: "ticket-details.php?tid="+data.id+"&pid="+project_id,
                     edit: true,
                     delete: true
                 });
             }, className: "text-center"}
         ]
+    });
+
+    // populate select options (categories)
+    populateSelect({
+        url: "php-functions/category/get-categories.php",
+        selectId: "ticketCategory",
+        value: "id",
+        text: "name",
+        errorMessage: "Failed to retrieve categories."
     });
 
     // add custom button in datatable

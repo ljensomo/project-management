@@ -8,6 +8,7 @@ class Ticket extends DatabaseQuery{
     private $ticket_id;
     private $project_id;
     private $module_id;
+    private $category_id;
     private $subject;
     private $description;
     private $assign_to;
@@ -25,6 +26,10 @@ class Ticket extends DatabaseQuery{
 
     public function setModuleId($module_id){
         $this->module_id = $module_id;
+    }
+
+    public function setCategory($category){
+        $this->category_id = $category;
     }
 
     public function setSubject($subject){
@@ -56,9 +61,10 @@ class Ticket extends DatabaseQuery{
     }
 
     public function add(){
-        $this->setQuery('INSERT INTO tickets (project_id, subject, description, status, created_by) VALUES (?, ?, ?, ?, ?)');
+        $this->setQuery('INSERT INTO tickets (project_id, category_id, subject, description, status, created_by) VALUES (?, ?, ?, ?, ?, ?)');
         $this->setParameters([
             $this->project_id,
+            $this->category_id,
             trim($this->subject),
             trim($this->description),
             $this->status,
@@ -96,8 +102,9 @@ class Ticket extends DatabaseQuery{
     }
 
     public function update(){
-        $this->setQuery('UPDATE tickets SET subject = ?, description = ?, assigned_to = ?, status = ? WHERE id = ?');
+        $this->setQuery('UPDATE tickets SET category_id = ?, subject = ?, description = ?, assigned_to = ?, status = ? WHERE id = ?');
         $this->setParameters([
+            $this->category_id,
             trim($this->subject),
             trim($this->description),
             $this->assign_to,
@@ -109,7 +116,10 @@ class Ticket extends DatabaseQuery{
     }
 
     public function getTicket($ticket_id){
-        $this->setQuery('SELECT * FROM tickets WHERE id = ?');
+        $query = 'SELECT a.*,project_name FROM tickets a 
+                    JOIN projects b ON a.project_id=b.id
+                    WHERE a.id = ?';
+        $this->setQuery($query);
         $this->setParameters([$ticket_id]);
         return $this->get();
     }

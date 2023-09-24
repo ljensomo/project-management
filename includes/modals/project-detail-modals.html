@@ -64,11 +64,17 @@
                     <div class="row">
                         <div class="col">
                             <div class="mb-3">
-                                <label for="ticketSubject" class="form-label">Subject</label>
+                                <label class="form-label" for="ticketCategory">Category</label>
+                                <select name="category" id="ticketCategory" class="form-control" required>
+                                    <option value="">--</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ticketSubjectInput" class="form-label">Subject</label>
                                 <input type="text" class="form-control" id="ticketSubjectInput" name="subject" placeholder="Subject" required>
                             </div>
                             <div class="mb-3">
-                                <label for="ticketDescription" class="form-label">Description</label>
+                                <label for="ticketDescriptionInput" class="form-label">Description</label>
                                 <textarea class="form-control" name="description" id="ticketDescriptionInput" cols="30" rows="5" placeholder="Description" required></textarea>
                             </div>
                         </div>

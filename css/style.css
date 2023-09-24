@@ -1,3 +1,7 @@
+body{
+    background-color: #e3e3e3;
+}
+
 table tr th, tr, tbody{
     border: 1px solid #505050 !important;
 }
@@ -17,7 +21,7 @@ table td{
 div.content {
     margin-left: 15%;
     padding: 20px;
-    height: 1000px;
+    height: auto;
     background-color: #e3e3e3;
 }
 

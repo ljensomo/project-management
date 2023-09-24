@@ -8,6 +8,7 @@ if($_POST){
     $ticket = new Ticket;
 
     $ticket->setProjectId($_POST['projectId']);
+    $ticket->setCategory($_POST['category']);
     $ticket->setSubject($_POST['subject']);
     $ticket->setDescription($_POST['description']);
     $ticket->setStatus(1);
