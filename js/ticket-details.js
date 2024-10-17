@@ -65,11 +65,12 @@ $(document).ready(function(){
         url: ticketUrl+"get-ticket.php?id="+ticket_id,
         callback: function(data){
             $("#ticketCategory").val(data.category_id);
-            $("#assignedTo").val(data.assigned_to);
+            $("#assignedTo").val(data.assigned_to).trigger("change");
             $("#ticketProject").val(data.project_name);
             $("#ticketModule").val(data.module_id);
             $("#ticketStatus").val(data.status);
             $("#dateCreatedInput").val(data.date_created);
+            $("#dateCompletedInput").val(data.date_completed);
             $("#ticketSubjectInput").val(data.subject);
             $("#ticketDescriptionInput").val(data.description);
         }

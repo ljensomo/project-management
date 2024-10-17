@@ -101,7 +101,7 @@ class User extends DatabaseQuery{
 
         $password = password_hash($this->default_password, PASSWORD_BCRYPT);
 
-        $this->setQuery('INSERT INTO users (first_name, last_name, email, role, username, password) VALUES (?, ?, ?, ?, ?, ?)');
+        $this->setQuery('INSERT INTO users (first_name, last_name, email, role_id, username, password) VALUES (?, ?, ?, ?, ?, ?)');
         $this->setParameters([
             $this->firstName,
             $this->lastName,
@@ -116,7 +116,7 @@ class User extends DatabaseQuery{
 
     public function update(){
 
-        $this->setQuery('UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ? WHERE id = ?');
+        $this->setQuery('UPDATE users SET first_name = ?, last_name = ?, email = ?, role_id = ? WHERE id = ?');
         $this->setParameters([
             $this->firstName,
             $this->lastName,

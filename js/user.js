@@ -18,7 +18,7 @@ $(document).ready(function(){
             }},
             {data: "email"},
             {data:"username"},
-            {data:"role"},
+            {data:"role_id"},
             {data: function(data){
                 let status = "";
                 let status_color = "";
@@ -37,20 +37,24 @@ $(document).ready(function(){
                 return label;
             }, className:"text-center"},
             {data:function(data){
-                let buttons = "<button type='button' class='btn btn-sm btn-info'>View More</button>";
-                buttons += " <button type='button' class='btn btn-sm btn-warning btnEdit' data-id='"+data.id+"'>Edit</button>";
+                let buttons = "<button type='button' class='btn btn-sm btn-info' title='View More'><i class='fa fa-info-circle'></i></button>";
+                buttons += " <button type='button' class='btn btn-sm btn-warning btnEdit' data-id='"+data.id+"' title='Edit'><i class='fa fa-edit'></i></button>";
 
                 if(data.is_active == 1){
-                    buttons += " <button type='button' class='btn btn-sm btn-danger btnDeActivate' data-id='"+data.id+"' data-value='"+data.username+"'>De-Activate</button>";
+                    buttons += " <button type='button' class='btn btn-sm btn-danger btnDeActivate' data-id='"+data.id+"' data-value='"+data.username+"' title='Deactivate'><i class='fa fa-lock'></i></button>";
                 }
 
                 if(data.is_active == 0){
-                    buttons += " <button type='button' class='btn btn-sm btn-success btnActivate' data-id='"+data.id+"' data-value='"+data.username+"'>Activate</button>";
+                    buttons += " <button type='button' class='btn btn-sm btn-success btnActivate' data-id='"+data.id+"' data-value='"+data.username+"' title='Activate'><i class='fa fa-unlock'></i></button>";
                 }
 
                 return buttons;
             }, className: "text-center", sorting: false},
-        ]
+        ],
+        columnDefs:[{
+            targets: 0,
+            visible: false,
+        }]
     });
 
     // submit user form
@@ -107,7 +111,7 @@ $(document).on("click", ".btnEdit", function(){
         $("#firstNameInput").val(data.first_name);
         $("#lastNameInput").val(data.last_name);
         $("#emailInput").val(data.email);
-        $("#roleSelect").val(data.role);
+        $("#roleSelect").val(data.role_id);
 
         $(userModal).modal("toggle");
     }).fail(function(response){

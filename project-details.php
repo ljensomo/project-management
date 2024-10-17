@@ -20,6 +20,7 @@
         <div class="content">
             <div class="content-main block-container">
                 <div class="table-header-columns">
+                    <a href="projects.php" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Back to Projects</a>
                     <button type="button" class="btn btn-success" id="btnSaveProject"><i class="fa fa-save"></i> Save Changes</button>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ownerModal"><i class="fa fa-user"></i> Add Project Owner</button>
                     <hr>
@@ -86,6 +87,7 @@
     ?>
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.13.6/dataRender/ellipsis.js"></script>
 
     <script text="text/javascript" src="js/project-detail.js"></script>
     <script text="text/javascript" src="js/project-module.js"></script>

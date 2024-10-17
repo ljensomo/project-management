@@ -45,7 +45,9 @@ $(document).ready(function(){
     });
 
     // add custom button in datatable
-    $("#modulesTable_wrapper").prepend("<button type='button' class='btn btn-primary' id='btnModuleAdd' data-bs-toggle='modal' data-bs-target='#modulesModal'>Add Module</button>");
+    let add_icon = "<i class='fa fa-plus'></i>";
+    let add_button = "<button type='button' class='btn btn-primary' id='btnModuleAdd' data-bs-toggle='modal' data-bs-target='#modulesModal'>"+add_icon+" Add Module</button>";
+    $("#modulesTable_wrapper").prepend(add_button);
 
     // submit module form
     $(moduleForm).submit(function(e){

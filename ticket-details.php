@@ -70,10 +70,13 @@
                                     </select>
                                 </td>
                             </tr>
-                            
                             <tr>
                                 <td class="form-label-custom">Date Created</td>
                                 <td><input type="datetime" class="form-control" id="dateCreatedInput" readonly></td>
+                            </tr>
+                            <tr>
+                                <td class="form-label-custom">Date Completed</td>
+                                <td><input type="datetime" class="form-control" id="dateCompletedInput" readonly></td>
                             </tr>
                         </table>
                     </form>

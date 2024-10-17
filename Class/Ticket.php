@@ -61,14 +61,15 @@ class Ticket extends DatabaseQuery{
     }
 
     public function add(){
-        $this->setQuery('INSERT INTO tickets (project_id, category_id, subject, description, status, created_by) VALUES (?, ?, ?, ?, ?, ?)');
+        $this->setQuery('INSERT INTO tickets (project_id, category_id, subject, description, status, created_by, assigned_to) VALUES (?, ?, ?, ?, ?, ?, ?)');
         $this->setParameters([
             $this->project_id,
             $this->category_id,
             trim($this->subject),
             trim($this->description),
             $this->status,
-            $this->created_by
+            $this->created_by,
+            $this->assign_to
         ]);
 
         return $this->executeQuery();
@@ -78,11 +79,14 @@ class Ticket extends DatabaseQuery{
         $query = "SELECT 
                     a.id,subject,a.description, 
                     concat(first_name,' ',last_name) as assigned_to,
-                    c.`name` as status
+                    c.`name` AS status,
+                    LPAD(a.id,6,0) AS ticket_number,
+                    a.date_created
                 FROM tickets a
                 LEFT JOIN users b ON a.`assigned_to` = b.`id`
                 LEFT JOIN ticket_statuses c ON a.`status`=c.`id`
-                WHERE project_id = ?";
+                WHERE project_id = ?
+                ORDER BY a.date_created DESC";
 
         $this->setQuery($query);
         $this->setParameters([
@@ -109,6 +113,15 @@ class Ticket extends DatabaseQuery{
             trim($this->description),
             $this->assign_to,
             $this->status,
+            $this->ticket_id
+        ]);
+
+        return $this->executeQuery();
+    }
+
+    public function updateDateCompleted(){
+        $this->setQuery('UPDATE tickets SET date_completed = CURRENT_TIMESTAMP WHERE id = ?');
+        $this->setParameters([
             $this->ticket_id
         ]);
 

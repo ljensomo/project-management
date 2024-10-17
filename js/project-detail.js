@@ -170,6 +170,7 @@ $(document).ready(function(){
     // -------------- TICKETS MODULE --------------
     // instantiate datetable
     $(ticketsTable).DataTable({
+        aaSorting: [],
         lengthChange: false,
         pagination: false,
         autoWidth: false,
@@ -178,23 +179,35 @@ $(document).ready(function(){
             dataSrc: "data"
         },
         columns: [
-            {data:"id"},
+            {data:"ticket_number"},
             {data:"subject"},
             {data:"description"},
+            {data:"date_created"},
             {data:"assigned_to"},
             {data:"status"},
             {data:function(data){
                 return generateTableRowButtons({
                     buttonFor: "ticket",
                     rowId: data.id,
-                    rowValue: data.id,
+                    rowValue: data.ticket_number,
                     view: true,
                     viewUrl: "ticket-details.php?tid="+data.id+"&pid="+project_id,
                     edit: true,
                     delete: true
                 });
             }, className: "text-center"}
-        ]
+        ],
+        columnDefs: [{
+            targets: 2,
+            render: function ( data, type, row ) {
+                return data.length > 30 ? data.substr( 0, 30 ) + "..." : data;
+            }
+        }],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            if(aData["status"] == 'Resolved'){
+               $('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6)', nRow).addClass('bg-success text-white');
+            }
+         },
     });
 
     // populate select options (categories)
@@ -207,14 +220,16 @@ $(document).ready(function(){
     });
 
     // add custom button in datatable
-    $("#ticketsTable_wrapper").prepend("<button type='button' class='btn btn-primary' id='btnTicketAdd' data-bs-toggle='modal' data-bs-target='#ticketModal'>Add Ticket</button>");
+    let table_buttons = "<button type='button' class='btn btn-primary' id='btnTicketAdd' data-bs-toggle='modal' data-bs-target='#ticketModal'><i class='fa fa-plus'></i> Add Ticket</button>";
+    table_buttons += " <button type='button' class='btn btn-success' id='btnDownload'><i class='fa fa-download'></i> Download CSV</button>";
+    $("#ticketsTable_wrapper").prepend(table_buttons);
 
     // click add ticket button
     $("#btnTicketAdd").click(function(){
         $(ticketForm)[0].reset();
         clearSelect2("assignTo");
         $("#ticketStatus").val(1).attr("disabled", true);
-        
+        $(ticketModal+"Label").html("New Ticket");
     });
     
     // submit ticket form
@@ -236,6 +251,7 @@ $(document).ready(function(){
                             refreshDatatable(ticketsTable);
                             $(ticketForm)[0].reset();
                             $(ticketModal).modal("toggle");
+                            $("#ticketIdInput").remove();
                         }
                     });
                     return;
@@ -249,12 +265,13 @@ $(document).ready(function(){
     // click delete ticket button
     $(document).on("click", ".btn-ticket-delete", function(){
         let id = $(this).attr("data-id");
+        let value = $(this).attr("data-value");
     
         deleteRecord({
             title: "Remove?",
-            text: "Do you want to delete "+id+"?",
+            text: "Do you want to delete "+value+"?",
             confirmButtonText: "Cofirm Delete",
-            subject: id,
+            subject: value,
             data: {"id": id},
             url: ticketUrl+"delete-ticket.php",
             errorMessage: "Failed to delete ticket.",
@@ -267,11 +284,12 @@ $(document).ready(function(){
     // click edit ticket button
     $(document).on("click", ".btn-ticket-edit", function(){
         let id = $(this).attr("data-id");
+        let value = $(this).attr("data-value");
     
         ajaxGet({
             url: ticketUrl+"get-ticket.php?id="+id,
             callback: function(data){
-                $(ticketModal+"Label").html("Edit "+data.id);
+                $(ticketModal+"Label").html("Edit "+value);
     
                 $("#ticketIdInput").remove();
                 $('<input>').attr({
@@ -285,10 +303,11 @@ $(document).ready(function(){
 
                 $("#ticketStatus").attr("disabled", false);
     
+                $("#ticketCategory").val(data.category_id)
                 $("#ticketSubjectInput").val(data.subject);
                 $("#ticketDescriptionInput").val(data.description);
                 $("#ticketStatus").val(data.status);
-                $("#assignTo").val(data.assigned_to);
+                $("#assignTo").val(data.assigned_to).trigger("change");
             },
             errorMessage: "Failed to retrieve ticket detail."
         });

@@ -163,17 +163,17 @@ function generateTableRowButtons(parameters){
     let buttons = "";
 
     if(parameters.view){
-        buttons += "<a href='"+parameters.viewUrl+"' class='btn btn-sm btn-info'>View More</a> ";
+        buttons += "<a href='"+parameters.viewUrl+"' class='btn btn-sm btn-info' title='View More'><i class='fa fa-info-circle'></i></a> ";
     }
 
     if(parameters.edit){
         buttons += "<button type='button' class='btn btn-sm btn-warning btn-"+parameters.buttonFor+"-edit' ";
-        buttons += "data-id='"+parameters.rowId+"' data-value='"+parameters.rowValue+"'>Edit</button> ";
+        buttons += "data-id='"+parameters.rowId+"' data-value='"+parameters.rowValue+"' title='Edit'><i class='fa fa-edit'></i></button> ";
     }
 
     if(parameters.delete){
         buttons += "<button type='button' class='btn btn-sm btn-danger btn-"+parameters.buttonFor+"-delete' ";
-        buttons += "data-id='"+parameters.rowId+"' data-value='"+parameters.rowValue+"'>Delete</button>";
+        buttons += "data-id='"+parameters.rowId+"' data-value='"+parameters.rowValue+"' title='Delete'><i class='fa fa-trash'></i></button>";
     }
 
     return buttons;

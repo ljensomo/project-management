@@ -1,3 +1,3 @@
 <div class="topbar">
-    <h2>Project Management - <?=$page?></h2>
+    <h4>Project Management - <?=$page?></h4>
 </div>
