@@ -77,6 +77,7 @@
                 <?php 
                     include 'includes/contents/project-module-tab.html';
                     include 'includes/contents/project-ticket-tab.html';
+                    include 'includes/contents/project-attachment-tab.html';
                 ?>
             </div>
         </div>
@@ -91,5 +92,6 @@
 
     <script text="text/javascript" src="js/project-detail.js"></script>
     <script text="text/javascript" src="js/project-module.js"></script>
+    <script text="text/javascript" src="js/project-attachment.js"></script>
 </body>
 </html>

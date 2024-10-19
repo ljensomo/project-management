@@ -38,4 +38,22 @@ class DatabaseQuery extends Database{
 
         return $this->stmt->rowCount();
     }
+
+    public function insert($query, $parameters){
+        $this->setQuery($query);
+        $this->setParameters($parameters);
+        return $this->executeQuery();
+    }
+
+    public function delete($table, $id){
+        $this->setQuery("DELETE FROM $table WHERE id = ?");
+        $this->setParameters([$id]);
+        return $this->executeQuery();
+    }
+
+    public function getById($table, $id){
+        $this->setQuery("SELECT * FROM $table WHERE id = ?");
+        $this->setParameters([$id]);
+        return $this->get();
+    }
 }
