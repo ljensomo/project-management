@@ -5,6 +5,8 @@ require_once 'DatabaseQuery.php';
 
 class ProjectModule extends DatabaseQuery{
 
+    const table = 'project_tech';
+
     private $id;
     private $project_id;
     private $module_name;

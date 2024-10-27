@@ -131,3 +131,32 @@
         </div>
     </div>
 </div>
+
+<!-- Technology Modal -->
+<div class="modal fade" id="techModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="techModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="techModalLabel">New Technology</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="techForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="technology" placeholder="Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="version" placeholder="Version" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary closeButton" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Technology</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

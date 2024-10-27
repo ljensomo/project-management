@@ -61,6 +61,9 @@
                 </div>
             </div>
             <div class="block-container" style="margin-top: 30px;">
+                <div>
+                    <h5>Project Modules, Tickets, Attachments and Technology</h5><hr>
+                </div>
                 <div class="navigation-tabs">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
@@ -72,12 +75,16 @@
                         <li class="nav-item">
                             <a class="nav-link project-tab" href="#">Attachments</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link project-tab" href="#">Technology</a>
+                        </li>
                     </ul>
                 </div>
                 <?php 
                     include 'includes/contents/project-module-tab.html';
                     include 'includes/contents/project-ticket-tab.html';
                     include 'includes/contents/project-attachment-tab.html';
+                    include 'includes/contents/project-tech-tab.html';
                 ?>
             </div>
         </div>
@@ -93,5 +100,6 @@
     <script text="text/javascript" src="js/project-detail.js"></script>
     <script text="text/javascript" src="js/project-module.js"></script>
     <script text="text/javascript" src="js/project-attachment.js"></script>
+    <script text="text/javascript" src="js/project-technology.js"></script>
 </body>
 </html>

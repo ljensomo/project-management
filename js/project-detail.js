@@ -150,7 +150,8 @@ $(document).ready(function(){
     });
 
     // -------------- PROJECT TABS --------------
-    $(document).on("click", ".project-tab", function(){
+    $(document).on("click", ".project-tab", function(e){
+        e.preventDefault();
         $(".project-tab").each(function(i, obj){
             $(this).removeClass("active").removeAttr("aria-current");
             let tab_name = $(this).html().toLowerCase()+"Tab";

@@ -20,7 +20,7 @@ $(document).ready(function(){
             dataSrc: "data"
         },
         columns: [
-            {data: "id"},
+            {data: "id", visible: false},
             {data: "module_name"},
             {data: "module_description"},
             {data: function(data){

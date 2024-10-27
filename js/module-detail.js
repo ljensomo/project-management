@@ -71,7 +71,7 @@ $(document).ready(function(){
             dataSrc: "data"
         },
         columns: [
-            {data: "id"},
+            {data: "id", visible: false},
             {data: "function_name"},
             {data: "function_description"},
             {data: function(data){
