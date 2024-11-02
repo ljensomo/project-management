@@ -16,7 +16,7 @@ if($_POST){
     $_SESSION['username'] = $login->getUsername();
     $_SESSION['name'] = $login->getFirstName().' '.$login->getLastName();
 
-    exit(json_encode(['success' => true, 'message' => 'Successfully logged in']));
+    exit(json_encode(['success' => true, 'message' => 'You have successfully logged in.']));
 
 }
 

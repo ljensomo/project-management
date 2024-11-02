@@ -15,7 +15,7 @@ $(document).ready(function(){
                     return;
                 }
 
-                swalError(response.message);
+                swalError(response.message, "Login Error");
                 $("#passwordInput").val('');
             }
         });

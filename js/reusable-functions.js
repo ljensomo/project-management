@@ -23,9 +23,9 @@ function swalSuccess(parameters){
 }
 
 
-function swalError(message = "Something went wrong!"){
+function swalError(message = "Something went wrong!", title = null){
     Swal.fire({
-        "title": "Ooops!",
+        "title": title != null ? title : "Ooops!",
         "text": message,
         "icon": "error"
     });

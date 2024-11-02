@@ -27,12 +27,12 @@ class Login extends DatabaseQuery{
         $this->user = $this->get();
 
         if($this->getRowCount() === 0){
-            $this->error_message = 'Invalid username.';
+            $this->error_message = 'You have inputted an invalid username.';
             return false;
         }
 
         if(!$this->isPasswordCorrect()){
-            $this->error_message = 'Incorrect password.';
+            $this->error_message = 'You have inputted an incorrect password.';
             return false;
         }
 
