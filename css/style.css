@@ -1,5 +1,6 @@
 body{
-    background-color: #e3e3e3;
+    background-color: #19191a;
+    font-family: 'Calibri';
 }
 
 table tr th, tr, tbody{
@@ -22,7 +23,10 @@ div.content {
     margin-left: 15%;
     padding: 20px;
     height: auto;
-    background-color: #e3e3e3;
+    top: 7.2%;
+    position: absolute;
+    width: 85%;
+    /* background-color: #e3e3e3; */
 }
 
 .content-header{
@@ -31,13 +35,15 @@ div.content {
 
 .content-main{
     display: block;
-    margin-top: 90px;
+    /* margin-top: 90px; */
 }
 
 .block-container{
     background-color: #fff;
     padding: 20px;
+    border: 1px solid #4f4f4f;
     border-radius: 2px;
+    margin-bottom: 10px;
 }
 
 .form-table tr th, tr, tbody{
@@ -64,3 +70,13 @@ div.content {
 .btn{
     border-radius: 2px !important;
 }
+
+.dropdown-menu{
+    right: 10px !important;
+    left: auto !important;
+}
+
+/* datatables customization */
+/* .dataTables_wrapper label, .dataTables_info{
+    color: #d6d6d6 !important;
+} */

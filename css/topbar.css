@@ -1,11 +1,8 @@
 .topbar{
     position: fixed;
-    margin-left: 15%;
-    padding: 20px;
-    background-color: #fff;
+    /* margin-left: 15%; */
+    padding: 10px;
+    /* background-color: #fff; */
+    background-color: blue;
     width: 100%;
-}
-
-.topbar h2{
-    color: #383869;
 }

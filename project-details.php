@@ -20,9 +20,9 @@
         <div class="content">
             <div class="content-main block-container">
                 <div class="table-header-columns">
-                    <a href="projects.php" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Back to Projects</a>
-                    <button type="button" class="btn btn-success" id="btnSaveProject"><i class="fa fa-save"></i> Save Changes</button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ownerModal"><i class="fa fa-user"></i> Add Project Owner</button>
+                    <a href="projects.php" class="btn btn-sm btn-secondary"><i class="fa fa-arrow-left"></i> Back to Projects</a>
+                    <button type="button" class="btn btn-sm btn-success" id="btnSaveProject"><i class="fa fa-save"></i> Save Changes</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ownerModal"><i class="fa fa-user"></i> Add Project Owner</button>
                     <hr>
                 </div>
                 <div class="row">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="block-container" style="margin-top: 30px;">
+            <div class="block-container">
                 <div>
                     <h5>Project Modules, Tickets, Attachments and Technology</h5><hr>
                 </div>

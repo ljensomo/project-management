@@ -16,8 +16,8 @@
         <div class="content">
             <div class="content-main block-container">
                 <div class="table-header-buttons">
-                    <button type="button" class="btn btn-success btnCreate" data-bs-toggle="modal" data-bs-target="#projectModal">
-                        <i class="fa fa-plus"></i> Create New
+                    <button type="button" class="btn btn-sm btn-secondary btnCreate" data-bs-toggle="modal" data-bs-target="#projectModal">
+                        <i class="fa fa-plus"></i> New Project
                     </button>
                 </div>
                 <table class="table table-bordered table-hover table-striped" id="projectTable">
