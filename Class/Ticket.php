@@ -105,7 +105,7 @@ class Ticket extends DatabaseQuery{
         return $this->executeQuery();
     }
 
-    public function update(){
+    public function modify(){
         $this->setQuery('UPDATE tickets SET category_id = ?, subject = ?, description = ?, assigned_to = ?, status = ? WHERE id = ?');
         $this->setParameters([
             $this->category_id,

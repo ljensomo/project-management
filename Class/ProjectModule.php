@@ -74,7 +74,7 @@ class ProjectModule extends DatabaseQuery{
         return DatabaseQuery::get();
     }
 
-    public function update(){
+    public function modify(){
         $this->setQuery('UPDATE project_modules SET module_name = ?, module_description = ? WHERE id = ?');
         $this->setParameters([
             $this->module_name,

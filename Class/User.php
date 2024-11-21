@@ -114,7 +114,7 @@ class User extends DatabaseQuery{
         return $this->executeQuery();
     }
 
-    public function update(){
+    public function modify(){
 
         $this->setQuery('UPDATE users SET first_name = ?, last_name = ?, email = ?, role_id = ? WHERE id = ?');
         $this->setParameters([

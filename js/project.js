@@ -59,7 +59,7 @@ $(document).ready(function() {
         }).fail(function(response){
             sweetAlert({
                 title: "Ooops!",
-                message: "Failed to create project.",
+                message: "Failed to "+action+" project.",
                 icon: "error"
             });
         });

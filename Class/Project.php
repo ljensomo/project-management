@@ -1,14 +1,20 @@
 <?php
 
-require_once 'Database.php';
+require_once 'DatabaseQuery.php';
 
-class Project extends Database{
+class Project extends DatabaseQuery{
+
+    const table = 'projects';
 
     private $projectId;
     private $projectName;
     private $projectDescription;
 
     private $errorMessage;
+
+    public function __construct(){
+        parent::__construct(self::table);
+    }
 
     public function setProjectId($projectId){
         $this->projectId = $projectId;
@@ -31,74 +37,64 @@ class Project extends Database{
     }
 
     public function getProjects(){
-        $stmt = $this->connection->prepare('SELECT * FROM projects WHERE is_deleted = 0');
-        $stmt->execute(); 
-        $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $projects;
+        return $this->sqlFetchAll([
+            'where' => array(
+                'column_name' => 'is_deleted',
+                'operator' => '=',
+                'value' => 0
+                )
+            ]
+        );
     }
 
     public function getProject($id){
-        $stmt = $this->connection->prepare('SELECT * FROM projects WHERE id = ?');
-        $stmt->execute([$id]);
-        $project = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $project;
+        return $this->sqlFetchById($id);
     }
 
     public function create(){
-        if(!$this->isProjectNameUnique()){
+        if(!$this->isProjectNameExist()){
             $this->setErrorMessage('Project name already exist or was already used.');
             return false;
         }
 
-        $stmt = $this->connection->prepare('INSERT INTO projects (project_name, project_description) VALUES (? ,?)');
-        $stmt->execute([
-            $this->projectName,
-            $this->projectDescription
-        ]);
-
-        return true;
+        return $this->sqlInsert(array(
+            'project_name' => $this->projectName,
+            'project_description' => $this->projectDescription
+        ));
     }
 
     public function update(){
 
-        if(!$this->isProjectNameUnique($this->projectId)){
+        if(!$this->isProjectNameExist($this->projectId)){
             $this->setErrorMessage('Project name already exist or was already used.');
             return false;
         }
         
-        $stmt = $this->connection->prepare('UPDATE projects SET project_name = ?, project_description = ? WHERE id = ?');
-        $stmt->execute([$this->projectName, $this->projectDescription, $this->projectId]);
-
-        return true;
+        return $this->sqlUpdate(
+            [
+                'project_name' => $this->projectName,
+                'project_description' => $this->projectDescription,
+                'id' => $this->projectId
+            ]
+        );
     }
 
     public function delete(){
-        $stmt = $this->connection->prepare('UPDATE projects SET is_deleted = 1 WHERE id = ?');
-        $stmt->execute([$this->projectId]);
-
-        return true;
+        return $this->sqlSoftDelete($this->projectId);
     }
 
-    public function isProjectNameUnique($id = 0){
+    public function isProjectNameExist($id = 0){
 
-        $query = 'SELECT id FROM projects WHERE project_name = ?';
-        $parameters = array($this->projectName);
+        $project = $this->sqlFetchAll(
+            [
+                'where' => [
+                    'column_name' => 'project_name',
+                    'operator' => '=',
+                    'value' => $this->projectName
+                ]
+            ]
+        );
 
-        if($id != 0){
-            $query .= ' AND id != ?';
-            $parameters[] = $id;
-        }
-
-        $stmt = $this->connection->prepare($query);
-        $stmt->execute($parameters); 
-        $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if($stmt->rowCount()){
-            return false;
-        }
-
-        return true;
+        return count($project) ? false : true;
     }
 }
