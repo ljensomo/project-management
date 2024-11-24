@@ -14,6 +14,10 @@ class ProjectAttachment extends DatabaseQuery{
     private $added_by;
     private $error_message;
 
+    public function __construct(){
+        parent::__construct(self::table);
+    }
+
     public function setId($id){
         $this->id = $id;
     }

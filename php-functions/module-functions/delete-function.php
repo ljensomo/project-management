@@ -5,7 +5,7 @@ require '../../Class/Function.php';
 if(isset($_POST)){
     $function = new ModuleFunction;
 
-    if($function->remove($_POST['id'])){
+    if($function->delete($_POST['id'])){
         exit(json_encode(['success' => true, 'message' => 'Successfully removed function.']));
     }
 

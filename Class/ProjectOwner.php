@@ -5,10 +5,16 @@ require_once 'DatabaseQuery.php';
 
 class ProjectOwner extends DatabaseQuery{
 
+    const table = 'project_owners';
+
     private $id;
     private $project_id;
     private $owner_id;
     private $error_message;
+
+    public function __construct(){
+        parent::__construct(self::table);
+    }
 
     public function setId($id){
         $this->id = $id;
@@ -38,22 +44,27 @@ class ProjectOwner extends DatabaseQuery{
         return $this->executeQuery();
     }
 
-    public function get(){
-        $this->setQuery('SELECT a.id, CONCAT(first_name," ",last_name) AS owner FROM project_owners a JOIN users b ON a.owner_id=b.id WHERE project_id = ?');
-        $this->setParameters([$this->project_id]);
-        return $this->getAll();
+    public function getAll(){
+
+        $query = 'SELECT a.id, CONCAT(first_name," ",last_name) AS owner FROM project_owners a JOIN users b ON a.owner_id=b.id WHERE project_id = ?';
+        $this->sqlRaw($query, [$this->project_id]);
+        return $this->fetchAll();
     }
 
     public function remove($id){
-        $this->setQuery('DELETE FROM project_owners WHERE id = ?');
-        $this->setParameters([$id]);
-        return $this->executeQuery();
+        return $this->sqlDelete($id);
     }
 
     public function isOwnerAdded(){
-        $this->setQuery('SELECT id FROM project_owners WHERE project_id = ? AND owner_id = ?');
-        $this->setParameters([$this->project_id, $this->owner_id]);
-        $this->executeQuery();
-        return $this->getRowCount() ? true : false;
+
+        return $this->sqlSelect()->where([
+                'column_name' => 'project_id',
+                'operator' => '=',
+                'value' => $this->project_id
+            ])->where([
+                'column_name' => 'owner_id',
+                'operator' => '=',
+                'value' => $this->owner_id
+            ])->getAll();
     }
 }

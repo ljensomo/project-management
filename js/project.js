@@ -4,6 +4,15 @@ const projectForm = "#projectForm";
 
 $(document).ready(function() {
 
+    // populate status options
+    populateSelect({
+        url: "php-functions/get-project-status.php",
+        selectId: ["projectStatus"],
+        value: "id",
+        text: ["name"],
+        errorMessage: "Failed to retrieve status."
+    });
+
     $(projectTableId).DataTable({
         "ajax": {
             "url": "php-functions/get-projects.php",
@@ -13,6 +22,7 @@ $(document).ready(function() {
             {"data":"id"},
             {"data":"project_name"},
             {"data":"project_description"},
+            {"data":"project_status"},
             {"data":function(data){
                 let buttons = "<a href='project-details.php?pid="+data.id+"' class='btn btn-sm btn-outline-info'>More</a>";
                 buttons += " <button type='button' class='btn btn-sm btn-outline-warning btnEdit' data-id='"+data.id+"'>Edit</button>";
@@ -28,7 +38,7 @@ $(document).ready(function() {
         let action = $("#projectIdInput").length ? "update" : "create";
 
         $.ajax({
-            "url":  action === "update" ? "php-functions/update-project.php" : "php-functions/insert-project.php",
+            "url":  action === "update" ? "php-functions/update-project.php" : "php-functions/add-project.php",
             "method": "POST",
             "data": new FormData(this),
             "processData": false,
@@ -128,6 +138,7 @@ $(document).on("click", ".btnEdit", function(){
         }).prependTo(projectForm);
         $("#projectNameInput").val(data.project_name);
         $("#projectDescriptionInput").val(data.project_description);
+        $("#projectStatus").val(data.status);
 
         $(projectModal).modal("toggle");
     }).fail(function(response){

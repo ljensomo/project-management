@@ -5,6 +5,8 @@ require_once 'DatabaseQuery.php';
 
 class Login extends DatabaseQuery{
 
+    const table = 'users';
+
     private $username;
     private $password;
     private $first_name;
@@ -18,15 +20,20 @@ class Login extends DatabaseQuery{
         $this->username = trim($username);
         $this->password = $password;
 
-        parent::__construct();
+        parent::__construct(self::table);
     }
 
     public function isValid(){
-        $this->setQuery('SELECT * FROM users WHERE username = ?');
-        $this->setParameters([$this->username]);
-        $this->user = $this->get();
 
-        if($this->getRowCount() === 0){
+        $this->user = $this->sqlFetch([
+            'where' => [
+                'column_name' => 'username',
+                'operator' => '=',
+                'value' => $this->username
+            ]
+        ]);
+
+        if( $this->user === false ){
             $this->error_message = 'You have inputted an invalid username.';
             return false;
         }
@@ -62,7 +69,7 @@ class Login extends DatabaseQuery{
     }
 
     public function getUsername(){
-        return 'asd';
+        return $this->user['username'];
     }
 
     public function getFirstName(){

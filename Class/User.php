@@ -5,6 +5,8 @@ require_once 'DatabaseQuery.php';
 
 class User extends DatabaseQuery{
 
+    const table = 'users';
+
     private $userId;
     private $firstName;
     private $lastName;
@@ -14,6 +16,10 @@ class User extends DatabaseQuery{
     private $default_password = "password";
 
     private $errorMessage;
+
+    public function __construct(){
+        parent::__construct(self::table);
+    }
 
     public function setUserId($id){
         $this->userId = $id;
@@ -59,34 +65,19 @@ class User extends DatabaseQuery{
         return $this->errorMessage;
     }
 
-    public function getUsers($where_clause = null){
+    public function getActiveUsers(){
 
-        $query = 'SELECT * FROM users';
-
-        if($where_clause != null){
-            $x = 0;
-            $parameters = [];
-            foreach($where_clause as $key => $where){
-                if($x === 0){
-                    $query .= ' WHERE ';
-                }else if($x < 0){
-                    $query .= ' AND ';
-                }
-
-                $query .= $key.' = ?';
-
-                array_push($parameters, $where);
-            }
-            $this->setParameters($parameters);
-        }
-
-        $this->setQuery($query);
-
-        return $this->getAll();
+        return $this->sqlFetchAll([
+            'where' => [
+                'column_name' => 'is_active',
+                'operator' => '=',
+                'value' => 1
+            ]
+            ]);
     }
 
     public function getUser($id){
-
+        
         $this->setQuery('SELECT * FROM users WHERE id = ?');
         $this->setParameters([$id]);
         return $this->get();

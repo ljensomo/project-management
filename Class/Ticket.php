@@ -5,6 +5,8 @@ require_once 'DatabaseQuery.php';
 
 class Ticket extends DatabaseQuery{
 
+    const table = 'tickets';
+
     private $ticket_id;
     private $project_id;
     private $module_id;
@@ -15,6 +17,10 @@ class Ticket extends DatabaseQuery{
     private $status;
     private $created_by;
     private $error_message;
+
+    public function __construct(){
+        parent::__construct(self::table);
+    }
 
     public function setTicketId($ticket_id){
         $this->ticket_id = $ticket_id;

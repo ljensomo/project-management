@@ -5,53 +5,72 @@ require_once 'DatabaseQuery.php';
 
 class ProjectTechnology extends DatabaseQuery{
 
-    const table = 'project_tech';
+    const table = 'project_techs';
 
     private $id;
-    private $tech_name;
-    private $tech_description;
-    private $tech_version;
+    private $projectId;
+    private $techName;
+    private $techDescription;
+    private $techVersion;
     private $error_message;
+
+    public function __construct(){
+        parent::__construct(self::table);
+    }
 
     public function setId($id){
         $this->id = $id;
     }
 
+    public function setProjectId($project_id){
+        $this->projectId = $project_id;
+    }
+
     public function setName($name){
-        $this->tech_name = $name;
+        $this->techName = $name;
     }
 
     public function setDescription($description){
-        $this->tech_description = $description;
+        $this->techDescription = $description;
     }
 
     public function setVersion($version){
-        $this->tech_version = $version;
+        $this->techVersion = $version;
     }
 
     public function getErrorMessage(){
         return $this->error_message;
     }
 
-    public function save(){
-        if(isset($this->id)){
-            return $this->udpate(self::table,[
-                'id' => $this->id,
-                'tech_name' => $this->tech_name,
-                'tech_description' => $this->tech_description,
-                'tech_version' => $this->tech_version
-            ]);
-        }else{
-            return $this->insert(self::table,[
-                'tech_name' => $this->tech_name,
-                'tech_description' => $this->tech_description,
-                'tech_version' => $this->tech_version
-            ]);
-        }
+    public function getAllTechs(){
+        return $this->sqlFetchAll();
     }
 
-    public function remove($id){
-        return $this->delete(self::table, $id);
+    public function getById($id){
+        return $this->sqlFetchById($id);
+    }
+
+    public function create(){
+        return $this->sqlInsert([
+            'project_id' => $this->projectId,
+            'tech_name' => $this->techName,
+            'tech_description' => $this->techDescription,
+            'tech_version' => $this->techVersion
+        ]);
+    }
+
+    public function update(){
+        return $this->sqlUpdate([
+            'id' => $this->id,
+            'tech_name' => $this->techName,
+            'tech_description' => $this->techDescription,
+            'tech_version' => $this->techVersion,
+
+        ]);
+    }
+
+    public function delete($id){
+        return $this->sqlDelete($id);
     }
 
 }

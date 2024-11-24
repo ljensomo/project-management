@@ -10,7 +10,7 @@ if($_POST){
     $project_module->setModuleDescription(trim($_POST['moduleDescription']));
 
 
-    if($project_module->add()){
+    if($project_module->create()){
         exit(json_encode(['success' => true, 'message' => 'Successfully added module.']));
     }
 

@@ -5,12 +5,18 @@ require_once 'DatabaseQuery.php';
 
 class ModuleFunction extends DatabaseQuery{
 
+    const table = 'module_functions';
+
     private $module_id;
     private $function_id;
     private $function_name;
     private $function_description;
     private $status;
     private $error_message;
+
+    public function __construct(){
+        parent::__construct(self::table);
+    }
 
     public function setModuleId($module_id){
         $this->module_id = $module_id;
@@ -40,43 +46,37 @@ class ModuleFunction extends DatabaseQuery{
         return $this->error_message;
     }
 
-    public function add(){
-        $this->setQuery('INSERT INTO module_functions (module_id, function_name, function_description, status) VALUES (?, ?, ?, 3)');
-        $this->setParameters([
-            $this->module_id,
-            $this->function_name,
-            $this->function_description
+    public function create(){
+        return $this->sqlInsert([
+            'module_id' => $this->module_id,
+            'function_name' => $this->function_name,
+            'function_description' => $this->function_description,
+            'status' => 3
         ]);
-
-        return $this->executeQuery();
     }
 
-    public function get(){
-        $this->setQuery('SELECT * FROM module_functions WHERE module_id = ?');
-        $this->setParameters([$this->module_id]);
-        return $this->getAll();
+    public function getAllFunctions(){
+        return $this->sqlSelect()->where([
+            'column_name' => 'module_id',
+            'operator' => '=',
+            'value' => $this->module_id
+        ])->getAll();
     }
 
-    public function getFunction($id){
-        $this->setQuery('SELECT * FROM module_functions WHERE id = ?');
-        $this->setParameters([$id]);
-        return DatabaseQuery::get();
+    public function getById($id){
+        return $this->sqlFetchById($id);
     }
 
     public function update(){
-        $this->setQuery('UPDATE module_functions SET function_name = ?, function_description = ?, status = ? WHERE id = ?');
-        $this->setParameters([
-            $this->function_name,
-            $this->function_description,
-            $this->status,
-            $this->function_id
+        return $this->sqlUpdate([
+            'function_name' => $this->function_name,
+            'function_description' => $this->function_description,
+            'status' => $this->status,
+            'id' => $this->function_id
         ]);
-        return $this->executeQuery();
     }
 
-    public function remove($id){
-        $this->setQuery('DELETE FROM module_functions WHERE id = ?');
-        $this->setParameters([$id]);
-        return $this->executeQuery();
+    public function delete($id){
+        return $this->sqlDelete($id);
     }
 }

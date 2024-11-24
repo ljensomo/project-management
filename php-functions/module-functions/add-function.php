@@ -9,7 +9,7 @@ if($_POST){
     $function->setName($_POST['functionName']);
     $function->setDescription($_POST['functionDescription']);
 
-    if($function->add()){
+    if($function->create()){
         exit(json_encode(['success' => true, 'message' => 'Successfully added function.']));
     }
 

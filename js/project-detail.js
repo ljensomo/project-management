@@ -28,6 +28,15 @@ $(document).ready(function(){
         errorMessage: "Failed to retrieve owners."
     });
 
+    // populate status options
+    populateSelect({
+        url: "php-functions/get-project-status.php",
+        selectId: ["projectStatus"],
+        value: "id",
+        text: ["name"],
+        errorMessage: "Failed to retrieve status."
+    });
+
     // instantiate select2
     $("#owners").css({
         width: "100%",
@@ -57,6 +66,8 @@ $(document).ready(function(){
         callback: function(data){
             $("#projectNameInput").val(data.project_name);
             $("#projectDescriptionInput").val(data.project_description);
+            $("#projectStatus").val(data.status);
+            $("#createdBy").val(data.created_by);
             $("#dateCreatedInput").val(data.date_created);
         },
         errorMessage: "Failed to retrieve project detail."
@@ -82,6 +93,8 @@ $(document).ready(function(){
                         title: "Updated!",
                         text: response.message,
                     });
+                }else{
+                    swalError(response.message);
                 }
             }
         });

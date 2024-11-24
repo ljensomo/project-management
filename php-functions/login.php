@@ -1,16 +1,16 @@
 <?php
 
+session_start();
+
 require '../Class/Login.php';
 
-if($_POST){
+if(isset($_POST)){
     $login = new Login($_POST['username'], $_POST['password']);
 
     if(!$login->isValid()){
 
         exit(json_encode(['success' => false, 'message' => $login->getErrorMessage()]));
     }
-
-    session_start();
 
     $_SESSION['user_id'] = $login->getUserid();
     $_SESSION['username'] = $login->getUsername();

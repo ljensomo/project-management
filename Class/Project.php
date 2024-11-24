@@ -9,6 +9,8 @@ class Project extends DatabaseQuery{
     private $projectId;
     private $projectName;
     private $projectDescription;
+    private $status;
+    private $createdBy;
 
     private $errorMessage;
 
@@ -28,6 +30,14 @@ class Project extends DatabaseQuery{
         $this->projectDescription = $projectDescription;
     }
 
+    public function setStatus($status){
+        $this->status = $status;
+    }
+
+    public function setCreatedBy($created_by){
+        $this->createdBy = $created_by;
+    }
+
     public function setErrorMessage($message){
         $this->errorMessage = $message;
     }
@@ -36,19 +46,25 @@ class Project extends DatabaseQuery{
         return $this->errorMessage;
     }
 
-    public function getProjects(){
-        return $this->sqlFetchAll([
-            'where' => array(
-                'column_name' => 'is_deleted',
-                'operator' => '=',
-                'value' => 0
-                )
-            ]
-        );
+    public function getAllProjects(){
+        return $this->selectView('vw_projects')->where([
+            'column_name' => 'is_deleted',
+            'operator' => '=',
+            'value' => 0
+        ])->getAll();
     }
 
-    public function getProject($id){
+    public function getById($id){
         return $this->sqlFetchById($id);
+    }
+
+    public function getDetails($id){
+
+        return parent::selectView('vw_project_details')->where([
+            'column_name' => 'id',
+            'operator' => '=',
+            'value' => $id
+        ])->get();
     }
 
     public function create(){
@@ -59,7 +75,8 @@ class Project extends DatabaseQuery{
 
         return $this->sqlInsert(array(
             'project_name' => $this->projectName,
-            'project_description' => $this->projectDescription
+            'project_description' => $this->projectDescription,
+            'created_by' => $this->createdBy
         ));
     }
 
@@ -74,6 +91,7 @@ class Project extends DatabaseQuery{
             [
                 'project_name' => $this->projectName,
                 'project_description' => $this->projectDescription,
+                'status' => $this->status,
                 'id' => $this->projectId
             ]
         );
@@ -83,18 +101,18 @@ class Project extends DatabaseQuery{
         return $this->sqlSoftDelete($this->projectId);
     }
 
-    public function isProjectNameExist($id = 0){
+    public function isProjectNameExist(){
 
-        $project = $this->sqlFetchAll(
-            [
-                'where' => [
-                    'column_name' => 'project_name',
-                    'operator' => '=',
-                    'value' => $this->projectName
-                ]
-            ]
-        );
+        return $this->sqlSelect()->where([
+            'column_name' => 'project_name',
+            'operator' => '=',
+            'value' => $this->projectName
+        ])->where([
+            'column_name' => 'id',
+            'operator' => '!=',
+            'value' => $this->projectId
+        ])->get() ? false : true;
 
-        return count($project) ? false : true;
+
     }
 }

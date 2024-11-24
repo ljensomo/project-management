@@ -5,13 +5,17 @@ require_once 'DatabaseQuery.php';
 
 class ProjectModule extends DatabaseQuery{
 
-    const table = 'project_tech';
+    const table = 'project_modules';
 
     private $id;
     private $project_id;
     private $module_name;
     private $module_description;
     private $error_message;
+
+    public function __construct(){
+        parent::__construct(self::table);
+    }
 
     public function setId($id){
         $this->id = $id;
@@ -33,60 +37,35 @@ class ProjectModule extends DatabaseQuery{
         return $this->error_message;
     }
 
-    public function add(){
-
-        $this->setQuery('INSERT INTO project_modules (project_id, module_name, module_description) VALUES (?, ?, ?)');
-        $this->setParameters([$this->project_id, $this->module_name, $this->module_description]);
-        return $this->executeQuery();
-    }
-
-    public function get(){
-        $query = 'SELECT a.*, FLOOR(IF(complete IS NULL, 0, (complete/(complete+not_complete))*100)) AS progress FROM project_modules a
-                    LEFT JOIN (
-                    SELECT module_id, 
-                        SUM(CASE WHEN STATUS = 1 THEN 1 ELSE 0 END) complete,
-                        SUM(CASE WHEN STATUS = 2 OR STATUS = 3 THEN 1 ELSE 0 END) not_complete
-                    FROM module_functions GROUP BY module_id
-                    ) b ON a.`id` = b.module_id
-                    WHERE project_id = ?';
-                    
-        $this->setQuery($query);
-        $this->setParameters([$this->project_id]);
-        return DatabaseQuery::getAll();
-    }
-
-    public function getAll(){
-        $query = 'SELECT * FROM project_modules';
-
-        if($this->project_id != ""){
-            $query .= " WHERE project_id = ?";
-            $this->setParameters([$this->project_id]);
-        }
-
-        $this->setQuery($query);
-
-        return DatabaseQuery::getAll();
-    }
-
-    public function getModule($id){
-        $this->setQuery('SELECT * FROM project_modules WHERE id = ?');
-        $this->setParameters([$id]);
-        return DatabaseQuery::get();
-    }
-
-    public function modify(){
-        $this->setQuery('UPDATE project_modules SET module_name = ?, module_description = ? WHERE id = ?');
-        $this->setParameters([
-            $this->module_name,
-            $this->module_description,
-            $this->id
+    public function create(){
+        return $this->sqlInsert([
+            'project_id' => $this->project_id,
+            'module_name' => $this->module_name,
+            'module_description' => $this->module_description
         ]);
-        return $this->executeQuery();
     }
 
-    public function remove($id){
-        $this->setQuery('DELETE FROM project_modules WHERE id = ?');
-        $this->setParameters([$id]);
-        return $this->executeQuery();
+    public function getAllModules(){
+        return $this->selectView('vw_project_modules')->where([
+            'column_name' => 'project_id',
+            'operator' => '=',
+            'value' => $this->project_id
+        ])->getAll();
+    }
+
+    public function getById($id){
+        return $this->sqlFetchById($id);
+    }
+
+    public function update(){
+        return $this->sqlUpdate([
+            'module_name' => $this->module_name,
+            'module_description' => $this->module_description,
+            'id' => $this->id
+        ]);
+    }
+
+    public function delete($id){
+        return $this->sqlDelete($id);
     }
 }

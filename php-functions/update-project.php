@@ -8,6 +8,7 @@ if($_POST){
     $project->setProjectId($_POST['projectId']);
     $project->setProjectName($_POST['projectName']);
     $project->setProjectDescription($_POST['projectDescription']);
+    $project->setStatus($_POST['status']);
 
     if($project->update()){
         exit(json_encode(['success' => true, 'message' => 'Successfully updated project.']));

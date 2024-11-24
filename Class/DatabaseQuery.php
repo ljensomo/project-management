@@ -52,8 +52,14 @@ class DatabaseQuery extends Database{
         return $this->stmt->rowCount();
     }
 
-    public function sqlDelete($table, $id){
-        $this->setQuery("DELETE FROM $table WHERE id = ?");
+    public function sqlRaw($query, $parameters = null){
+        $this->setQuery($query);
+        $this->setParameters($parameters);
+        $this->executeQuery();
+    }
+
+    public function sqlDelete($id){
+        $this->setQuery("DELETE FROM ".$this->table." WHERE id = ?");
         $this->setParameters([$id]);
         return $this->executeQuery();
     }
@@ -90,15 +96,21 @@ class DatabaseQuery extends Database{
         $query_parameters = [];
         foreach($parameters as $key => $parameter){
             if ($key != 'id') {
+
                 $this->update_query .= $key . ' = ?';
                 $query_parameters[] = $parameter;
-            } 
-            if ($x < (count($parameters) - 1) ) $this->update_query .= ', ';
 
+                if ($x < (count($parameters) - 1) ) $this->update_query .= ', ';
+            }
+
+            if($key === 'id' && $x === 1){
+                continue;
+            }
             $x++;
         }
 
         $this->update_query .= ' WHERE id = ?';
+
         $query_parameters[] = $parameters['id'];
 
         $this->setQuery($this->update_query);
@@ -131,14 +143,50 @@ class DatabaseQuery extends Database{
 
         $parameters = array();        
         if($conditions != null){
+
             foreach($conditions as $key => $condition){
-                $query_condition = ' ' . strtoupper($key) . ' ' . $condition['column_name'] . ' ' .$condition['operator'] . ' ?';
+
+                $logical_operator = 'WHERE';
+
+                if( strpos($this->select_query, 'WHERE') !== false ){
+                    $logical_operator = 'AND';
+                }
+
+                $query_condition = ' ' . $logical_operator . ' ' . $condition['column_name'] . ' ' .$condition['operator'] . ' ?';
                 $this->select_query .= $query_condition;
 
                 // set parameter value
-                $parameters[] = $condition['value'];
+                $this->parameters[] = $condition['value'];
             }
-            $this->setParameters($parameters);
         }
+    }
+
+    public function sqlSelect($condition = null){
+        $this->buildSelectWhereClause($condition);
+        return $this;
+    }
+
+    public function where($condition){
+        $this->buildSelectWhereClause(['where' => $condition]);
+        return $this;
+    }
+
+    public function getAll(){
+        $this->setQuery($this->select_query);
+        $this->setParameters($this->parameters);
+        return $this->fetchAll();
+    }
+
+    public function get(){
+
+        $this->setQuery($this->select_query);
+        $this->setParameters($this->parameters);
+
+        return $this->fetch();
+    }
+
+    public function selectView($view_name){
+        $this->select_query = 'SELECT * FROM '.$view_name;
+        return $this;
     }
 }

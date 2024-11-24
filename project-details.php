@@ -42,6 +42,18 @@
                                     <td><textarea name="projectDescription" id="projectDescriptionInput" class="form-control" cols="30" rows="5"></textarea></td>
                                 </tr>
                                 <tr>
+                                    <td class="form-label-custom">Status</td>
+                                    <td>
+                                        <select class="form-control" name="status" id="projectStatus" required>
+
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="form-label-custom">Created By</td>
+                                    <td><input type="text" class="form-control" id="createdBy" readonly></td>
+                                </tr>
+                                <tr>
                                     <td class="form-label-custom">Date Created</td>
                                     <td><input type="datetime" class="form-control" id="dateCreatedInput" readonly></td>
                                 </tr>
