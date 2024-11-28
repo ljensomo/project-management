@@ -8,7 +8,7 @@ class Database{
     private $password;
     private $database;
 
-    public $connection;
+    public $pdo;
 
     public function __construct(){
         $config = parse_ini_file(dirname(__DIR__)."/config/app.ini");
@@ -24,10 +24,10 @@ class Database{
 
     public function connect(){
         try{
-            $connection = new PDO("$this->database:host=$this->host;dbname=$this->database_name", $this->user, $this->password);
-            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo = new PDO("$this->database:host=$this->host;dbname=$this->database_name", $this->user, $this->password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $this->connection = $connection;
+            $this->pdo = $pdo;
         }catch(Exception $e){
             throw new Exception("Database connection error: ".$e->getMessage());
         }

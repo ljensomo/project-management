@@ -8,6 +8,9 @@ class DatabaseQuery extends Database{
     private $query;
     private $parameters;
     private $stmt;
+    
+    private $fetchMode;
+    private $columnCount;
 
     private $select_query;
     private $update_query;
@@ -19,6 +22,8 @@ class DatabaseQuery extends Database{
         $this->table = $table;
         $this->select_query = 'SELECT * FROM '.$table;
         $this->update_query = 'UPDATE '.$table.' SET ';
+
+        $this->fetchMode = PDO::FETCH_ASSOC;
     }
 
     public function setQuery($query){
@@ -29,22 +34,34 @@ class DatabaseQuery extends Database{
         $this->parameters = $parameters;
     }
 
+    public function setFetchMode($fetchMode){
+        $this->fetchMode = $fetchMode;
+    }
+
+    public function getPDO(){
+        return $this->pdo;
+    }
+
+    public function getColumnCount(){
+        return $this->stmt->columnCount();
+    }
+
     public function executeQuery(){
 
-        $this->stmt = $this->connection->prepare($this->query);
+        $this->stmt = $this->pdo->prepare($this->query);
         return $this->stmt->execute($this->parameters);
     }
 
     public function fetchAll(){
 
         $this->executeQuery($this->parameters);
-        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->stmt->fetchAll($this->fetchMode);
     }
 
     public function fetch(){
         
         $this->executeQuery();
-        return $this->stmt->fetch(PDO::FETCH_ASSOC);
+        return $this->stmt->fetch($this->fetchMode);
     }
 
     public function getRowCount(){
