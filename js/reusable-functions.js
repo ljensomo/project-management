@@ -178,3 +178,43 @@ function generateTableRowButtons(parameters){
 
     return buttons;
 }
+
+function createDeleteButtonListener(parameters){
+
+    $(document).on("click", "."+parameters.buttonClass, function(){
+        let record_id = $(this).attr("data-id");
+        let record_name = $(this).attr("data-value");
+
+        Swal.fire({
+            title: "Do you want to delete "+record_name +"?",
+            text: record_name+" will be deleted from the list.",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Confirm Delete",
+        }).then((result) => {
+            if(result.isConfirmed){
+                $.ajax({
+                    "url": parameters.deleteUrl,
+                    "method": "POST",
+                    "data": {"id":record_id},
+                    "dataType": "json"
+                }).done(function(response){
+                    if(response.success){
+                        swalSuccess({
+                            title: 'Deleted!',
+                            text: record_name+' has been deleted.',
+                            callback: function(){
+                                refreshDatatable(parameters.tableId);
+                            }
+                        });
+                    }else{
+                        swalError(response.message);
+                    }
+                }).fail(function(response){
+                    Swal.fire('Ooops!', 'Failed to delete '+record_name+'.', 'error');
+                });
+            }
+        });
+    });
+
+}

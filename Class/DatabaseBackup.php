@@ -4,8 +4,16 @@ require_once 'DatabaseQuery.php';
 
 class DatabaseBackup extends DatabaseQuery{
 
+    const table = 'database_backups';
+
+    private $backup_id;
+
     public function __construct(){
-        parent::__construct(null);
+        parent::__construct(self::table);
+    }
+
+    public function setBackupId($backup_id){
+        $this->backup_id = $backup_id;
     }
 
     // generates a mysql dump to backup tables and records
@@ -49,10 +57,28 @@ class DatabaseBackup extends DatabaseQuery{
     
             $sqlDump .= "\n\n\n";
         }
+
+        $filename = 'db-backup-' . date('YmdHis') . '.sql';
     
-        $file = '../database/db-backup-' . date('YmdHis') . '.sql';
+        $file = '../database/'.$filename;
         file_put_contents($file, $sqlDump);
 
+        $this->createEntry($filename);
+
         return $file;
+    }
+
+    public function createEntry($filename){
+        $this->sqlInsert([
+            'filename' => $filename
+        ]);
+    }
+
+    public function getAllBackups(){
+        return $this->sqlFetchAll();
+    }
+
+    public function delete($id){
+        return $this->sqlDelete($id);
     }
 }
