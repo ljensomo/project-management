@@ -94,7 +94,21 @@ $(document).ready(function(){
                     delete: true
                 });
             }, className: "text-center"}
-        ]
+        ],
+        "createdRow": function(row, data, dataIndex) { 
+            // Add class to each <td> element 
+            switch(data.status){
+                case "1":
+                    $(row).children(':nth-child(3)').addClass('bg-success'); 
+                    break;
+                case "2":
+                    $(row).children(':nth-child(3)').addClass('bg-warning');
+                    break;
+                case "3":
+                    $(row).children(':nth-child(3)').addClass('bg-danger');
+                    break;
+            }
+        }
     });
 
     // add custom button in datatable

@@ -1,5 +1,17 @@
 
 
+CREATE TABLE `database_backups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(150) NOT NULL,
+  `date_created` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+
+
+
+
+
 CREATE TABLE `module_functions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `module_id` int(11) NOT NULL,
@@ -8,7 +20,7 @@ CREATE TABLE `module_functions` (
   `status` tinyint(1) DEFAULT NULL,
   `date_created` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO module_functions VALUES('1','1','Create ticket','To create a ticket for specific project','1','2024-10-17 20:15:09');
 INSERT INTO module_functions VALUES('2','2','Add module','Add module of a project.','1','2024-10-17 20:17:05');
@@ -41,6 +53,8 @@ INSERT INTO module_functions VALUES('28','11','Edit Machine','Function to update
 INSERT INTO module_functions VALUES('29','12','Create ticket','To create a ticket for specific project','1','2024-11-24 15:06:40');
 INSERT INTO module_functions VALUES('30','12','Create ticket','To create a ticket for specific project','1','2024-11-24 15:06:54');
 INSERT INTO module_functions VALUES('31','12','Delete','Function to delete entry.','1','2024-11-24 15:07:04');
+INSERT INTO module_functions VALUES('35','14','Generate Backup','Allows user to genarate a backup of database currently.','1','2024-12-15 12:15:11');
+INSERT INTO module_functions VALUES('36','14','Delete Backup','This module allows user to remove selected backup.','3','2024-12-15 12:18:28');
 
 
 

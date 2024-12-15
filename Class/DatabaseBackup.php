@@ -79,6 +79,10 @@ class DatabaseBackup extends DatabaseQuery{
     }
 
     public function delete($id){
+
+        $backup = $this->sqlFetchById($id);
+        unlink('../database/'.$backup['filename']);
+
         return $this->sqlDelete($id);
     }
 }
