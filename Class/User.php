@@ -76,6 +76,10 @@ class User extends DatabaseQuery{
             ]);
     }
 
+    public function getAllUsers(){
+        return $this->sqlFetchAll();
+    }
+
     public function getUser($id){
         
         $this->setQuery('SELECT * FROM users WHERE id = ?');

@@ -16,8 +16,8 @@
         <div class="content">
             <div class="content-main block-container">
                 <div class="table-header-buttons">
-                    <button type="button" class="btn btn-success btnCreate" data-bs-toggle="modal" data-bs-target="#userModal">
-                        <i class="fa fa-plus"></i> Create New
+                    <button type="button" class="btn btn-secondary btn-sm btnCreate" data-bs-toggle="modal" data-bs-target="#userModal">
+                        <i class="fa fa-plus"></i> Create New User
                     </button>
                 </div>
                 <table class="table table-bordered table-hover table-striped" id="userTable">
