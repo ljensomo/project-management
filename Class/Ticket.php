@@ -66,19 +66,17 @@ class Ticket extends DatabaseQuery{
         return $this->error_message;
     }
 
-    public function add(){
-        $this->setQuery('INSERT INTO tickets (project_id, category_id, subject, description, status, created_by, assigned_to) VALUES (?, ?, ?, ?, ?, ?, ?)');
-        $this->setParameters([
-            $this->project_id,
-            $this->category_id,
-            trim($this->subject),
-            trim($this->description),
-            $this->status,
-            $this->created_by,
-            $this->assign_to
-        ]);
+    public function create(){
 
-        return $this->executeQuery();
+        return $this->sqlInsert([
+            'project_id' => $this->project_id,
+            'category_id' => $this->category_id,
+            'subject' => $this->subject,
+            'description' => $this->description,
+            'status' => $this->status,
+            'created_by' => $this->created_by,
+            'assigned_to' => $this->assign_to
+        ]);
     }
 
     public function getProjectTickets(){
@@ -141,5 +139,9 @@ class Ticket extends DatabaseQuery{
         $this->setQuery($query);
         $this->setParameters([$ticket_id]);
         return $this->get();
+    }
+
+    public function getAllTickets(){
+        return $this->selectView('vw_tickets')->getAll();
     }
 }

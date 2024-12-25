@@ -1,8 +1,8 @@
 <?php
 
-require '../Class/Project.php';
+require '../../Class/Project.php';
 
-if($_POST){
+if($_POST['delete_project']){
     $project = new Project;
 
     $project->setProjectId($_POST['id']);

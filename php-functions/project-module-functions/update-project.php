@@ -1,18 +1,17 @@
 <?php
 
-session_start();
-
-require '../Class/Project.php';
-
 if($_POST){
+    require '../Class/Project.php';
+    
     $project = new Project;
 
+    $project->setProjectId($_POST['projectId']);
     $project->setProjectName($_POST['projectName']);
     $project->setProjectDescription($_POST['projectDescription']);
-    $project->setCreatedBy($_SESSION['user_id']);
+    $project->setStatus($_POST['status']);
 
-    if($project->create()){
-        exit(json_encode(['success' => true, 'message' => 'Successfully created project.']));
+    if($project->update()){
+        exit(json_encode(['success' => true, 'message' => 'Successfully updated project.']));
     }
 
     exit(json_encode(['success' => false, 'message' => $project->getErrorMessage()]));

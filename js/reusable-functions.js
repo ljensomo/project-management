@@ -84,37 +84,37 @@ function ajaxChecker(parameters){
     }
 }
 
-function populateSelect(parameters){
-
-    ajaxGet({
-        url: parameters.url,
-        errorMessage: !parameters.errorMessage ? "Something went wrong." : parameters.errorMessage,
-        callback: function(response){
-            let x = 0;
-            $.each(response.data, function(){
-                let value = response.data[x][parameters.value];
-                let text = parameters.text;
-
-                if(Array.isArray(text)){
-                    text = "";
-                    for(let textValue of parameters.text){
-                        text += response.data[x][textValue]+" ";
+function populateSelect(selectConfigs){
+    selectConfigs.forEach(function(config){
+        ajaxGet({
+            url: config.url,
+            errorMessage: !config.errorMessage ? "Something went wrong." : config.errorMessage,
+            callback: function(response){
+                let x = 0;
+                $.each(response.data, function(){
+                    let value = response.data[x][config.value];
+                    let text = config.text;
+    
+                    if(Array.isArray(text)){
+                        text = "";
+                        for(let textValue of config.text){
+                            text += response.data[x][textValue]+" ";
+                        }
+                    }else{
+                        text = response.data[x][config.text];
                     }
-                }else{
-                    text = response.data[x][parameters.text];
-                }
-
-                if(Array.isArray(parameters.selectId)){
-                    for(var i in parameters.selectId){
-                        $("#"+parameters.selectId[i]).append($("<option />").val(value).text(text));
-                    }
-                }else{
-                    $("#"+parameters.selectId).append($("<option />").val(value).text(text));
-                }
-
-                x++;
-            });
-        }
+    
+                    if(Array.isArray(config.selectId)){
+                        for(var i in config.selectId){
+                            $("#"+config.selectId[i]).append($("<option />").val(value).text(text));
+                        }
+                    }else{
+                        $("#"+config.selectId).append($("<option />").val(value).text(text));
+                    }    
+                    x++;
+                });
+            }
+        });
     });
 }
 
@@ -179,9 +179,23 @@ function generateTableRowButtons(parameters){
     return buttons;
 }
 
+function createEditButtonListener(parameters){
+    
+    $(document).on("click", "."+parameters.class, function(){
+        let record_id = $(this).attr("data-id");
+        let record_name = $(this).attr("data-value");
+
+        ajaxGet({
+            url: parameters.url+"?id="+record_id,
+            errorMessage: "Failed to fetch record.",
+            callback: parameters.callback ? parameters.callback : null
+        });
+    });
+}
+
 function createDeleteButtonListener(parameters){
 
-    $(document).on("click", "."+parameters.buttonClass, function(){
+    $(document).on("click", "."+parameters.class, function(){
         let record_id = $(this).attr("data-id");
         let record_name = $(this).attr("data-value");
 
@@ -194,9 +208,9 @@ function createDeleteButtonListener(parameters){
         }).then((result) => {
             if(result.isConfirmed){
                 $.ajax({
-                    "url": parameters.deleteUrl,
+                    "url": parameters.url,
                     "method": "POST",
-                    "data": {"id":record_id},
+                    "data": {"id":record_id, "delete_project": true},
                     "dataType": "json"
                 }).done(function(response){
                     if(response.success){
@@ -217,4 +231,62 @@ function createDeleteButtonListener(parameters){
         });
     });
 
+}
+
+// instantiate datatable
+function instantiateDatatable(parameters){
+    $(parameters.tableId).DataTable({
+        lengthChange: parameters.lengthChange ? parameters.lengthChange : false,
+        ajax: {
+            url: parameters.url,
+            dataSrc: "data"
+        },
+        columns: parameters.columns
+    });
+}
+
+// create module variables
+function createModuleVariables(module){
+    let moduleTable = "#"+module+"Table";
+    let moduleForm = "#"+module+"Form";
+    let moduleModal = "#"+module+"Modal";
+    let moduleUrl = "php-functions/"+module+"-module-functions/";
+    let moduleName = module;
+
+    return {
+        table: moduleTable,
+        form: moduleForm,
+        modal:moduleModal,
+        url: moduleUrl,
+        name: moduleName
+    }
+}
+
+function createFormListener(parameters){
+    $(document).on("submit", parameters.formId, function(e){
+        let action = "";
+        e.preventDefault();
+        
+        if(parameters.createOrUpdate){
+            action = parameters.idInput.length ? "update" : "create";
+            parameters.url += action + "-" + parameters.moduleName + ".php";
+        }
+
+        ajaxPost({
+            url: parameters.url ,
+            formData: new FormData(this),
+            errorMessage: parameters.errorMessage ? parameters.errorMessage : "Failed to process request.",
+            callback: function(response){
+                if(response.success){
+                    swalSuccess({
+                        title: "Success!",
+                        text: response.message,
+                        callback: parameters.callback ? parameters.callback : null
+                    });
+                }else{
+                    swalError(response.message);
+                }
+            }
+        });
+    });
 }

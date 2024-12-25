@@ -1,6 +1,6 @@
 <?php
 
-require '../Class/Project.php';
+require '../../Class/Project.php';
 
 $project = new Project;
 $data = $project->getAllProjects();

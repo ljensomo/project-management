@@ -1,6 +1,6 @@
 <?php
 
-require '../Class/Project.php';
+require '../../Class/Project.php';
 
 if($_GET){
     $project = new Project;
