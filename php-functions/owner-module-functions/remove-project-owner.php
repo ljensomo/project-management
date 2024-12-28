@@ -1,6 +1,6 @@
 <?php
 
-require '../Class/ProjectOwner.php';
+require '../../Class/ProjectOwner.php';
 
 if(isset($_POST)){
     $project_owner = new ProjectOwner;

@@ -5,9 +5,10 @@ CREATE TABLE `database_backups` (
   `filename` varchar(150) NOT NULL,
   `date_created` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO database_backups VALUES('7','db-backup-20241215054306.sql','2024-12-15 12:43:06');
+INSERT INTO database_backups VALUES('8','db-backup-20241223180602.sql','2024-12-24 01:06:02');
 
 
 
@@ -84,7 +85,7 @@ CREATE TABLE `project_modules` (
   `module_description` text DEFAULT NULL,
   `date_created` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO project_modules VALUES('1','1','Ticket','Creating of tickets related to the application, whether about issue or request.','2024-10-17 21:56:27');
 INSERT INTO project_modules VALUES('2','1','Project Details','Management of details of the projects such as project name, description, owner.','2024-10-17 21:56:27');
@@ -110,10 +111,10 @@ CREATE TABLE `project_owners` (
   `owner_id` tinyint(3) NOT NULL,
   `date_created` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO project_owners VALUES('3','2','1','2024-10-27 11:01:33');
-INSERT INTO project_owners VALUES('6','1','1','2024-11-23 21:25:48');
+INSERT INTO project_owners VALUES('22','1','1','2024-12-26 22:23:06');
 
 
 
@@ -165,7 +166,7 @@ CREATE TABLE `projects` (
   `date_created` datetime DEFAULT current_timestamp(),
   `created_by` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO projects VALUES('1','Project Management','This application is used to monitor all applications developed and ongoing development.','4','0','2024-10-17 18:20:39','0');
 INSERT INTO projects VALUES('2','Gym Management System','System for management of data for a gym facility.','2','0','2024-10-27 11:01:15','0');
@@ -176,12 +177,24 @@ INSERT INTO projects VALUES('6','asdddd','asd','1','1','2024-11-21 23:40:21','0'
 INSERT INTO projects VALUES('7','asd','asdd','1','1','2024-11-21 23:46:23','0');
 INSERT INTO projects VALUES('8','asdd','asd','1','1','2024-11-21 23:47:08','0');
 INSERT INTO projects VALUES('9','dsa','asd','1','1','2024-11-21 23:48:09','0');
-INSERT INTO projects VALUES('10','AI','A System that would assist me.','1','0','2024-11-23 20:03:47','0');
+INSERT INTO projects VALUES('10','AI','An application that would assist me.','1','0','2024-11-23 20:03:47','0');
 INSERT INTO projects VALUES('11','Discord Bot','Commandable bot in discord','1','0','2024-11-23 20:20:16','0');
 INSERT INTO projects VALUES('12','sample','sample','1','1','2024-11-23 21:42:00','0');
 INSERT INTO projects VALUES('13','sample2asd','sample22','1','1','2024-11-23 21:44:20','1');
 INSERT INTO projects VALUES('14','hagsjhdgajhs',' asjhgasd','1','1','2024-11-24 15:33:38','1');
 INSERT INTO projects VALUES('15','Expense Tracker Application','This application is used to track all the expenses the user will have. This also gives user a overview of the expenses.','1','0','2024-12-15 13:31:52','1');
+INSERT INTO projects VALUES('16','Sample','test','1','1','2024-12-25 21:48:57','1');
+INSERT INTO projects VALUES('17','asd4321','asd','1','1','2024-12-25 22:26:17','1');
+INSERT INTO projects VALUES('18','asd','asdddasda','1','1','2024-12-25 22:30:58','1');
+INSERT INTO projects VALUES('19','asd','asdddasdad','1','1','2024-12-25 22:42:48','1');
+INSERT INTO projects VALUES('20','asd','asdddasdad123','1','1','2024-12-26 00:07:42','1');
+INSERT INTO projects VALUES('21','asd23','asdddasdad12345','1','1','2024-12-26 00:08:05','1');
+INSERT INTO projects VALUES('22','asd','asdddasdad123456','1','1','2024-12-26 10:20:59','1');
+INSERT INTO projects VALUES('23','asd','asdddasdad1234567','1','1','2024-12-26 10:21:41','1');
+INSERT INTO projects VALUES('24','asd','asdddasdad12345678','1','1','2024-12-26 10:22:04','1');
+INSERT INTO projects VALUES('25','asd22','asd','1','1','2024-12-26 11:06:43','1');
+INSERT INTO projects VALUES('26','3214','asd','1','1','2024-12-26 11:06:59','1');
+INSERT INTO projects VALUES('27','asd123','asd','1','1','2024-12-26 13:14:06','1');
 
 
 
@@ -230,9 +243,19 @@ CREATE TABLE `tickets` (
   `created_by` tinyint(4) NOT NULL,
   `date_created` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO tickets VALUES('2','1',NULL,'1','Testing','Testing','0','1','1','2024-12-24 00:27:57');
+INSERT INTO tickets VALUES('3','1',NULL,'1','asd','asd','0','1','1','2024-12-25 19:58:16');
+INSERT INTO tickets VALUES('4','1',NULL,'1','asd','asd','0','1','1','2024-12-25 19:59:01');
+INSERT INTO tickets VALUES('5','1',NULL,'1','aasd','asd','0','1','1','2024-12-25 20:06:27');
+INSERT INTO tickets VALUES('6','1',NULL,'2','asd','asd','0','1','1','2024-12-25 20:09:42');
+INSERT INTO tickets VALUES('7','1',NULL,'1','asd','asd','0','1','1','2024-12-25 20:09:49');
+INSERT INTO tickets VALUES('8','1',NULL,'1','asd','asd','0','1','1','2024-12-25 20:16:31');
+INSERT INTO tickets VALUES('9','1',NULL,'1','asd','asd','0','1','1','2024-12-25 20:18:22');
+INSERT INTO tickets VALUES('10','2',NULL,'1','asd','asd','0','1','1','2024-12-25 20:25:23');
+INSERT INTO tickets VALUES('11','1',NULL,'1','asd','asd','0','1','1','2024-12-25 20:40:57');
+INSERT INTO tickets VALUES('12','1',NULL,'1','123','123','0','1','1','2024-12-26 13:14:26');
 
 
 
@@ -266,6 +289,13 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_project_modules` AS (select `a`.`id` AS `id`,`a`.`project_id` AS `project_id`,`a`.`module_name` AS `module_name`,`a`.`module_description` AS `module_description`,`a`.`date_created` AS `date_created`,floor(if(`b`.`complete` is null,0,`b`.`complete` / (`b`.`complete` + `b`.`not_complete`) * 100)) AS `progress` from (`db_project_management`.`project_modules` `a` left join (select `db_project_management`.`module_functions`.`module_id` AS `module_id`,sum(case when `db_project_management`.`module_functions`.`status` = 1 then 1 else 0 end) AS `complete`,sum(case when `db_project_management`.`module_functions`.`status` = 2 or `db_project_management`.`module_functions`.`status` = 3 then 1 else 0 end) AS `not_complete` from `db_project_management`.`module_functions` group by `db_project_management`.`module_functions`.`module_id`) `b` on(`a`.`id` = `b`.`module_id`)));
+
+
+
+
+
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_project_owners` AS (select `a`.`id` AS `id`,concat(`b`.`first_name`,' ',`b`.`last_name`) AS `owner`,`a`.`project_id` AS `project_id`,`a`.`owner_id` AS `owner_id` from (`project_owners` `a` join `users` `b` on(`a`.`owner_id` = `b`.`id`)));
 
 
 

@@ -51,13 +51,9 @@ $(document).ready(function(){
         });
     });
 
-    $(".btn-backup-delete").click(function(){
-        alert('test2');
-    });
-
     createDeleteButtonListener({
-        buttonClass: 'btn-backup-delete',
-        deleteUrl: 'php-functions/delete-backup.php',
+        class: 'btn-backup-delete',
+        url: 'php-functions/delete-backup.php',
         tableId: table
     });
 });

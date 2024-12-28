@@ -113,6 +113,5 @@ class Project extends DatabaseQuery{
             'value' => $this->projectId
         ])->get() ? false : true;
 
-
     }
 }

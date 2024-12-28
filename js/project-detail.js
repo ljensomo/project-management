@@ -1,68 +1,13 @@
 const project_id = $("#projectIdInput").val();
-const ownerTable = "#ownerTable";
-const ownerModal = "#ownerModal";
-const ownerForm = "#ownerForm";
-const projectModal = "#projectModal";
-const projectForm = "#projectForm";
-// --------- TICKETS
-const ticketsTable = "#ticketsTable";
-const ticketForm = "#ticketForm";
-const ticketUrl = "php-functions/tickets/";
-const ticketModal = "#ticketModal";
 
 $(document).ready(function(){
-
-    // add input for project id to owner form
-    $('<input>').attr({
-        type: "hidden",
-        name: "projectId",
-        value: project_id
-    }).prependTo([ownerForm, ticketForm]);
-
-    // populate select options
-    populateSelect({
-        url: "php-functions/users/get-active-users.php",
-        selectId: ["owners", "assignTo"],
-        value: "id",
-        text: ["first_name", "last_name"],
-        errorMessage: "Failed to retrieve owners."
-    });
-
-    // populate status options
-    populateSelect({
-        url: "php-functions/get-project-status.php",
-        selectId: ["projectStatus"],
-        value: "id",
-        text: ["name"],
-        errorMessage: "Failed to retrieve status."
-    });
-
-    // instantiate select2
-    $("#owners").css({
-        width: "100%",
-        height: "40px !important",
-    }).select2({
-        placeholder: "Select owner",
-        selectionCssClass: "select2--large", // For Select2 v4.1
-        dropdownCssClass: "select2--large",
-        dropdownParent: $(ownerModal),
-        allowClear: true,
-    });
-
-    $("#assignTo").css({
-        width: "100%",
-        height: "40px !important",
-    }).select2({
-        placeholder: "Select User",
-        selectionCssClass: "select2--large", // For Select2 v4.1
-        dropdownCssClass: "select2--large",
-        dropdownParent: $(ticketModal),
-        allowClear: true,
-    });
+    window.ownerModule = createModuleVariables("owner");
+    window.projectModule = createModuleVariables("project");
+    window.ticketModule = createModuleVariables("ticket");
 
     // get project details
     ajaxGet({
-        url: "php-functions/get-project.php?id="+project_id,
+        url: projectModule.url+"get-project.php?id="+project_id,
         callback: function(data){
             $("#projectNameInput").val(data.project_name);
             $("#projectDescriptionInput").val(data.project_description);
@@ -73,93 +18,145 @@ $(document).ready(function(){
         errorMessage: "Failed to retrieve project detail."
     });
 
+    // add input for project id to owner form
+    $('<input>').attr({
+        type: "hidden",
+        name: "projectId",
+        value: project_id
+    }).prependTo([ownerModule.form, ticketModule.form]);
+
+    // populate select options
+    populateSelect([
+        {
+            url: "php-functions/users/get-active-users.php",
+            selectId: ["ownersSelect", "assignToSelect"],
+            value: "id",
+            text: ["first_name", "last_name"],
+            errorMessage: "Failed to retrieve owners."
+        },
+        {
+            url: "php-functions/get-project-status.php",
+            selectId: ["projectStatus"],
+            value: "id",
+            text: ["name"],
+            errorMessage: "Failed to retrieve status."
+        },
+        {
+            url: "php-functions/category-module-functions/get-categories.php",
+            selectId: "categorySelect",
+            value: "id",
+            text: "name",
+            errorMessage: "Failed to retrieve categories."
+        }
+    ]);
+
+    // instantiate select2
+    $("#ownersSelect").css({
+        width: "100%",
+        height: "40px !important",
+    }).select2({
+        placeholder: "Select owner",
+        selectionCssClass: "select2--large", // For Select2 v4.1
+        dropdownCssClass: "select2--large",
+        dropdownParent: $(ownerModule.modal),
+        allowClear: true,
+    });
+
+    $("#assignToSelect").css({
+        width: "100%",
+        height: "40px !important",
+    }).select2({
+        placeholder: "Select User",
+        selectionCssClass: "select2--large", // For Select2 v4.1
+        dropdownCssClass: "select2--large",
+        dropdownParent: $(ticketModule.modal),
+        allowClear: true,
+    });
+
     // trigger submit form after clicking save
     $("#btnSaveProject").on("click", function(){
         
-        $(projectForm).submit();
+        $(projectModule.form).submit();
     });
 
-    // submit project form
-    $(projectForm).submit(function(e){
-        e.preventDefault();
-
-        ajaxPost({
-            url: "php-functions/update-project.php",
-            formData: new FormData(this),
-            errorMessage: "Failed to update project details.",
-            callback: function(response){
-                if(response.success){
-                    swalSuccess({
-                        title: "Updated!",
-                        text: response.message,
-                    });
-                }else{
-                    swalError(response.message);
-                }
-            }
-        });
-    });
-
-    // submit owner form
-    $(ownerForm).submit(function(e){
-        e.preventDefault();
-
-        ajaxPost({
-            url: "php-functions/add-project-owner.php",
-            formData: new FormData(this),
-            errorMessage: "Failed to add owner to the project.",
-            callback: function(response){
-                if(response.success){
-                    swalSuccess({
-                        title: "Added!",
-                        text: response.message,
-                        callback: function(){
-                            clearSelect2("owners");
-                            refreshDatatable(ownerTable);
-                        }
-                    });
-                    return;
-                }
-
-                swalError(response.message);
-            }
-        });
-    })
-
-    // instantiate owners table
-    $("#ownerTable").DataTable({
-        lengthChange: false,
-        pagination: false,
-        ajax: {
-            url: "php-functions/get-project-owners.php?id="+project_id,
-            dataSrc: "data"
+    createFormListener([
+        {
+            formId: projectModule.form,
+            url: projectModule.url+"update-project.php",
+            errorMessage: "Failed to update project details."
         },
-        columns: [
-            {data: "owner", className: "text-center"},
-            {data: function(data){
-                return "<button type='button' class='btn btn-sm btn-danger btnRemoveOwner' data-id='"+data.id+"' data-value='"+data.owner+"'><i class='fa fa-times'></i></button>";
-            }, className: "text-center", sorting: false},
-        ]
-    });
-
-    // click of remove button
-    $(document).on("click", ".btnRemoveOwner", function(){
-        let id = $(this).attr("data-id");
-        let owner = $(this).attr("data-value");
-
-        deleteRecord({
-            title: "Remove?",
-            text: "Do you want to remove "+owner+"?",
-            confirmButtonText: "Cofirm Remove",
-            subject: owner,
-            data: {"id": id},
-            url: "php-functions/remove-project-owner.php",
-            errorMessage: "Failed to remove project owner.",
-            table: ownerTable,
+        {
+            formId: ownerModule.form,
+            url: ownerModule.url+"add-project-owner.php",
+            errorMessage: "Failed to add owner to the project.",
             callback: function(){
-                refreshDatatable(ownerTable);
+                clearSelect2("ownersSelect");
+                refreshDatatable(ownerModule.table);
             }
-        })
+        },
+        {
+            formId: ticketModule.form,
+            url: ticketModule.url+"add-ticket.php",
+            errorMessage: "Failed to add ticket."
+        }
+    ]);
+
+    
+    // instantiate datatables
+    instantiateDatatable([
+        {
+            tableId: ownerModule.table,
+            url: ownerModule.url+"get-project-owners.php?id="+project_id,
+            columns: [
+                {data: "owner", className: "text-center"},
+                {data: function(data){
+                    return "<button type='button' class='btn btn-sm btn-danger btn-owner-remove' data-id='"+data.id+"' data-value='"+data.owner+"'><i class='fa fa-times'></i></button>";
+                }, className: "text-center", sorting: false}
+            ]
+        },
+        {
+            tableId: ticketModule.table,
+            url: ticketModule.url+"get-tickets.php?pid="+project_id,
+            columns: [
+                {data:"ticket_number"},
+                {data:"subject"},
+                {data:"description"},
+                {data:"date_created"},
+                {data:"assigned_to"},
+                {data:"status"},
+                {data:function(data){
+                    return generateTableRowButtons({
+                        buttonFor: "ticket",
+                        rowId: data.id,
+                        rowValue: data.ticket_number,
+                        view: true,
+                        viewUrl: "ticket-details.php?tid="+data.id+"&pid="+project_id,
+                        edit: true,
+                        delete: true
+                    });
+                }, className: "text-center"}
+            ],
+            columnDefs: [{
+                targets: 2,
+                render: function ( data, type, row ) {
+                    return data.length > 30 ? data.substr( 0, 30 ) + "..." : data;
+                }
+            }],
+            fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                if(aData["status"] == 'Resolved'){
+                   $('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6)', nRow).addClass('bg-success text-white');
+                }
+            }
+        }
+    ]);
+
+
+    createDeleteButtonListener({
+        moduleName: ownerModule.name,
+        tableId: ownerModule.table,
+        class: "btn-owner-remove",
+        url: ownerModule.url+"remove-project-owner.php",
+        errorMessage: "Failed to remove project owner."
     });
 
     // -------------- PROJECT TABS --------------
@@ -181,57 +178,50 @@ $(document).ready(function(){
         
     });
 
-    // -------------- TICKETS MODULE --------------
-    // instantiate datetable
-    $(ticketsTable).DataTable({
-        aaSorting: [],
-        lengthChange: false,
-        pagination: false,
-        autoWidth: false,
-        ajax: {
-            url: ticketUrl+"get-tickets.php?pid="+project_id,
-            dataSrc: "data"
-        },
-        columns: [
-            {data:"ticket_number"},
-            {data:"subject"},
-            {data:"description"},
-            {data:"date_created"},
-            {data:"assigned_to"},
-            {data:"status"},
-            {data:function(data){
-                return generateTableRowButtons({
-                    buttonFor: "ticket",
-                    rowId: data.id,
-                    rowValue: data.ticket_number,
-                    view: true,
-                    viewUrl: "ticket-details.php?tid="+data.id+"&pid="+project_id,
-                    edit: true,
-                    delete: true
-                });
-            }, className: "text-center"}
-        ],
-        columnDefs: [{
-            targets: 2,
-            render: function ( data, type, row ) {
-                return data.length > 30 ? data.substr( 0, 30 ) + "..." : data;
-            }
-        }],
-        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-            if(aData["status"] == 'Resolved'){
-               $('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6)', nRow).addClass('bg-success text-white');
-            }
-         },
-    });
+    // -------------- TICKETS MODULE ------------- 
+    // // instantiate datetable
+    // $(ticketsTable).DataTable({
+    //     aaSorting: [],
+    //     lengthChange: false,
+    //     pagination: false,
+    //     autoWidth: false,
+    //     ajax: {
+    //         url: ticketUrl+"get-tickets.php?pid="+project_id,
+    //         dataSrc: "data"
+    //     },
+    //     columns: [
+    //         {data:"ticket_number"},
+    //         {data:"subject"},
+    //         {data:"description"},
+    //         {data:"date_created"},
+    //         {data:"assigned_to"},
+    //         {data:"status"},
+    //         {data:function(data){
+    //             return generateTableRowButtons({
+    //                 buttonFor: "ticket",
+    //                 rowId: data.id,
+    //                 rowValue: data.ticket_number,
+    //                 view: true,
+    //                 viewUrl: "ticket-details.php?tid="+data.id+"&pid="+project_id,
+    //                 edit: true,
+    //                 delete: true
+    //             });
+    //         }, className: "text-center"}
+    //     ],
+    //     columnDefs: [{
+    //         targets: 2,
+    //         render: function ( data, type, row ) {
+    //             return data.length > 30 ? data.substr( 0, 30 ) + "..." : data;
+    //         }
+    //     }],
+    //     "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+    //         if(aData["status"] == 'Resolved'){
+    //            $('td:eq(0), td:eq(1), td:eq(2), td:eq(3), td:eq(4), td:eq(5), td:eq(6)', nRow).addClass('bg-success text-white');
+    //         }
+    //      },
+    // });
 
-    // populate select options (categories)
-    populateSelect({
-        url: "php-functions/category/get-categories.php",
-        selectId: "ticketCategory",
-        value: "id",
-        text: "name",
-        errorMessage: "Failed to retrieve categories."
-    });
+
 
     // add custom button in datatable
     let table_buttons = "<button type='button' class='btn btn-primary' id='btnTicketAdd' data-bs-toggle='modal' data-bs-target='#ticketModal'><i class='fa fa-plus'></i> Add Ticket</button>";

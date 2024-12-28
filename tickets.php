@@ -16,7 +16,7 @@
         <div class="content">
             <div class="content-main block-container">
                 <div class="table-header-buttons">
-                    <button type="button" class="btn btn-sm btn-secondary btnCreate" data-bs-toggle="modal" data-bs-target="#ticketModal">
+                    <button type="button" class="btn btn-sm btn-secondary btn-create-ticket" data-bs-toggle="modal" data-bs-target="#ticketModal">
                         <i class="fa fa-plus"></i> New Ticket
                     </button>
                 </div>
@@ -24,6 +24,7 @@
                     <thead>
                         <tr>
                             <th>Ticket ID</th>
+                            <th>Category</th>
                             <th>Project Name</th>
                             <th>Subject</th>
                             <th>Date Created</th>

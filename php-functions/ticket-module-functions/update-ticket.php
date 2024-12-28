@@ -2,19 +2,17 @@
 
 require '../../Class/Ticket.php';
 
-if($_POST){
+if($_POST['create_update_ticket']){
     $ticket = new Ticket;
 
-    $ticket->setTicketId($_POST['ticketId']);
-    $ticket->setSubject($_POST['subject']);
-    $ticket->setDescription($_POST['description']);
-    $ticket->setAssignTo($_POST['assign_to']);
+    $ticket->setTicketId($_POST['ticket_id']);
+    $ticket->setAssignTo(isset($_POST['assign_to']) ? $_POST['assign_to'] : null);
     $ticket->setStatus($_POST['status']);
-    $ticket->setCategory(($_POST['category']));
 
     if($ticket->update()){
 
         if($_POST['status'] == 5){ // if ticket is resolved mark date completed
+            $ticket->setTicketId($_POST['ticket_id']);
             $ticket->updateDateCompleted();
         }
 

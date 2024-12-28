@@ -28,6 +28,7 @@
                 <div class="row">
                     <div class="col">
                         <form action="" id="projectForm" class="form-inline">
+                            <input type="hidden" name="create_update_project" value="1">
                             <table class="table form-table">
                                 <tr>
                                     <td class="form-label-custom">Project ID</td>

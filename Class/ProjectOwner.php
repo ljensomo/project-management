@@ -39,16 +39,19 @@ class ProjectOwner extends DatabaseQuery{
             return false;
         }
 
-        $this->setQuery('INSERT INTO project_owners (project_id, owner_id) VALUES (?, ?)');
-        $this->setParameters([$this->project_id, $this->owner_id]);
-        return $this->executeQuery();
+        return $this->sqlInsert([
+            'project_id' => $this->project_id,
+            'owner_id' => $this->owner_id
+        ]);
     }
 
-    public function getAll(){
+    public function getProjectOwners(){
 
-        $query = 'SELECT a.id, CONCAT(first_name," ",last_name) AS owner FROM project_owners a JOIN users b ON a.owner_id=b.id WHERE project_id = ?';
-        $this->sqlRaw($query, [$this->project_id]);
-        return $this->fetchAll();
+        return $this->selectView('vw_project_owners')->where([
+            'column_name' => 'project_id',
+            'operator' => '=',
+            'value' => $this->project_id
+        ])->getAll();
     }
 
     public function remove($id){

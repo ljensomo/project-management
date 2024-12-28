@@ -109,39 +109,40 @@ class Ticket extends DatabaseQuery{
         return $this->executeQuery();
     }
 
-    public function modify(){
-        $this->setQuery('UPDATE tickets SET category_id = ?, subject = ?, description = ?, assigned_to = ?, status = ? WHERE id = ?');
-        $this->setParameters([
-            $this->category_id,
-            trim($this->subject),
-            trim($this->description),
-            $this->assign_to,
-            $this->status,
-            $this->ticket_id
-        ]);
+    public function update(){
 
-        return $this->executeQuery();
+        return $this->sqlUpdate([
+            'assigned_to' => $this->assign_to,
+            'status' => $this->status,
+            'id' => $this->ticket_id
+        ]);
     }
 
     public function updateDateCompleted(){
-        $this->setQuery('UPDATE tickets SET date_completed = CURRENT_TIMESTAMP WHERE id = ?');
-        $this->setParameters([
-            $this->ticket_id
-        ]);
 
-        return $this->executeQuery();
+        return $this->sqlUpdate([
+            'date_completed' => date('Y-m-d H:i:s'),
+            'id' => $this->ticket_id
+        ]);
     }
 
     public function getTicket($ticket_id){
-        $query = 'SELECT a.*,project_name FROM tickets a 
-                    JOIN projects b ON a.project_id=b.id
-                    WHERE a.id = ?';
-        $this->setQuery($query);
-        $this->setParameters([$ticket_id]);
-        return $this->get();
+        return $this->selectView('vw_tickets')
+            ->where([
+                'column_name' => 'id',
+                'operator' => '=',
+                'value' => $ticket_id
+            ])
+            ->get();
     }
 
     public function getAllTickets(){
-        return $this->selectView('vw_tickets')->getAll();
+        return $this->selectView('vw_tickets')
+            ->where([
+                'column_name' => 'status_id',
+                'operator' => '<>',
+                'value' => 4
+            ])
+            ->getAll();
     }
 }

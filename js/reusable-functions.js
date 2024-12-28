@@ -32,6 +32,7 @@ function swalError(message = "Something went wrong!", title = null){
 }
 
 function refreshDatatable(tableId){
+
     $(tableId).DataTable().ajax.reload(null, false);
 }
 
@@ -235,13 +236,19 @@ function createDeleteButtonListener(parameters){
 
 // instantiate datatable
 function instantiateDatatable(parameters){
-    $(parameters.tableId).DataTable({
-        lengthChange: parameters.lengthChange ? parameters.lengthChange : false,
-        ajax: {
-            url: parameters.url,
-            dataSrc: "data"
-        },
-        columns: parameters.columns
+    if(!Array.isArray(parameters)){
+        parameters = [parameters];
+    }
+
+    parameters.forEach(function(parameter){
+        $(parameter.tableId).DataTable({
+            lengthChange: parameter.lengthChange ? parameter.lengthChange : false,
+            ajax: {
+                url: parameter.url,
+                dataSrc: "data"
+            },
+            columns: parameter.columns
+        });
     });
 }
 
@@ -263,30 +270,38 @@ function createModuleVariables(module){
 }
 
 function createFormListener(parameters){
-    $(document).on("submit", parameters.formId, function(e){
-        let action = "";
-        e.preventDefault();
-        
-        if(parameters.createOrUpdate){
-            action = parameters.idInput.length ? "update" : "create";
-            parameters.url += action + "-" + parameters.moduleName + ".php";
-        }
+    if (!Array.isArray(parameters)) {
+        parameters = [parameters];
+    }
 
-        ajaxPost({
-            url: parameters.url ,
-            formData: new FormData(this),
-            errorMessage: parameters.errorMessage ? parameters.errorMessage : "Failed to process request.",
-            callback: function(response){
-                if(response.success){
-                    swalSuccess({
-                        title: "Success!",
-                        text: response.message,
-                        callback: parameters.callback ? parameters.callback : null
-                    });
-                }else{
-                    swalError(response.message);
-                }
+    parameters.forEach(function(parameter){
+        $(document).on("submit", parameter.formId, function(e){
+            let action = "";
+            e.preventDefault();
+            
+            if(parameter.createOrUpdate){
+                let idInput = $(parameter.idInput);
+                let baseUrl = "php-functions/"+parameter.moduleName+"-module-functions/";
+                action = idInput.length && idInput.val() != "" ? "update" : "create";
+                parameter.url = baseUrl + action + "-" + parameter.moduleName + ".php";
             }
+    
+            ajaxPost({
+                url: parameter.url,
+                formData: new FormData(this),
+                errorMessage: parameter.errorMessage ? parameter.errorMessage : "Failed to process request.",
+                callback: function(response){
+                    if(response.success){
+                        swalSuccess({
+                            title: "Success!",
+                            text: response.message,
+                            callback: parameter.callback ? parameter.callback : null
+                        });
+                    }else{
+                        swalError(response.message);
+                    }
+                }
+            });
         });
     });
 }

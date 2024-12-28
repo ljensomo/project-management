@@ -8,7 +8,7 @@ $(document).ready(function() {
             selectId: "projectStatus",
             value: "id",
             text: "name",
-            errorMessage: "Failed to retrieve status."
+            errorMessage: "Failed to retrieve statuses."
         }
     ]);
 
@@ -31,23 +31,16 @@ $(document).ready(function() {
                     delete: true,
                     buttonFor: module.name
                 });
-                // let buttons = "<a href='project-details.php?pid="+data.id+"' class='btn btn-sm btn-outline-info'>More</a>";
-                // buttons += " <button type='button' class='btn btn-sm btn-outline-warning btnEdit' data-id='"+data.id+"'>Edit</button>";
-                // buttons += " <button type='button' class='btn btn-sm btn-outline-danger btnDelete' data-id='"+data.id+"' data-value='"+data.project_name+"'>Delete</button>";
-                // return buttons;
             }, "className": "text-center"},
         ]
     });
 
     // submit form listener
-    let action = $("#projectIdInput").length ? "update" : "create";
     createFormListener({
         moduleName: module.name,
         createOrUpdate: true,
-        idInput: $("#projectIdInput"),
+        idInput: "#projectIdInput",
         formId: module.form,
-        url: module.url,
-        errorMessage: "Failed to "+action+" project.",
         callback: function(){
             refreshDatatable(module.table);
             $(module.form)[0].reset();
@@ -77,6 +70,7 @@ $(document).ready(function() {
     });
 
     createDeleteButtonListener({
+        moduleName: module.name,
         class: "btn-project-delete",
         url: module.url+"delete-project.php",
         tableId: module.table,
@@ -104,38 +98,3 @@ $(document).ready(function() {
         $(module.form)[0].reset();
     });
 });
-
-// $(document).on("click", ".btnEdit", function(){
-//     let id = $(this).attr("data-id");
-
-//     $.ajax({
-//         "url": "php-functions/get-project.php",
-//         "data": {"id":id},
-//         "method": "GET",
-//         "dataType":"json"
-//     }).done(function(data){
-//         $(projectModal+"Label").html("Edit "+data.project_name);
-
-//         $("#projectIdInput").remove();
-//         $('<input>').attr({
-//             type: "hidden",
-//             id: "projectIdInput",
-//             name: "projectId",
-//             value: id
-//         }).prependTo(projectForm);
-//         $("#projectNameInput").val(data.project_name);
-//         $("#projectDescriptionInput").val(data.project_description);
-//         $("#projectStatus").val(data.status);
-
-//         $(projectModal).modal("toggle");
-//     }).fail(function(response){
-//         Swal.fire('Ooops!', 'Failed to retrieve project.', 'error');
-//         console.log(response);
-//     });
-// });
-
-// $(document).on("click", ".btnCreate", function(){
-//     $(projectModal+"Label").html("Create New Project");
-//     $("#projectIdInput").remove();
-//     $(projectForm)[0].reset();
-// });

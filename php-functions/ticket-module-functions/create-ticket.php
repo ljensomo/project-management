@@ -2,7 +2,7 @@
 
 session_start();
 
-if(isset($_POST['create_ticket'])){
+if(isset($_POST['create_update_ticket'])){
     require_once '../../Class/Ticket.php';
     $ticket = new Ticket();
 

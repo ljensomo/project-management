@@ -1,7 +1,7 @@
 <?php
 
-if($_POST){
-    require '../Class/Project.php';
+if($_POST['create_update_project']){
+    require '../../Class/Project.php';
     
     $project = new Project;
 
