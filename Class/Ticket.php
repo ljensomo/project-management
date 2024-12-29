@@ -111,6 +111,16 @@ class Ticket extends DatabaseQuery{
 
     public function update(){
 
+        if($this->isTicketCancelled()){
+            $this->setErrorMessagge('Ticket is already cancelled, cannot be updated.');
+            return false;
+        }
+
+        if($this->isTicketResolved()){
+            $this->setErrorMessagge('Ticket is already resolved, cannot be updated.');
+            return false;
+        }
+
         return $this->sqlUpdate([
             'assigned_to' => $this->assign_to,
             'status' => $this->status,
@@ -144,5 +154,49 @@ class Ticket extends DatabaseQuery{
                 'value' => 4
             ])
             ->getAll();
+    }
+
+    public function isTicketCancelled(){
+
+        if(!$this->isTicketSet()){
+            return false;
+        }
+
+        return $this->sqlSelect()->where([
+                'column_name' => 'id',
+                'operator' => '=',
+                'value' => $this->ticket_id
+            ])
+            ->where([
+                'column_name' => 'status',
+                'operator' => '=',
+                'value' => 4
+            ])->get();
+    }
+
+    public function isTicketResolved(){
+
+        if(!$this->isTicketSet()){
+            return false;
+        }
+
+        return $this->sqlSelect()->where([
+                'column_name' => 'id',
+                'operator' => '=',
+                'value' => $this->ticket_id
+            ])->where([
+                'column_name' => 'status',
+                'operator' => '=',
+                'value' => 5
+            ])->get();
+    }
+
+    public function isTicketSet(){
+        if($this->ticket_id == null || $this->ticket_id == ''){
+            $this->setErrorMessagge('Ticket ID is required.');
+            return false;
+        }
+
+        return true;
     }
 }

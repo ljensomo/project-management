@@ -13,4 +13,12 @@ class TicketStatus extends DatabaseQuery{
     public function getAllStatus(){
         return $this->sqlFetchAll();
     }
+
+    public function getCategoryStatus($category_id){
+        return $this->sqlSelect()->where([
+            'column_name' => 'category_id',
+            'operator' => '=',
+            'value' => $category_id
+        ])->getAll();
+    }
 }

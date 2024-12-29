@@ -7,6 +7,7 @@ class DatabaseBackup extends DatabaseQuery{
     const table = 'database_backups';
 
     private $backup_id;
+    private $created_by;
 
     public function __construct(){
         parent::__construct(self::table);
@@ -14,6 +15,10 @@ class DatabaseBackup extends DatabaseQuery{
 
     public function setBackupId($backup_id){
         $this->backup_id = $backup_id;
+    }
+
+    public function setCreatedBy($created_by){
+        $this->created_by = $created_by;
     }
 
     // generates a mysql dump to backup tables and records
@@ -70,12 +75,13 @@ class DatabaseBackup extends DatabaseQuery{
 
     public function createEntry($filename){
         $this->sqlInsert([
-            'filename' => $filename
+            'filename' => $filename,
+            'created_by' => $this->created_by
         ]);
     }
 
-    public function getAllBackups(){
-        return $this->sqlFetchAll();
+public function getAllBackups(){
+        return $this->selectView('vw_database_backups')->getAll();
     }
 
     public function delete($id){

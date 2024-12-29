@@ -31,13 +31,35 @@ $(document).ready(function(){
             {data: "subject"},
             {data: "date_created"},
             {data: "created_by"},
-            {data: "status_name"},
+            {data: function(data){
+                let color = '';
+                switch(data.status_name){
+                    case 'Resolved':
+                    case 'Fixed':
+                    case 'Completed':
+                    case 'Closed':
+                    case 'Approved':
+                    case 'Released':
+                        color = 'success';
+                        break;
+                    case 'In Progress':
+                        color = 'warning';
+                        break;
+                    case 'Cancelled':
+                        color = 'danger';
+                        break;
+                    default:
+                        color = 'secondary';
+                }
+
+                return "<span class='badge bg-"+color+"'>"+data.status_name+"</span>";
+            }, className: "text-center"},
             {data: function(data){
                 return generateTableRowButtons({
                     rowId: data.id,
                     rowValue: data.subject,
                     view: true,
-                    viewUrl: "ticket-detail.php?id="+data.id,
+                    viewUrl: "ticket-details.php?id="+data.id,
                     edit: true,
                     buttonFor: module.name,
                 });
@@ -58,13 +80,6 @@ $(document).ready(function(){
             url: category_url+"get-categories.php",
             text: "name",
             value: "id"
-        },
-        {
-            url: "php-functions/get-ticket-statuses.php",
-            selectId: "statusSelect",
-            value: "id",
-            text: "name",
-            errorMessage: "Failed to retrieve statuses."
         }
     ]);
 
@@ -93,8 +108,24 @@ $(document).ready(function(){
             $("#projectSelect").val(data.project_id).attr("disabled", true);
             $("#ticketSubjectInput").val(data.subject).attr("disabled", true);
             $("#ticketDescriptionInput").val(data.description).attr("disabled", true);
+            
+
+            generateCategoryStatus(data.category_id);
             $("#statusSelect").val(data.status_id);
             $("#statusDiv").show();
         }
     });
+
+    function generateCategoryStatus(category_id){
+        $("#statusSelect").empty().append('<option value="">--</option>');
+        populateSelect([
+            {
+                url: "php-functions/get-ticket-statuses.php?category_id="+category_id,
+                selectId: "statusSelect",
+                value: "id",
+                text: "name",
+                errorMessage: "Failed to retrieve statuses."
+            }
+        ]);
+    }
 });

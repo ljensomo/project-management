@@ -21,30 +21,33 @@
     <div class="content">
         <div class="content-main block-container">
             <div class="table-header-columns">
-                <a href="project-details.php?pid=<?=$_GET['pid']?>" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Back to Project</a>
-                <button type="button" class="btn btn-success" id="btnSaveTicket"><i class="fa fa-save"></i> Save Changes</button>
+                <a href="tickets.php" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left"></i> Back to Tickets</a>
+                <button type="button" class="btn btn-success btn-sm" id="btnSaveTicket"><i class="fa fa-save"></i> Save Changes</button>
                 <hr>
             </div>
             <div class="row">
                 <div class="col">
                     <form action="" id="projectForm" class="form-inline">
+                        <input type="hidden" id="projectIdInput" name="project_id">
                         <table class="table form-table">
                             <tr>
                                 <td class="form-label-custom">Ticket ID</td>
-                                <td><input type="text" name="ticketid" id="ticketIdInput" value="<?=$_GET['tid']?>" class="form-control" readonly></td>
+                                <td><input type="text" name="ticket_id" id="ticketIdInput" value="<?=$_GET['id']?>" class="form-control" readonly></td>
                             </tr>
                             <tr>
                                 <td class="form-label-custom">Category</td>
-                                <td><select class="form-control" name="category" id="ticketCategory" required></select></td>
+                                <td><select class="form-control" name="category" id="categorySelect" required>
+                                    <option value="">--</option>
+                                </select></td>
                             </tr>
                             <tr>
                                 <td class="form-label-custom">Project</td>
-                                <td><input type="text" name="project" id="ticketProject" class="form-control" readonly></td>
+                                <td><input type="text" name="project" id="projectNameInput" class="form-control" readonly></td>
                             </tr>
                             <tr>
                                 <td class="form-label-custom">Module</td>
                                 <td>
-                                    <select name="module" id="ticketModule" class="form-control">
+                                    <select name="module" id="moduleSelect" class="form-control">
                                         <option value="">--</option>
                                     </select>
                                 </td>
@@ -52,7 +55,7 @@
                             <tr>
                                 <td class="form-label-custom">Assigned To</td>
                                 <td>
-                                    <select name="assign_to" id="assignedTo" class="form-control">
+                                    <select name="assign_to" id="assignedToSelect" class="form-control">
                                         <option value="">--</option>
                                     </select>
                                 </td>
@@ -60,14 +63,8 @@
                             <tr>
                                 <td class="form-label-custom">Status</td>
                                 <td>
-                                    <select name="status" id="ticketStatus" class="form-control">
+                                    <select name="status" id="statusSelect" class="form-control">
                                         <option value="">--</option>
-                                        <option value="1">New</option>
-                                        <option value="2">In Progress</option>
-                                        <option value="3">On Hold</option>
-                                        <option value="4">Canceled</option>
-                                        <option value="5">Resolved</option>
-                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -87,12 +84,12 @@
                             <tr>
                                 <td class="form-label-custom">Subject</td>
                                 <td>
-                                    <input type="hidden" id="projectIdInput" value="<?=$_GET['pid']?>">
-                                    <input type="text" name="ticketSubject" id="ticketSubjectInput" class="form-control"></td>
+                                    <input type="text" name="ticketSubject" id="subjectInput" class="form-control">
+                                </td>
                             </tr>
                             <tr>
                                 <td class="form-label-custom">Description</td>
-                                <td><textarea name="ticketDescription" id="ticketDescriptionInput" class="form-control" cols="30" rows="5"></textarea></td>
+                                <td><textarea name="ticketDescription" id="descriptionInput" class="form-control" cols="30" rows="5"></textarea></td>
                             </tr>
                         </thead>
                     </table>

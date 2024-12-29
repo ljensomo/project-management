@@ -179,12 +179,16 @@ class DatabaseQuery extends Database{
     }
 
     public function sqlSelect($condition = null){
+        $this->select_query = 'SELECT * FROM '.$this->table;
+        $this->parameters = array();
+        
         $this->buildSelectWhereClause($condition);
         return $this;
     }
 
     public function where($condition){
         $this->buildSelectWhereClause(['where' => $condition]);
+
         return $this;
     }
 

@@ -19,6 +19,7 @@ $(document).ready(function(){
                 return "<a href='database/"+filename+"'>"+filename+"</a>";
             }},
             {data: "date_created"},
+            {data: "created_by_name"},
             {data: function(data){
                 return generateTableRowButtons({
                     buttonFor: "backup",

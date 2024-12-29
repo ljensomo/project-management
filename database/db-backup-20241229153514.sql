@@ -3,12 +3,13 @@
 CREATE TABLE `database_backups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(150) NOT NULL,
+  `created_by` int(11) NOT NULL,
   `date_created` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO database_backups VALUES('7','db-backup-20241215054306.sql','2024-12-15 12:43:06');
-INSERT INTO database_backups VALUES('8','db-backup-20241223180602.sql','2024-12-24 01:06:02');
+INSERT INTO database_backups VALUES('9','db-backup-20241226163036.sql','0','2024-12-26 23:30:36');
+INSERT INTO database_backups VALUES('10','db-backup-20241226163105.sql','0','2024-12-26 23:31:05');
 
 
 
@@ -205,10 +206,16 @@ CREATE TABLE `ticket_categories` (
   `name` varchar(150) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO ticket_categories VALUES('1','Incident',NULL);
-INSERT INTO ticket_categories VALUES('2','Request',NULL);
+INSERT INTO ticket_categories VALUES('1','Bug Report','Report software bugs or issues.');
+INSERT INTO ticket_categories VALUES('2','Feature Request','Suggest new features or enhancements.');
+INSERT INTO ticket_categories VALUES('3','Support Request','Seek help or support with a specific problem.');
+INSERT INTO ticket_categories VALUES('4','To-Do','Track and manage individual tasks or action items.');
+INSERT INTO ticket_categories VALUES('5','Change Request','Propose changes to existing processes, systems, or projects.');
+INSERT INTO ticket_categories VALUES('6','Incident Report','Document and manage incidents or unexpected events.');
+INSERT INTO ticket_categories VALUES('7','Maintenance Request','Request regular maintenance or updates.');
+INSERT INTO ticket_categories VALUES('8','Review','Provide feedback or conduct a review.');
 
 
 
@@ -241,21 +248,27 @@ CREATE TABLE `tickets` (
   `assigned_to` tinyint(4) DEFAULT NULL,
   `status` tinyint(1) NOT NULL,
   `created_by` tinyint(4) NOT NULL,
+  `date_completed` datetime DEFAULT NULL,
   `date_created` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO tickets VALUES('2','1',NULL,'1','Testing','Testing','0','1','1','2024-12-24 00:27:57');
-INSERT INTO tickets VALUES('3','1',NULL,'1','asd','asd','0','1','1','2024-12-25 19:58:16');
-INSERT INTO tickets VALUES('4','1',NULL,'1','asd','asd','0','1','1','2024-12-25 19:59:01');
-INSERT INTO tickets VALUES('5','1',NULL,'1','aasd','asd','0','1','1','2024-12-25 20:06:27');
-INSERT INTO tickets VALUES('6','1',NULL,'2','asd','asd','0','1','1','2024-12-25 20:09:42');
-INSERT INTO tickets VALUES('7','1',NULL,'1','asd','asd','0','1','1','2024-12-25 20:09:49');
-INSERT INTO tickets VALUES('8','1',NULL,'1','asd','asd','0','1','1','2024-12-25 20:16:31');
-INSERT INTO tickets VALUES('9','1',NULL,'1','asd','asd','0','1','1','2024-12-25 20:18:22');
-INSERT INTO tickets VALUES('10','2',NULL,'1','asd','asd','0','1','1','2024-12-25 20:25:23');
-INSERT INTO tickets VALUES('11','1',NULL,'1','asd','asd','0','1','1','2024-12-25 20:40:57');
-INSERT INTO tickets VALUES('12','1',NULL,'1','123','123','0','1','1','2024-12-26 13:14:26');
+INSERT INTO tickets VALUES('2','1',NULL,'0','','Testing',NULL,'4','1',NULL,'2024-12-24 00:27:57');
+INSERT INTO tickets VALUES('3','1',NULL,'1','asd','asd',NULL,'4','1',NULL,'2024-12-25 19:58:16');
+INSERT INTO tickets VALUES('4','1',NULL,'1','asd','asd',NULL,'4','1',NULL,'2024-12-25 19:59:01');
+INSERT INTO tickets VALUES('5','1',NULL,'1','aasd','asd',NULL,'4','1',NULL,'2024-12-25 20:06:27');
+INSERT INTO tickets VALUES('6','1',NULL,'2','asd','asd',NULL,'4','1',NULL,'2024-12-25 20:09:42');
+INSERT INTO tickets VALUES('7','1',NULL,'1','asd','asd',NULL,'4','1',NULL,'2024-12-25 20:09:49');
+INSERT INTO tickets VALUES('8','1',NULL,'1','asd','asd',NULL,'4','1',NULL,'2024-12-25 20:16:31');
+INSERT INTO tickets VALUES('9','1',NULL,'1','asd','asd',NULL,'4','1',NULL,'2024-12-25 20:18:22');
+INSERT INTO tickets VALUES('10','2',NULL,'1','asd','asd',NULL,'4','1',NULL,'2024-12-25 20:25:23');
+INSERT INTO tickets VALUES('11','1',NULL,'1','asd','asd',NULL,'4','1',NULL,'2024-12-25 20:40:57');
+INSERT INTO tickets VALUES('12','1',NULL,'1','123','123',NULL,'4','1',NULL,'2024-12-26 13:14:26');
+INSERT INTO tickets VALUES('13','1',NULL,'1','Delete Backup','Cannot delete generated backup in Database Backup',NULL,'5','1','2024-12-29 15:15:50','2024-12-26 23:32:24');
+INSERT INTO tickets VALUES('14','1',NULL,'1','Ticket Module','Tickets module in project details is not working.','0','1','1',NULL,'2024-12-26 23:33:04');
+INSERT INTO tickets VALUES('15','1',NULL,'2','Database Backup Module','Include the user name who generated the backup.',NULL,'1','1',NULL,'2024-12-27 13:13:00');
+INSERT INTO tickets VALUES('16','1',NULL,'2','te','te',NULL,'4','1',NULL,'2024-12-27 13:21:38');
+INSERT INTO tickets VALUES('17','10',NULL,'2','asd','asd',NULL,'4','1',NULL,'2024-12-27 13:22:55');
 
 
 
@@ -309,7 +322,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 
 
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_tickets` AS (select `a`.`id` AS `id`,`b`.`project_name` AS `project_name`,`a`.`subject` AS `subject`,`a`.`date_created` AS `date_created`,concat(`c`.`first_name`,' ',`c`.`last_name`) AS `created_by`,`d`.`name` AS `status` from (((`tickets` `a` join `projects` `b` on(`a`.`project_id` = `b`.`id`)) join `users` `c` on(`a`.`created_by` = `c`.`id`)) join `ticket_statuses` `d` on(`a`.`status` = `d`.`id`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_tickets` AS (select `a`.`id` AS `id`,`a`.`category_id` AS `category_id`,`a`.`status` AS `status_id`,`b`.`project_name` AS `project_name`,`a`.`subject` AS `subject`,`a`.`date_created` AS `date_created`,concat(`c`.`first_name`,' ',`c`.`last_name`) AS `created_by`,`d`.`name` AS `status_name`,`e`.`name` AS `category`,`a`.`description` AS `description`,`a`.`date_completed` AS `date_completed` from ((((`tickets` `a` join `projects` `b` on(`a`.`project_id` = `b`.`id`)) join `users` `c` on(`a`.`created_by` = `c`.`id`)) join `ticket_statuses` `d` on(`a`.`status` = `d`.`id`)) join `ticket_categories` `e` on(`a`.`category_id` = `e`.`id`)));
 
 
 

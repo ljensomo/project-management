@@ -12,6 +12,7 @@ if($_POST['create_update_ticket']){
     if($ticket->update()){
 
         if($_POST['status'] == 5){ // if ticket is resolved mark date completed
+            $ticket = new Ticket;
             $ticket->setTicketId($_POST['ticket_id']);
             $ticket->updateDateCompleted();
         }
