@@ -1,23 +1,27 @@
-<!-- Owner Modal -->
-<div class="modal fade" id="ownerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="ownerModal" aria-hidden="true">
+<!-- stakeholder Modal -->
+<div class="modal fade" id="stakeholderModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="stakeholderModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ownerModalLabel"><i class="fa fa-users"></i> New Owner</h5>
+                <h5 class="modal-title" id="stakeholderModalLabel"><i class="fa fa-user"></i> Add Stakeholder</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="ownerForm">
-                <input type="hidden" name="add_project_owner" value="1">
+            <form id="stakeholderForm">
+                <input type="hidden" name="add_project_stakeholder" value="1">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <select name="owner" class="form-control" id="ownersSelect" required>
+                        <select name="stakeholder" class="form-control" id="stakeholderSelect" required>
                             <option value="">-- </option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="roleInput" class="form-label">Role</label>
+                        <input type="text" class="form-control" id="roleInput" name="role" placeholder="Stakeholder Role" required>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary closeButton" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add Owner</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>

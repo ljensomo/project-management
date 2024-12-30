@@ -242,12 +242,15 @@ function instantiateDatatable(parameters){
 
     parameters.forEach(function(parameter){
         $(parameter.tableId).DataTable({
+            paging: parameter.paging !== undefined ? parameter.paging : true,
+            searching: parameter.searching !== undefined ? parameter.searching : false,
+            info: parameter.info !== undefined ? parameter.info : true,
             lengthChange: parameter.lengthChange ? parameter.lengthChange : false,
             ajax: {
                 url: parameter.url,
                 dataSrc: "data"
             },
-            columns: parameter.columns
+            columns: parameter.columns,
         });
     });
 }

@@ -25,8 +25,9 @@
                         <tr>
                             <th>Project ID</th>
                             <th>Project Name</th>
-                            <th>Project Description</th>
-                            <th>Project Status</th>
+                            <!-- <th>Objective</th> -->
+                            <th>Phase</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

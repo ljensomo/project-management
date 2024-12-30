@@ -3,13 +3,14 @@
 require_once 'Database.php';
 require_once 'DatabaseQuery.php';
 
-class ProjectOwner extends DatabaseQuery{
+class ProjectStakeholder extends DatabaseQuery{
 
-    const table = 'project_owners';
+    const table = 'project_stakeholders';
 
     private $id;
     private $project_id;
-    private $owner_id;
+    private $stakeholder_id;
+    private $role;
     private $error_message;
 
     public function __construct(){
@@ -24,8 +25,8 @@ class ProjectOwner extends DatabaseQuery{
         $this->project_id = $project_id;
     }
 
-    public function setOwnerId($owner_id){
-        $this->owner_id = $owner_id;
+    public function setStakeholderId($stakeholder_id){
+        $this->stakeholder_id = $stakeholder_id;
     }
 
     public function getErrorMessage(){
@@ -41,13 +42,13 @@ class ProjectOwner extends DatabaseQuery{
 
         return $this->sqlInsert([
             'project_id' => $this->project_id,
-            'owner_id' => $this->owner_id
+            'owner_id' => $this->stakeholder_id
         ]);
     }
 
-    public function getProjectOwners(){
+    public function getProjectStakeholders(){
 
-        return $this->selectView('vw_project_owners')->where([
+        return $this->selectView('vw_project_stakeholders')->where([
             'column_name' => 'project_id',
             'operator' => '=',
             'value' => $this->project_id
@@ -67,7 +68,7 @@ class ProjectOwner extends DatabaseQuery{
             ])->where([
                 'column_name' => 'owner_id',
                 'operator' => '=',
-                'value' => $this->owner_id
+                'value' => $this->stakeholder_id
             ])->getAll();
     }
 }

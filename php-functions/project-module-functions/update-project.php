@@ -5,9 +5,10 @@ if($_POST['create_update_project']){
     
     $project = new Project;
 
-    $project->setProjectId($_POST['projectId']);
-    $project->setProjectName($_POST['projectName']);
-    $project->setProjectDescription($_POST['projectDescription']);
+    $project->setProjectId($_POST['project_id']);
+    $project->setProjectName($_POST['project_name']);
+    $project->setProjectDescription($_POST['project_description']);
+    $project->setPhase($_POST['phase']);
     $project->setStatus($_POST['status']);
 
     if($project->update()){

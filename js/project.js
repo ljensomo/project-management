@@ -4,11 +4,18 @@ $(document).ready(function() {
     // populate status options
     populateSelect([
         {
-            url: "php-functions/get-project-status.php",
-            selectId: "projectStatus",
+            url: "php-functions/get-project-statuses.php",
+            selectId: "statusSelect",
             value: "id",
             text: "name",
             errorMessage: "Failed to retrieve statuses."
+        },
+        {
+            url: "php-functions/get-project-phases.php",
+            selectId: "phaseSelect",
+            value: "id",
+            text: "phase",
+            errorMessage: "Failed to retrieve phases."
         }
     ]);
 
@@ -19,7 +26,8 @@ $(document).ready(function() {
         columns: [
             {"data":"id"},
             {"data":"project_name"},
-            {"data":"project_description"},
+            // {"data":"objective"},
+            {"data":"project_phase"},
             {"data":"project_status"},
             {"data":function(data){
                 return generateTableRowButtons({
@@ -58,12 +66,13 @@ $(document).ready(function() {
             $('<input>').attr({
                 type: "hidden",
                 id: "projectIdInput",
-                name: "projectId",
+                name: "project_id",
                 value: data.id
             }).prependTo(module.form);
             $("#projectNameInput").val(data.project_name);
             $("#projectDescriptionInput").val(data.project_description);
-            $("#projectStatus").val(data.status);
+            $("#phaseSelect").val(data.phase_id);
+            $("#statusSelect").val(data.status);
 
             $(module.modal).modal("toggle");
         }

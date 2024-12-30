@@ -1,7 +1,8 @@
 const project_id = $("#projectIdInput").val();
 
 $(document).ready(function(){
-    window.ownerModule = createModuleVariables("owner");
+    window.taskModule = createModuleVariables("task");
+    window.stakeholder = createModuleVariables("stakeholder");
     window.projectModule = createModuleVariables("project");
     window.ticketModule = createModuleVariables("ticket");
 
@@ -10,9 +11,9 @@ $(document).ready(function(){
         url: projectModule.url+"get-project.php?id="+project_id,
         callback: function(data){
             $("#projectNameInput").val(data.project_name);
-            $("#projectDescriptionInput").val(data.project_description);
-            $("#projectStatus").val(data.status);
-            $("#createdBy").val(data.created_by);
+            $("#projectObjectiveInput").val(data.project_description);
+            $("#statusSelect").val(data.status);
+            $("#createdByInput").val(data.created_by);
             $("#dateCreatedInput").val(data.date_created);
         },
         errorMessage: "Failed to retrieve project detail."
@@ -23,7 +24,7 @@ $(document).ready(function(){
         type: "hidden",
         name: "projectId",
         value: project_id
-    }).prependTo([ownerModule.form, ticketModule.form]);
+    }).prependTo([stakeholder.form, ticketModule.form]);
 
     // populate select options
     populateSelect([
@@ -35,8 +36,15 @@ $(document).ready(function(){
             errorMessage: "Failed to retrieve owners."
         },
         {
-            url: "php-functions/get-project-status.php",
-            selectId: ["projectStatus"],
+            url: "php-functions/get-project-phases.php",
+            selectId: "phaseSelect",
+            value: "id",
+            text: "phase",
+            errorMessage: "Failed to retrieve phases."
+        },
+        {
+            url: "php-functions/get-project-statuses.php",
+            selectId: ["statusSelect"],
             value: "id",
             text: ["name"],
             errorMessage: "Failed to retrieve status."
@@ -51,14 +59,14 @@ $(document).ready(function(){
     ]);
 
     // instantiate select2
-    $("#ownersSelect").css({
+    $("#stakeholderSelect").css({
         width: "100%",
         height: "40px !important",
     }).select2({
-        placeholder: "Select owner",
+        placeholder: "Select User",
         selectionCssClass: "select2--large", // For Select2 v4.1
         dropdownCssClass: "select2--large",
-        dropdownParent: $(ownerModule.modal),
+        dropdownParent: $(stakeholder.modal),
         allowClear: true,
     });
 
@@ -86,12 +94,12 @@ $(document).ready(function(){
             errorMessage: "Failed to update project details."
         },
         {
-            formId: ownerModule.form,
-            url: ownerModule.url+"add-project-owner.php",
+            formId: stakeholder.form,
+            url: stakeholder.url+"add-project-owner.php",
             errorMessage: "Failed to add owner to the project.",
             callback: function(){
                 clearSelect2("ownersSelect");
-                refreshDatatable(ownerModule.table);
+                refreshDatatable(stakeholder.table);
             }
         },
         {
@@ -100,17 +108,58 @@ $(document).ready(function(){
             errorMessage: "Failed to add ticket."
         }
     ]);
-
     
     // instantiate datatables
     instantiateDatatable([
         {
-            tableId: ownerModule.table,
-            url: ownerModule.url+"get-project-owners.php?id="+project_id,
+            tableId: stakeholder.table,
+            url: stakeholder.url+"get-project-stakeholders.php?id="+project_id,
             columns: [
                 {data: "owner", className: "text-center"},
+                {data: function(){
+                    return "test";
+                }},
                 {data: function(data){
                     return "<button type='button' class='btn btn-sm btn-danger btn-owner-remove' data-id='"+data.id+"' data-value='"+data.owner+"'><i class='fa fa-times'></i></button>";
+                }, className: "text-center", sorting: false}
+            ],
+            paging: false,
+            searching: false,
+            info: false
+        },
+        {
+            tableId: taskModule.table,
+            url: taskModule.url+"get-project-tasks.php?pid="+project_id,
+            searching: true,
+            columns: [
+                {data: "id"},
+                {data: "description"},
+                {data: "user_assigned"},
+                {data: function(data){
+                    let status = "";
+                    switch(data.task_status){
+                        case "1":
+                            status = "Open";
+                            break;
+                        case "2":
+                            status = "In Progress";
+                            break;
+                        case "3":
+                            status = "Completed";
+                            break;
+                        default:
+                            status = "Open";
+                            break;
+                    }
+                    return status;
+                }},
+                {data: function(data){
+                    return generateTableRowButtons({
+                        buttonFor: "task",
+                        rowId: data.id,
+                        rowValue: data.id,
+                        edit: true,
+                    });
                 }, className: "text-center", sorting: false}
             ]
         },

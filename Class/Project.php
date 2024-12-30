@@ -8,7 +8,8 @@ class Project extends DatabaseQuery{
 
     private $projectId;
     private $projectName;
-    private $projectDescription;
+    private $objective;
+    private $phase;
     private $status;
     private $createdBy;
 
@@ -26,8 +27,12 @@ class Project extends DatabaseQuery{
         $this->projectName = $projectName;
     }
 
-    public function setProjectDescription($projectDescription){
-        $this->projectDescription = $projectDescription;
+    public function setObjective($objective){
+        $this->objective = $objective;
+    }
+
+    public function setPhase($phase){
+        $this->phase = $phase;
     }
 
     public function setStatus($status){
@@ -75,7 +80,8 @@ class Project extends DatabaseQuery{
 
         return $this->sqlInsert(array(
             'project_name' => $this->projectName,
-            'project_description' => $this->projectDescription,
+            'phase_id' => 1, // Initiation
+            'status' => 1, // Not Started
             'created_by' => $this->createdBy
         ));
     }
@@ -90,7 +96,8 @@ class Project extends DatabaseQuery{
         return $this->sqlUpdate(
             [
                 'project_name' => $this->projectName,
-                'project_description' => $this->projectDescription,
+                'objective' => $this->objective,
+                'phase_id' => $this->phase,
                 'status' => $this->status,
                 'id' => $this->projectId
             ]

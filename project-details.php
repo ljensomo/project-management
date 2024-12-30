@@ -22,7 +22,7 @@
                 <div class="table-header-columns">
                     <a href="projects.php" class="btn btn-sm btn-secondary"><i class="fa fa-arrow-left"></i> Back to Projects</a>
                     <button type="button" class="btn btn-sm btn-success" id="btnSaveProject"><i class="fa fa-save"></i> Save Changes</button>
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ownerModal"><i class="fa fa-user"></i> Add Project Owner</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#stakeholderModal"><i class="fa fa-user"></i> Add Stakeholder</button>
                     <hr>
                 </div>
                 <div class="row">
@@ -31,41 +31,50 @@
                             <input type="hidden" name="create_update_project" value="1">
                             <table class="table form-table">
                                 <tr>
-                                    <td class="form-label-custom">Project ID</td>
-                                    <td><input type="text" name="projectId" id="projectIdInput" value="<?=$_GET['pid']?>" class="form-control" readonly></td>
+                                    <td class="form-label-custom"><label for="" class="form-label">Project ID</label></td>
+                                    <td><input type="text" name="project_id" id="projectIdInput" value="<?=$_GET['pid']?>" class="form-control" readonly></td>
                                 </tr>
                                 <tr>
-                                    <td class="form-label-custom">Project Name</td>
-                                    <td><input type="text" name="projectName" id="projectNameInput" class="form-control"></td>
+                                    <td class="form-label-custom"><label for="" class="form-label">Project Name</label></td>
+                                    <td><input type="text" name="project_name" id="projectNameInput" class="form-control"></td>
                                 </tr>
                                 <tr>
-                                    <td class="form-label-custom">Project Description</td>
-                                    <td><textarea name="projectDescription" id="projectDescriptionInput" class="form-control" cols="30" rows="5"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td class="form-label-custom">Status</td>
+                                    <td class="form-label-custom"><label for="" class="form-label">Phase</label></td>
                                     <td>
-                                        <select class="form-control" name="status" id="projectStatus" required>
-
+                                        <select name="phase" id="phaseSelect" class="form-control" required>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="form-label-custom">Created By</td>
-                                    <td><input type="text" class="form-control" id="createdBy" readonly></td>
+                                    <td class="form-label-custom"><label for="" class="form-label">Status</label></td>
+                                    <td>
+                                        <select class="form-control" name="status" id="statusSelect" required>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="form-label-custom">Date Created</td>
+                                    <td class="form-label-custom"><label for="" class="form-label">Created By/Requestor</label></td>
+                                    <td><input type="text" class="form-control" id="createdByInput" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td class="form-label-custom"><label for="" class="form-label">Date Created</label></td>
                                     <td><input type="datetime" class="form-control" id="dateCreatedInput" readonly></td>
                                 </tr>
                             </table>
                         </form>
                     </div>
                     <div class="col">
-                        <table class="table table-bordered table-hover table-striped" id="ownerTable">
+                        <div class="mb-3">
+                            <label for="objectiveInput" class="form-label"><strong>Project Objective</strong></label>
+                            <textarea name="objective" id="objectiveInput" class="form-control" readonly rows="4"></textarea>
+                        </div>
+                        <br>
+                        <label for="" class="form-label"><strong>Project Stakeholder(s)</strong></label><hr>
+                        <table class="table table-bordered table-hover table-striped" id="stakeholderTable">
                             <thead>
                                 <tr>
-                                    <th>Project Owner(s)</th>
+                                    <th>Stakeholder</th>
+                                    <th>Role</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -74,13 +83,13 @@
                 </div>
             </div>
             <div class="block-container">
-                <div>
-                    <h5>Project Modules, Tickets, Attachments and Technology</h5><hr>
-                </div>
                 <div class="navigation-tabs">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link project-tab active" aria-current="page" href="#">Modules</a>
+                            <a class="nav-link project-tab active" aria-current="page" href="#">Tasks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link project-tab" aria-current="page" href="#">Modules</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link project-tab" href="#">Tickets</a>
@@ -94,6 +103,7 @@
                     </ul>
                 </div>
                 <?php 
+                    include 'includes/contents/project-tasks-tab.html';
                     include 'includes/contents/project-module-tab.html';
                     include 'includes/contents/project-ticket-tab.html';
                     include 'includes/contents/project-attachment-tab.html';
