@@ -121,4 +121,12 @@ class Project extends DatabaseQuery{
         ])->get() ? false : true;
 
     }
+
+    public function getPhaseTask($phase_id){
+        return $this->selectView('vw_project_phase_tasks')->where([
+            'column_name' => 'project_id',
+            'operator' => '=',
+            'value' => $phase_id
+        ])->getAll();
+    }
 }

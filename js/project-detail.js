@@ -208,25 +208,6 @@ $(document).ready(function(){
         errorMessage: "Failed to remove project owner."
     });
 
-    // -------------- PROJECT TABS --------------
-    $(document).on("click", ".project-tab", function(e){
-        e.preventDefault();
-        $(".project-tab").each(function(i, obj){
-            $(this).removeClass("active").removeAttr("aria-current");
-            let tab_name = $(this).html().toLowerCase()+"Tab";
-
-            // hide tabs
-            $("#"+tab_name).hide();
-        });
-
-        $(this).addClass('active').attr("aria-current", "page");
-
-        let tab_name = $(this).html().toLowerCase()+"Tab";
-        // show active tab
-        $("#"+tab_name).show();
-        
-    });
-
     // -------------- TICKETS MODULE ------------- 
     // // instantiate datetable
     // $(ticketsTable).DataTable({
@@ -365,4 +346,23 @@ $(document).ready(function(){
             errorMessage: "Failed to retrieve ticket detail."
         });
     });
+});
+
+// Project Tab click event handler
+$(document).on("click", ".project-tab", function(e){
+    e.preventDefault();
+    $(".project-tab").each(function(i, obj){
+        $(this).removeClass("active").removeAttr("aria-current");
+        let tab_name = $(this).html().toLowerCase()+"Tab";
+
+        // hide tabs
+        $("#"+tab_name).hide();
+    });
+
+    $(this).addClass('active').attr("aria-current", "page");
+
+    let tab_name = $(this).html().toLowerCase()+"Tab";
+    // show active tab
+    $("#"+tab_name).show();
+    
 });

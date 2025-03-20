@@ -15,6 +15,8 @@
 
         <div class="content">
             <div class="content-main block-container">
+                <h2>Projects</h2>
+                <hr>
                 <div class="table-header-buttons">
                     <button type="button" class="btn btn-sm btn-secondary btnCreate" data-bs-toggle="modal" data-bs-target="#projectModal">
                         <i class="fa fa-plus"></i> New Project

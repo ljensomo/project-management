@@ -35,7 +35,6 @@ $(document).ready(function() {
                     rowValue: data.project_name,
                     view: true,
                     viewUrl: "project-details.php?pid="+data.id,
-                    edit: true,
                     delete: true,
                     buttonFor: module.name
                 });
@@ -56,27 +55,27 @@ $(document).ready(function() {
         }
     });
 
-    createEditButtonListener({
-        class: "btn-project-edit",
-        url: module.url+"get-project.php",
-        callback: function(data){
-            $(module.modal+"Label").html("Edit "+data.project_name);
+    // createEditButtonListener({
+    //     class: "btn-project-edit",
+    //     url: module.url+"get-project.php",
+    //     callback: function(data){
+    //         $(module.modal+"Label").html("Edit "+data.project_name);
 
-            $("#projectIdInput").remove();
-            $('<input>').attr({
-                type: "hidden",
-                id: "projectIdInput",
-                name: "project_id",
-                value: data.id
-            }).prependTo(module.form);
-            $("#projectNameInput").val(data.project_name);
-            $("#projectDescriptionInput").val(data.project_description);
-            $("#phaseSelect").val(data.phase_id);
-            $("#statusSelect").val(data.status);
+    //         $("#projectIdInput").remove();
+    //         $('<input>').attr({
+    //             type: "hidden",
+    //             id: "projectIdInput",
+    //             name: "project_id",
+    //             value: data.id
+    //         }).prependTo(module.form);
+    //         $("#projectNameInput").val(data.project_name);
+    //         $("#projectDescriptionInput").val(data.project_description);
+    //         $("#phaseSelect").val(data.phase_id);
+    //         $("#statusSelect").val(data.status);
 
-            $(module.modal).modal("toggle");
-        }
-    });
+    //         $(module.modal).modal("toggle");
+    //     }
+    // });
 
     createDeleteButtonListener({
         moduleName: module.name,

@@ -251,6 +251,7 @@ function instantiateDatatable(parameters){
                 dataSrc: "data"
             },
             columns: parameter.columns,
+            ordering: false
         });
     });
 }

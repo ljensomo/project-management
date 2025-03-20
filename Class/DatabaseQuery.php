@@ -158,7 +158,6 @@ class DatabaseQuery extends Database{
 
     public function buildSelectWhereClause($conditions){
 
-        $parameters = array();        
         if($conditions != null){
 
             foreach($conditions as $key => $condition){

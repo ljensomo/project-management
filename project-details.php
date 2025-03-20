@@ -22,7 +22,8 @@
                 <div class="table-header-columns">
                     <a href="projects.php" class="btn btn-sm btn-secondary"><i class="fa fa-arrow-left"></i> Back to Projects</a>
                     <button type="button" class="btn btn-sm btn-success" id="btnSaveProject"><i class="fa fa-save"></i> Save Changes</button>
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#stakeholderModal"><i class="fa fa-user"></i> Add Stakeholder</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="btnUpload"><i class="fa fa-file"></i> Upload</button>
+                    <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-ticket"></i> Tickets</a>
                     <hr>
                 </div>
                 <div class="row">
@@ -60,22 +61,22 @@
                                     <td class="form-label-custom"><label for="" class="form-label">Date Created</label></td>
                                     <td><input type="datetime" class="form-control" id="dateCreatedInput" readonly></td>
                                 </tr>
+                                <tr>
+                                    <td class="form-label-custom"><label for="" class="form-label">Assigned Group</label></td>
+                                    <td>
+                                        <select name="" class="form-control" id=""></select>
+                                    </td>
+                                </tr>
                             </table>
                         </form>
                     </div>
                     <div class="col">
-                        <div class="mb-3">
-                            <label for="objectiveInput" class="form-label"><strong>Project Objective</strong></label>
-                            <textarea name="objective" id="objectiveInput" class="form-control" readonly rows="4"></textarea>
-                        </div>
-                        <br>
-                        <label for="" class="form-label"><strong>Project Stakeholder(s)</strong></label><hr>
-                        <table class="table table-bordered table-hover table-striped" id="stakeholderTable">
+                        <table class="table table-bordered table-hover table-striped" id="overviewTable">
                             <thead>
                                 <tr>
-                                    <th>Stakeholder</th>
-                                    <th>Role</th>
-                                    <th>Action</th>
+                                    <th>Phase</th>
+                                    <th>Status</th>
+                                    <th>Progress</th>
                                 </tr>
                             </thead>
                         </table>
@@ -86,28 +87,21 @@
                 <div class="navigation-tabs">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link project-tab active" aria-current="page" href="#">Tasks</a>
+                            <a class="nav-link active project-tab" aria-current="page" href="#">Notes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link project-tab" aria-current="page" href="#">Modules</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link project-tab" href="#">Tickets</a>
+                            <a class="nav-link project-tab" aria-current="page" href="#">Tasks</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link project-tab" href="#">Attachments</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link project-tab" href="#">Technology</a>
+                            <a class="nav-link project-tab" href="#">Schedule</a>
                         </li>
                     </ul>
                 </div>
                 <?php 
-                    include 'includes/contents/project-tasks-tab.html';
-                    include 'includes/contents/project-module-tab.html';
-                    include 'includes/contents/project-ticket-tab.html';
-                    include 'includes/contents/project-attachment-tab.html';
-                    include 'includes/contents/project-tech-tab.html';
+                    include 'includes/contents/project-tabs.html';
                 ?>
             </div>
         </div>
@@ -121,8 +115,7 @@
     <script src="https://cdn.datatables.net/plug-ins/1.13.6/dataRender/ellipsis.js"></script>
 
     <script text="text/javascript" src="js/project-detail.js"></script>
-    <script text="text/javascript" src="js/project-module.js"></script>
-    <script text="text/javascript" src="js/project-attachment.js"></script>
-    <script text="text/javascript" src="js/project-technology.js"></script>
+    <script text="text/javascript" src="js/project-tasks.js"></script>
+    <script text="text/javascript" src="js/project-phase.js"></script>
 </body>
 </html>
