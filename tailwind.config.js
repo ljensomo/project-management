@@ -5,6 +5,7 @@ module.exports = {
     "./resources/views/**/*.html", // If you use HTML files as well
     "**/*.php",
   ],
+  darkMode: "class",
   theme: {
     extend: {},
   },
