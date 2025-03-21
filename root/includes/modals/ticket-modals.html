@@ -1,0 +1,47 @@
+<!-- Technology Modal -->
+<div class="modal fade" id="ticketModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="ticketModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ticketModalLabel">New Ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="ticketForm">
+                <input type="hidden" name="create_update_ticket" id="formActionInput" value="1">
+                <input type="hidden" name="ticket_id" id="ticketIdInput">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="categorySelect" class="form-label">Category</label>
+                        <select id="categorySelect" name="category" class="form-control" required>
+                            <option value="">--</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="projectSelect" class="form-label">Project</label>
+                        <select id="projectSelect" name="project" class="form-control" required>
+                            <option value="">--</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ticketSubjectInput" class="form-label">Subject <i>(Short Description)</i></label>
+                        <textarea class="form-control" id="ticketSubjectInput" name="subject" placeholder="Short Description" rows="1" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ticketDescriptionInput" class="form-label">Description</label>
+                        <textarea class="form-control" id="ticketDescriptionInput" name="description" placeholder="Description" required></textarea>
+                    </div>
+                    <div class="mb-3" id="statusDiv">
+                        <label for="StatusSelect">Status</label>
+                        <select name="status" class="form-control" id="statusSelect">
+                            <option value="">--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary closeButton" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>22
