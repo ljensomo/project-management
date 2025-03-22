@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Management</title>
+    <link rel="stylesheet" href="./css/compiled.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body class="bg-[#19191a] font-calibri">
+    <div class="container mx-auto">
+      <div
+        class="mt-[50px] border border-[#4f4f4f] rounded-[10px] filter drop-shadow-[6px_6px_20px_black]"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-[8%]">
+          <!-- Left Column: Login Form -->
+          <div class="p-4">
+            <h3 class="text-3xl text-[#d6d6d6]">Login</h3>
+            <hr class="border-[#d6d6d6]" />
+            <form action="" id="loginForm">
+              <div class="mb-3">
+                <label for="username" class="text-white font-bold"
+                  ><i class="fa fa-user"></i> Your Username</label
+                >
+                <input
+                  type="text"
+                  class="form-control border border-[#4f4f4f] rounded-md p-2 mt-2 w-full"
+                  id="usernameInput"
+                  name="username"
+                  placeholder="Username"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="projectDescription" class="text-white font-bold"
+                  ><i class="fa fa-lock"></i> Your Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control border border-[#4f4f4f] rounded-md p-2 mt-2 w-full"
+                  id="passwordInput"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div class="d-grid gap-2">
+                <button
+                  type="submit"
+                  class="bg-[#4f4f4f] text-white py-2 px-4 rounded-md mt-4 w-full"
+                >
+                  Login
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right Column: Background & Overview -->
+          <div class="p-4">
+            <div
+              class="bg-[#e1e1e1] bg-cover bg-no-repeat rounded-[5px] p-[10%] h-full"
+              style="background-image: url('./images/working-code-bg.jpg')"
+            >
+              <h1 class="text-[#a5a5a5] text-5xl font-semibold">
+                Project <br />Management <br />
+                System
+              </h1>
+              <hr class="border-[#19191a] mt-4" />
+              <p class="text-[#a5a5a5]">
+                Developed by: LJ Ensomo & Sandy Duaso
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
