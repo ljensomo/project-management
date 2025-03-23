@@ -1,6 +1,6 @@
 <?php
 
-use App\Router\Router;
+use App\Core\Router;
 
 // Autoload Composer dependencies
 require_once __DIR__ . '/../vendor/autoload.php';
