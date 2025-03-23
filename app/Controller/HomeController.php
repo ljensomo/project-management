@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Core\View;
+
 class HomeController {
     public function index() {
-        include __DIR__ . '/../../resources/views/home.php';
+        $data = [
+            'title' => 'Home Page'
+        ];
+
+        View::view('home', $data);
     }
 }

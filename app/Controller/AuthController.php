@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Core\View;
+
 class AuthController {
     public function index() {
-        include __DIR__ . '/../../resources/views/auth/login.html';
+        View::view('auth/login.html');
     }
 }

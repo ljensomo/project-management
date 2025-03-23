@@ -1,11 +1,14 @@
 <?php
 
+use App\Controller\AuthController;
+use App\Controller\HomeController;
+
 return [
     // Add some controller here..
     '/' => [
-        'GET' => 'HomeController@index'
+        'GET' => [HomeController::class, 'index']
     ],
     '/login' => [
-        'GET' => 'AuthController@index'
+        'GET' => [AuthController::class, 'index']
     ],
 ];
