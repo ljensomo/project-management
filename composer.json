@@ -1,0 +1,27 @@
+{
+    "name": "php/mvc",
+    "description": "a php mvc created from scratch",
+    "type": "project",
+    "authors": [
+        {
+            "name": "LJ Ensomo"
+        },
+        {
+            "name": "Sandy Duaso"
+        }
+    ],
+    "keywords": [
+        "framework",
+        "project"
+    ],
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "Core\\": "src/core"
+        }
+    },
+    "minimum-stability": "dev"
+}
