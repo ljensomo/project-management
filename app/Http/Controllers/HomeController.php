@@ -8,7 +8,8 @@ class HomeController
     {
         $data = [
             'title' => 'Project Management',
-            'text' => 'Boost your productivity. Start using our app today.'
+            'head' => 'Project Management Tool',
+            'description' => 'This is created with PHP, HTML5, Tailwind CSS, JAVASCRIPT and MySQL. Build started on July 16, 2023'
         ];
 
         return view('index.php', $data);
