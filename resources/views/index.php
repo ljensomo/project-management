@@ -17,7 +17,7 @@
         <h1 class="text-balance font-semibold tracking-tight text-gray-900 sm:text-7xl"><?= htmlspecialchars($head) ?></h1>
         <p class="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8"><?= htmlspecialchars($description) ?></p>
         <div class="mt-10 flex items-center justify-center gap-x-6">
-          <a href="#" class="text-sm/6 font-semibold text-gray-900">Login<span>→</span></a>
+          <a href="/login" class="text-sm/6 font-semibold text-gray-900">Login<span>→</span></a>
         </div>
       </div>
     </div>

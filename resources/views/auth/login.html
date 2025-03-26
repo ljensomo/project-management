@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Project Management</title>
+    <link rel="stylesheet" href="resources/css/compiled.css" />
+  </head>
+  <body>
+    <div class="flex flex-wrap">
+      <div class="flex w-full flex-col md:w-1/2">
+        <div
+          class="lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0"
+        >
+          <p class="text-left text-3xl font-bold">Login</p>
+          <p class="mt-2 text-left text-gray-500">please enter your details.</p>
+          <form class="mt-5">
+            <div class="relative mt-2 w-full">
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                placeholder=" "
+                required
+              />
+              <label
+                for="username"
+                class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600"
+              >
+                Enter Your Username
+              </label>
+            </div>
+            <div class="relative mt-2 w-full">
+              <input
+                type="text"
+                id="password"
+                name="password"
+                class="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                placeholder=" "
+                required
+              />
+              <label
+                for="password"
+                class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600"
+              >
+                Enter Your Password</label
+              >
+            </div>
+            <input
+              class="mt-4 w-full cursor-pointer rounded-lg bg-blue-600 pt-3 pb-3 text-white shadow-lg hover:bg-blue-400"
+              type="submit"
+              value="Login"
+            />
+          </form>
+        </div>
+      </div>
+      <div
+        class="pointer-events-none relative hidden h-screen select-none bg-black md:block md:w-1/2"
+      >
+        <div class="absolute bottom-0 z-10 px-8 text-white opacity-100">
+          <h1 class="text-[60px] leading-tight mb-5">
+            Project <br />
+            Management <br />
+            System
+          </h1>
+          <p class="mb-7 text-sm opacity-70">
+            Developed by: LJ Ensomo & Sandy Duaso
+          </p>
+        </div>
+        <img
+          class="-z-1 absolute top-0 h-full w-full bg-cover opacity-90"
+          style="background-image: url(resources/images/working-code-bg.jpg)"
+        />
+      </div>
+    </div>
+  </body>
+</html>
