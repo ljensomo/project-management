@@ -1,0 +1,65 @@
+body{
+    background-color: #19191a;
+    font-family: 'Calibri';
+}
+
+#login{
+    margin-top: 50px;
+    border: 1px solid #4f4f4f;
+    border-radius: 10px;
+    filter: drop-shadow(6px 6px 20px black);
+}
+
+#loginContainer > h3, hr, label{
+    color: #d6d6d6 !important;
+}
+
+#loginContainer{
+    padding: 8%;
+}
+
+#loginOverview{
+    background-color: #e1e1e1;
+    background-image: url('../assets/working-code-bg.jpg');
+    background-size: cover;
+    height: 100%;
+    border-radius: 5px;
+    padding: 10%;
+}
+
+#loginOverview >h1{
+    font-family: 'Century Gothic';
+    font-size: 60px;
+    color: #a5a5a5;
+}
+
+#loginOverview > p, hr{
+    color: #a5a5a5 !important;
+}
+
+#loginOverview > hr{
+    color: #19191a !important;
+}
+
+#loginImgContainer{
+    padding: .5%;
+}
+
+#loginForm{
+    /* padding: 80px;
+    padding-top: 20px; */
+}
+
+#loginForm label{
+    color: #fff;
+    font-weight: bold;
+}
+
+#loginForm a{
+    color: #fff;
+}
+
+#login-logo{
+    height: 200px;
+    margin-top: 20px;;
+}

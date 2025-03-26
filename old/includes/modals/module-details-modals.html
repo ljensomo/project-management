@@ -1,0 +1,36 @@
+<!-- Modal -->
+<div class="modal fade" id="functionsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="projectModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="functionsModalLabel">New Function</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="functionsForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="functionName" class="form-label">Function Name</label>
+                        <input type="text" class="form-control" id="functionNameInput" name="functionName" placeholder="Function Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="functionDescription" class="form-label">Function Description</label>
+                        <textarea class="form-control" name="functionDescription" id="functionDescriptionInput" cols="30" rows="5" placeholder="Function Description" required></textarea>
+                    </div>
+                    <div class="mb-3" id="statusDiv">
+                        <label for="functionStatus" class="form-label">Status</label>
+                        <select name="status" id="functionStatus" class="form-control">
+                            <option value="">-- Select Status</option>
+                            <option value="1">Complete</option>
+                            <option value="2">Ongoing</option>
+                            <option value="3">Pending</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary closeButton" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Function</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
