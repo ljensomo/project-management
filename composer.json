@@ -23,5 +23,8 @@
             "Core\\": "src/core"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require": {
+        "filp/whoops": "^2.18"
+    }
 }

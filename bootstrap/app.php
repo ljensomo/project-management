@@ -1,8 +1,14 @@
 <?php
 
 use Core\Route;
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
 
 require_once APP_ROOT . 'vendor/autoload.php';
+
+$whoops = new Run();
+$whoops->pushHandler(new PrettyPageHandler());
+$whoops->register();
 
 Route::load(APP_ROOT . 'routes/web.php');
 

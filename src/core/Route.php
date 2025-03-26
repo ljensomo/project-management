@@ -62,7 +62,7 @@ class Route
                         $instance = new $controller();
                         return call_user_func_array([$instance, $method], $matches);
                     } else {
-                        throw new \Exception("Controller or Method Not Found!");
+                        throw new \Exception("Controller or Method Not Found: {$controller}@{$method}");
                     }
                 }
 
@@ -72,8 +72,6 @@ class Route
             }
         }
 
-        http_response_code(404);
-        echo "404 Not Found!";
-        return false;
+        throw new \Exception("No matching route found for URI: {$requestUri} and Method: {$requestMethod}");
     }
 }
