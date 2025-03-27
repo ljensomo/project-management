@@ -33,4 +33,13 @@ class AuthController
         
         echo json_encode(['success' => false, 'message' => 'Invalid action.']);
     }
+
+    public function logout()
+    {
+        session_start();
+
+        session_destroy();
+
+        header("Location: /login");
+    }
 }
