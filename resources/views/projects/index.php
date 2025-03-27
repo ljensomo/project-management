@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Projects</title>
+    <?php include_once 'resources/views/includes/stylesheet.html' ?>
 </head>
 <body>
-    <h1>Hello <?=$_SESSION['name']?></h1>
+<?php 
+    include_once 'resources/views/includes/topbar.php';
+    include_once 'resources/views/includes/sidebar.php'
+?>
 </body>
+<?php include_once 'resources/views/includes/script.html' ?>
 </html>
