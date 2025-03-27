@@ -59,6 +59,16 @@
           </li>
         </ul>
       </div>
+      <div class="mt-auto px-3 space-y-1 bg-white dark:bg-gray-800">
+        <form method="POST" action="/logout" class="flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">
+          <button type="submit" class="flex items-center w-full">
+            <div class="flex items-center justify-center w-8 h-8 rounded-md bg-gray-500 text-white text-lg font-bold">
+              <?= substr($_SESSION['name'], 0, 1) . substr(strrchr($_SESSION['name'], ' '), 1, 1) ?>
+            </div>
+            <span class="ml-3 text-xl"><?= $_SESSION['name'] ?></span>
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </aside>
