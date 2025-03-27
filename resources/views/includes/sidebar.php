@@ -60,14 +60,31 @@
         </ul>
       </div>
       <div class="mt-auto px-3 space-y-1 bg-white dark:bg-gray-800">
-        <form method="POST" action="/logout" class="flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">
-          <button type="submit" class="flex items-center w-full">
+        <div class="flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">
+          <button class="flex items-center w-full" id="dropdownRightButton" data-dropdown-toggle="dropdownRight" data-dropdown-placement="right">
             <div class="flex items-center justify-center w-8 h-8 rounded-md bg-gray-500 text-white text-lg font-bold">
               <?= substr($_SESSION['name'], 0, 1) . substr(strrchr($_SESSION['name'], ' '), 1, 1) ?>
             </div>
             <span class="ml-3 text-xl"><?= $_SESSION['name'] ?></span>
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+            </svg>
           </button>
-        </form>
+          <div class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700" id="dropdownRight">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightButton">
+              <li>
+                <form method="POST" action="/logout">
+                  <button type="submit" class="flex items-center px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                    </svg>
+                    <span class="ml-2">Logout</span>
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
