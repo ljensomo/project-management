@@ -4,7 +4,7 @@ namespace Core;
 
 class View
 {
-    protected static $path = APP_ROOT . 'resources/views/';
+    protected static $path = APP_ROOT . '/resources/views/';
 
     public static function view($name, $data = null)
     {

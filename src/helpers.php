@@ -5,7 +5,7 @@ use Core\View;
 if (!function_exists('config')) {
     function config(string $file, string $key, $default = null)
     {
-        $path = APP_ROOT . "config/{$file}.php";
+        $path = APP_ROOT . "/config/{$file}.php";
 
         if (!file_exists($path)) {
             throw new \Exception("Configuration file '{$file}' not found.");
