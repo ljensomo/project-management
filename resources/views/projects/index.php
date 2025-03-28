@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects</title>
-    <?php include_once 'resources/views/includes/stylesheet.html' ?>
+    <?php include_once APP_ROOT . '/resources/views/includes/stylesheet.html' ?>
 </head>
 <body class="p-5 bg-white dark:bg-gray-900 antialiased !p-0">
 <?php 
-    include_once 'resources/views/includes/topbar.php';
-    include_once 'resources/views/includes/sidebar.php'
+    include_once APP_ROOT . '/resources/views/includes/topbar.php';
+    include_once APP_ROOT . '/resources/views/includes/sidebar.php'
 ?>
     <div class="p-4 sm:ml-64">
         <div class="p-4 mt-14">
@@ -240,14 +240,5 @@
         </div>
     </div>
 </body>
-<?php include_once 'resources/views/includes/script.html' ?>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
-<script>
-if (document.getElementById("search-table") && typeof simpleDatatables.DataTable !== 'undefined') {
-    const dataTable = new simpleDatatables.DataTable("#search-table", {
-        searchable: true,
-        sortable: false
-    });
-}
-</script>
+<?php include_once APP_ROOT . '/resources/views/includes/script.html' ?>
 </html>

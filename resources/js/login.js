@@ -1,6 +1,7 @@
-const loginForm = "#loginForm";
+import { ajaxPost, swalError } from "./reusable-functions";
 
 $(document).ready(function () {
+  const loginForm = "#loginForm";
   $(loginForm).submit(function (e) {
     e.preventDefault();
 

@@ -1,3 +1,10 @@
+import { DataTable } from "simple-datatables";
+
+const dataTable = new DataTable("#search-table", {
+  searchable: true,
+  sortable: true,
+});
+
 const themeToggleDarkIcon = document.getElementById("theme-toggle-dark-icon");
 const themeToggleLightIcon = document.getElementById("theme-toggle-light-icon");
 const themeToggleBtn = document.getElementById("theme-toggle");

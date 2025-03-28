@@ -22,7 +22,7 @@ function swalSuccess(parameters) {
   });
 }
 
-function swalError(message = "Something went wrong!", title = null) {
+export function swalError(message = "Something went wrong!", title = null) {
   Swal.fire({
     title: title != null ? title : "Ooops!",
     text: message,
@@ -53,7 +53,7 @@ function ajaxGet(parameters) {
     });
 }
 
-function ajaxPost(parameters) {
+export function ajaxPost(parameters) {
   ajaxChecker(parameters);
 
   $.ajax({
