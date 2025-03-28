@@ -1,3 +1,4 @@
+import "flowbite";
 import { DataTable } from "simple-datatables";
 
 const dataTable = new DataTable("#search-table", {
