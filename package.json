@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "build": "webpack --mode production && npx tailwindcss -i ./resources/css/tailwind.css -o ./public/css/compiled.css",
-    "dev": "webpack --mode development --watch && npx tailwindcss -i ./resources/css/tailwind.css -o ./public/css/compiled.css --watch"
+    "build": "webpack --mode production",
+    "build:style": "npx tailwindcss -i ./resources/css/tailwind.css -o ./public/css/compiled.css",
+    "dev": "webpack --mode development --watch"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.17",
