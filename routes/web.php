@@ -9,3 +9,4 @@ Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
 // Project
 Route::get('/projects', 'ProjectController@index');
+Route::get('/projects/all', 'ProjectController@all');
