@@ -38,12 +38,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>re</td>
-                            <td>re</td>
-                            <td>re</td>
-                            <td>re</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>

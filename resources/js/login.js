@@ -1,11 +1,11 @@
-import { ajaxPost, swalError } from "./reusable-functions";
+import { axiosPost, swalError } from "./helper";
 
 $(document).ready(function () {
   const loginForm = "#loginForm";
   $(loginForm).submit(function (e) {
     e.preventDefault();
 
-    ajaxPost({
+    axiosPost({
       url: "/login",
       formData: new FormData(this),
       errorMessage: "Failed to login.",
@@ -16,7 +16,7 @@ $(document).ready(function () {
         }
 
         swalError(response.message, "Login Error");
-        $("#passwordInput").val("");
+        $("#password").val("");
       },
     });
   });
