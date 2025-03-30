@@ -1,6 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import $ from "jquery";
+import { DataTable } from "simple-datatables";
 
 function axiosChecker(parameters) {
   if (!parameters) throw new Error("Properties not set.");
@@ -63,19 +64,53 @@ export function instantiateDatatable(parameters) {
     parameters = [parameters];
   }
 
-  parameters.forEach(function (parameter) {
-    $(parameter.tableId).DataTable({
-      paging: parameter.paging !== undefined ? parameter.paging : true,
-      searching:
-        parameter.searching !== undefined ? parameter.searching : false,
-      info: parameter.info !== undefined ? parameter.info : true,
-      lengthChange: parameter.lengthChange ? parameter.lengthChange : false,
-      ajax: {
-        url: parameter.url,
-        dataSrc: "data",
-      },
-      columns: parameter.columns,
-      ordering: false,
-    });
+  parameters.forEach(async function (parameter) {
+    try {
+      const response = await axios.get(parameter.url);
+      const data = response.data.data;
+
+      const tableData = data.map((row) => {
+        return parameter.columns.map((col) => row[col.data]);
+      });
+
+      const table = document.querySelector(parameter.tableId);
+      const dataTable = new DataTable(table, {
+        data: {
+          data: tableData,
+        },
+        searchable: true,
+        sortable: true,
+      });
+
+      applyTableDesign(table);
+    } catch (error) {
+      console.error(error);
+    }
   });
+}
+
+function applyTableDesign(tableElement) {
+  const cells = tableElement.querySelectorAll("td");
+  cells.forEach((cell) => {
+    cell.classList.add("dark:text-white");
+  });
+}
+
+export function observeTableRendering(tableId, callback) {
+  const tableElement = document.querySelector(tableId);
+
+  if (!tableElement) {
+    console.error(`Table with ID ${tableId} not found.`);
+    return;
+  }
+
+  const observer = new MutationObserver((mutations, observerInstance) => {
+    const rows = tableElement.querySelectorAll("tbody tr");
+    if (rows.length > 0) {
+      callback();
+      observerInstance.disconnect();
+    }
+  });
+
+  observer.observe(tableElement, { childList: true, subtree: true });
 }
