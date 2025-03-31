@@ -1761,7 +1761,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var flowbite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flowbite */ \"./node_modules/flowbite/lib/esm/index.js\");\n/* harmony import */ var _dark_mode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dark-mode */ \"./resources/js/dark-mode.js\");\n/* harmony import */ var _dark_mode__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_dark_mode__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sidebar */ \"./resources/js/sidebar.js\");\n/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_sidebar__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./project */ \"./resources/js/project.js\");\n\n\n\n\n\n//# sourceURL=webpack:///./resources/js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var flowbite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flowbite */ \"./node_modules/flowbite/lib/esm/index.js\");\n/* harmony import */ var _dark_mode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dark-mode */ \"./resources/js/dark-mode.js\");\n/* harmony import */ var _dark_mode__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_dark_mode__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sidebar */ \"./resources/js/sidebar.js\");\n/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_sidebar__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./project */ \"./resources/js/project.js\");\n/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user */ \"./resources/js/user.js\");\n\n\n\n\n\n\n//# sourceURL=webpack:///./resources/js/index.js?");
 
 /***/ }),
 
@@ -1783,6 +1783,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _hel
 /***/ (() => {
 
 eval("var sidebar = document.getElementById(\"sidebar\");\nif (sidebar) {\n  var toggleSidebarMobile = function toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose) {\n    if (sidebar && sidebarBackdrop && toggleSidebarMobileHamburger && toggleSidebarMobileClose) {\n      sidebar.classList.toggle(\"hidden\");\n      sidebarBackdrop.classList.toggle(\"hidden\");\n      toggleSidebarMobileHamburger.classList.toggle(\"hidden\");\n      toggleSidebarMobileClose.classList.toggle(\"hidden\");\n    }\n  };\n  var toggleSidebarMobileEl = document.getElementById(\"toggleSidebarMobile\");\n  var sidebarBackdrop = document.getElementById(\"sidebarBackdrop\");\n  var toggleSidebarMobileHamburger = document.getElementById(\"toggleSidebarMobileHamburger\");\n  var toggleSidebarMobileClose = document.getElementById(\"toggleSidebarMobileClose\");\n  var toggleSidebarMobileSearch = document.getElementById(\"toggleSidebarMobileSearch\");\n\n  // Add event listeners only if elements exist\n  if (toggleSidebarMobileSearch) {\n    toggleSidebarMobileSearch.addEventListener(\"click\", function () {\n      toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);\n    });\n  }\n  if (toggleSidebarMobileEl) {\n    toggleSidebarMobileEl.addEventListener(\"click\", function () {\n      toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);\n    });\n  }\n  if (sidebarBackdrop) {\n    sidebarBackdrop.addEventListener(\"click\", function () {\n      toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);\n    });\n  }\n}\n\n//# sourceURL=webpack:///./resources/js/sidebar.js?");
+
+/***/ }),
+
+/***/ "./resources/js/user.js":
+/*!******************************!*\
+  !*** ./resources/js/user.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var simple_datatables__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-datatables */ \"./node_modules/simple-datatables/dist/module.js\");\n\nvar dataTable = new simple_datatables__WEBPACK_IMPORTED_MODULE_0__.DataTable(\"#userTable\");\n\n//# sourceURL=webpack:///./resources/js/user.js?");
 
 /***/ })
 

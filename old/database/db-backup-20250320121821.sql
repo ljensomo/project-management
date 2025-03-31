@@ -381,7 +381,16 @@ INSERT INTO tickets VALUES('16','1',NULL,'2','te','te',NULL,'4','1',NULL,'2024-1
 INSERT INTO tickets VALUES('17','10',NULL,'2','asd','asd',NULL,'4','1',NULL,'2024-12-27 13:22:55');
 
 
+CREATE TABLE `project_owners` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `project_id` tinyint(3) NOT NULL,
+  `owner_id` tinyint(3) NOT NULL,
+  `date_created` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO project_owners VALUES('3','2','1','2024-10-27 11:01:33');
+INSERT INTO project_owners VALUES('22','1','1','2024-12-26 22:23:06');
 
 
 CREATE TABLE `users` (
