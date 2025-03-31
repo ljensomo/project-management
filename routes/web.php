@@ -12,3 +12,4 @@ Route::get('/projects', 'ProjectController@index');
 Route::get('/projects/all', 'ProjectController@all');
 // User
 Route::get('/users', 'UserController@index');
+Route::get('/projects', 'ProjectController@index');

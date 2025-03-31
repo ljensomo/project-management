@@ -14,14 +14,15 @@ class ProjectController
 
     public function index()
     {
-        return view('projects/index.php');
-    }
-
-    public function all()
-    {
         $project = new Project();
         $data = $project->getAllProjects();
-
-        echo json_encode(['data' => $data]);
+        
+        $header = $_SERVER['HTTP_ACCEPT'] ?? '';
+        if (strpos($header, 'application/json') !== false) {
+            echo json_encode(['data' => $data]);
+            exit;
+        }
+        
+        return view('projects/index.php', ['projects' => $data]);
     }
 }
