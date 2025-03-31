@@ -1,15 +1,26 @@
-import { instantiateDatatable, observeTableRendering } from "./helper";
+import {
+  instantiateDatatable,
+  observeTableRendering,
+  generateTableRowButtons,
+} from "./helper";
 
-// Initialize the datatable
 instantiateDatatable([
   {
     tableId: "#projectTable",
-    url: "/projects/all",
+    url: "/projects",
     columns: [
       { data: "id" },
       { data: "project_name" },
       { data: "project_phase" },
       { data: "project_status" },
+      {
+        data: function (row) {
+          return generateTableRowButtons({
+            view: true,
+            delete: true,
+          });
+        },
+      },
     ],
   },
 ]);
