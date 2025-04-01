@@ -5,6 +5,7 @@ module.exports = {
     login: "./resources/js/login.js",
     reusable: "./resources/js/reusable-functions.js",
     index: "./resources/js/index.js",
+    user: "./resources/js/user.js",
   },
   output: {
     path: path.resolve(__dirname, "public/js"),

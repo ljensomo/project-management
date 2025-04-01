@@ -13,14 +13,32 @@ class UserController{
 
     public function index()
     {
-        return view('users/index.php');
+        $user = new User();
+        $data = $user->getAllUsers();
+        
+        $header = $_SERVER['HTTP_ACCEPT'] ?? '';
+        if (strpos($header, 'application/json') !== false) {
+            echo json_encode(['data' => $data]);
+            exit;
+        }
+
+        return view('users/index.php', ['users' => $data]);
     }
 
-    public function all()
-    {
-        // $user = new User();
-        // $data = $user->getAllUsers();
+    public function add(){
+        $user = new User();
+        $user->setFirstName($_POST['first_name']);
+        $user->setLastName($_POST['last_name']);
+        $user->setEmail($_POST['email']);
+        $user->setRole($_POST['role']);
+        $user->setUsername();
+        
+        if($user->add()){
+            echo json_encode(['success' => true, 'message' => 'User added successfully.']);
+        }else{
+            echo json_encode(['success' => false, 'message' => $user->getErrorMessage()]);
+        }
 
-        // echo json_encode(['data' => $data]);
+        return;
     }
 }

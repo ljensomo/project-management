@@ -94,6 +94,11 @@ export function instantiateDatatable(parameters) {
   });
 }
 
+export function refreshDatatable(tableId) {
+  let dataTable = new DataTable(tableId);
+  dataTable.refresh();
+}
+
 function applyTableDesign(tableElement) {
   const cells = tableElement.querySelectorAll("td");
   cells.forEach((cell) => {

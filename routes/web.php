@@ -12,4 +12,5 @@ Route::get('/projects', 'ProjectController@index');
 Route::get('/projects/all', 'ProjectController@all');
 // User
 Route::get('/users', 'UserController@index');
-Route::get('/projects', 'ProjectController@index');
+Route::get('/users/all', 'UserController@all');
+Route::post('/users/add', 'UserController@add');

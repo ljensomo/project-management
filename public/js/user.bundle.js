@@ -590,14 +590,14 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./resources/js/login.js":
-/*!*******************************!*\
-  !*** ./resources/js/login.js ***!
-  \*******************************/
+/***/ "./resources/js/user.js":
+/*!******************************!*\
+  !*** ./resources/js/user.js ***!
+  \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper */ \"./resources/js/helper.js\");\n\n$(document).ready(function () {\n  var loginForm = \"#loginForm\";\n  $(loginForm).submit(function (e) {\n    e.preventDefault();\n    (0,_helper__WEBPACK_IMPORTED_MODULE_0__.axiosPost)({\n      url: \"/login\",\n      formData: new FormData(this),\n      errorMessage: \"Failed to login.\",\n      callback: function callback(response) {\n        if (response.success) {\n          window.location.href = \"/projects\";\n          return;\n        }\n        (0,_helper__WEBPACK_IMPORTED_MODULE_0__.swalError)(response.message, \"Login Error\");\n        $(\"#password\").val(\"\");\n      }\n    });\n  });\n});\n\n//# sourceURL=webpack:///./resources/js/login.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\");\n/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper */ \"./resources/js/helper.js\");\n\n\nvar tableId = \"#user-table\";\nvar formId = \"#user-form\";\nvar modalId = \"#user-modal\";\n\n// initialize datatable\n(0,_helper__WEBPACK_IMPORTED_MODULE_1__.instantiateDatatable)([{\n  tableId: tableId,\n  url: \"/users\",\n  columns: [{\n    data: \"id\"\n  }, {\n    data: function data(_data) {\n      return _data.first_name + \" \" + _data.last_name;\n    }\n  }, {\n    data: \"email\"\n  }, {\n    data: \"username\"\n  }, {\n    data: function data(_data2) {\n      switch (_data2.role_id) {\n        case \"1\":\n        case 1:\n          return '<span class=\"badge badge-danger\">Admin</span>';\n        case \"2\":\n        case 2:\n          return '<span class=\"badge badge-primary\">User</span>';\n        default:\n          return '<span class=\"badge badge-secondary\">Unknown</span>';\n      }\n    }\n  }, {\n    data: function data(_data3) {\n      return _data3.is_active == 1 ? '<span class=\"bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300\">Active</span>' : '<span class=\"bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300\">Inactive</span>';\n    }\n  }, {\n    data: \"date_created\"\n  }, {\n    data: function data(row) {\n      return (0,_helper__WEBPACK_IMPORTED_MODULE_1__.generateTableRowButtons)({\n        edit: true,\n        \"delete\": true\n      });\n    }\n  }]\n}]);\n\n// form submit handler\njquery__WEBPACK_IMPORTED_MODULE_0___default()(formId).on(\"submit\", function (e) {\n  e.preventDefault();\n  (0,_helper__WEBPACK_IMPORTED_MODULE_1__.axiosPost)({\n    url: \"/users/add\",\n    formData: new FormData(this),\n    errorMessage: \"Failed to create user.\",\n    callback: function callback(response) {\n      if (response.success) {\n        (0,_helper__WEBPACK_IMPORTED_MODULE_1__.swalSuccess)({\n          title: \"User Created\",\n          text: response.message,\n          callback: function callback() {\n            jquery__WEBPACK_IMPORTED_MODULE_0___default()(formId)[0].reset();\n            (0,_helper__WEBPACK_IMPORTED_MODULE_1__.refreshDatatable)(tableId);\n          }\n        });\n        return;\n      }\n      (0,_helper__WEBPACK_IMPORTED_MODULE_1__.swalError)(response.message, \"User Creation Error\");\n    }\n  });\n});\n\n//# sourceURL=webpack:///./resources/js/user.js?");
 
 /***/ })
 
@@ -685,7 +685,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _hel
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./resources/js/login.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./resources/js/user.js");
 /******/ 	
 /******/ })()
 ;

@@ -89,11 +89,6 @@ class User extends DatabaseQuery{
 
     public function add(){
 
-        if($this->isNameActive()){
-            $this->setErrorMessage('Name already created and is active.');
-            return false;
-        }
-
         $password = password_hash($this->default_password, PASSWORD_BCRYPT);
 
         $this->setQuery('INSERT INTO users (first_name, last_name, email, role_id, username, password) VALUES (?, ?, ?, ?, ?, ?)');
@@ -143,6 +138,14 @@ class User extends DatabaseQuery{
             $this->firstName,
             $this->lastName
         ]);
+        $this->executeQuery();
+
+        return $this->getRowCount() > 0 ? true : false;
+    }
+
+    public function isUsernameExists(){
+        $this->setQuery('SELECT id FROM users WHERE username = ?');
+        $this->setParameters([$this->username]);
         $this->executeQuery();
 
         return $this->getRowCount() > 0 ? true : false;
