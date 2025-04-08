@@ -1,7 +1,7 @@
+import { Grid, html } from "gridjs";
 import axios from "axios";
 import Swal from "sweetalert2";
 import $ from "jquery";
-import { DataTable } from "simple-datatables";
 
 function axiosChecker(parameters) {
   if (!parameters) throw new Error("Properties not set.");
@@ -59,6 +59,47 @@ export function swalError(message = "Something went wrong!", title = null) {
   });
 }
 
+// export function instantiateDatatable(parameters) {
+//   if (!Array.isArray(parameters)) {
+//     parameters = [parameters];
+//   }
+
+//   parameters.forEach(async function (parameter) {
+//     try {
+//       const response = await axios.get(parameter.url);
+//       const data = response.data.data;
+
+//       const tableData = data.map((row) => {
+//         return parameter.columns.map((col) => {
+//           if (typeof col.data === "function") {
+//             return html(col.data(row));
+//           }
+//           return row[col.data];
+//         });
+//       });
+
+//       new Grid({
+//         columns: parameter.columns.map((col) => ({
+//           name: col.title || col.data, // Set column titles
+//           formatter:
+//             typeof col.data === "function"
+//               ? (_, row) => html(col.data(row))
+//               : undefined, // Handle custom HTML rendering
+//         })),
+//         data: tableData,
+//         search: true,
+//         sort: true,
+//         pagination: {
+//           enabled: true,
+//           limit: parameter.paginationLimit || 5,
+//         },
+//       }).render(document.querySelector(parameter.tableId));
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   });
+// }
+
 export function instantiateDatatable(parameters) {
   if (!Array.isArray(parameters)) {
     parameters = [parameters];
@@ -71,25 +112,29 @@ export function instantiateDatatable(parameters) {
 
       const tableData = data.map((row) => {
         return parameter.columns.map((col) => {
+          // Handle column data transformations
           if (typeof col.data === "function") {
-            return col.data(row);
+            return html(col.data(row)); // Use the transformed value
           }
-          return row[col.data];
+          return row[col.data] || "N/A"; // Fallback for missing properties
         });
       });
 
-      const table = document.querySelector(parameter.tableId);
-      const dataTable = new DataTable(table, {
-        data: {
-          data: tableData,
+      // Configure Grid.js without complex internal transformations
+      new Grid({
+        columns: parameter.columns.map((col) => ({
+          name: col.title || col.data, // Simplify column definitions
+          sort: col.sort !== undefined ? col.sort : true,
+        })),
+        data: tableData, // Pass preprocessed data directly
+        search: true,
+        pagination: {
+          enabled: true,
+          limit: parameter.paginationLimit || 5,
         },
-        searchable: true,
-        sortable: true,
-      });
-
-      applyTableDesign(table);
+      }).render(document.querySelector(parameter.tableId));
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching or rendering table:", error);
     }
   });
 }

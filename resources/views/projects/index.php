@@ -28,7 +28,8 @@
                 </div>
             </div>
             <div class="p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <table id="projectTable">
+                <div id="projectTable"></div>
+                <!-- <table id="projectTable">
                     <thead>
                         <tr>
                             <th>Project ID</th>
@@ -40,7 +41,7 @@
                     </thead>
                     <tbody>
                     </tbody>
-                </table>
+                </table> -->
             </div>
         </div>
     </div>

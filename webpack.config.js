@@ -22,6 +22,10 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/i, // Match CSS files
+        use: ["style-loader", "css-loader"], // Use the appropriate loaders
+      },
     ],
   },
   mode: "development", // Change to 'production' for optimized builds
